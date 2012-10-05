@@ -2,6 +2,7 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
     EditText accountEditText;
     EditText amountEditText;
+    Button doneButton;
+    Button cancelButton;
 
     /**
      * {@inheritDoc}
@@ -31,7 +34,11 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
+        doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
+        cancelButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
 
+        doneButton.setOnClickListener(TransactionActivity.this);
+        cancelButton.setOnClickListener(TransactionActivity.this);
     }
 
     /**
@@ -89,6 +96,11 @@ public class TransactionActivity extends Activity implements View.OnClickListene
      * @param view
      */
     public void onClick(View view) {
-        if(view == )
+        if(view == doneButton) {
+            // display transaction  details activity
+            startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
+        } else if(view == cancelButton) {
+
+        }
     }
 }

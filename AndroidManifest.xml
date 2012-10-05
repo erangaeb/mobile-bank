@@ -18,6 +18,27 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".TransactionDetailsActivity"
+                android:screenOrientation="portrait"
+                android:configChanges="orientation"
+                android:launchMode="singleTask"
+                android:clearTaskOnLaunch="true"
+                android:theme="@android:style/Theme.NoTitleBar"
+                android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
+        <activity
+                android:name=".TransactionActivity"
+                android:screenOrientation="portrait"
+                android:configChanges="orientation"
+                android:launchMode="singleTask"
+                android:clearTaskOnLaunch="true"
+                android:theme="@android:style/Theme.NoTitleBar"
+                android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
     </application>
 
 </manifest>

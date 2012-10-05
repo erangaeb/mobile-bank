@@ -73,4 +73,32 @@
    	
    	</LinearLayout>
 
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/header_background_button" >
+
+        <!-- <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/edit_place_layout_done_button"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/harvard_button_selector" />
+
+            <Button
+                android:id="@+id/edit_place_layout_clear_button"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/vancouve_button_selector" />
+        </LinearLayout> -->
+    </LinearLayout>
+
 </LinearLayout>
