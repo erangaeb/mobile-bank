@@ -28,10 +28,19 @@ public class TransactionDetailsActivity extends Activity {
         setContentView(R.layout.transaction_details_list_layout);
 
         // get current transaction from application
-        Transaction transaction = new Transaction("test", "test", "test", "test", "test", "test", "test", "test", "test" , "test", "test", "test", "test");
+        Transaction transaction = new Transaction("Test nanme", "test Addre", "test", "test", "test", "test", "test", "test", "test" , "test", "test", "test", "test");
 
         // fill attribute list from with transaction details
         attributesList = new ArrayList<Attribute>();
+        attributesList.add(new Attribute("Id", "008"));
+        attributesList.add(new Attribute("Name", "Eranga Bandara"));
+        attributesList.add(new Attribute("Account", "09799834"));
+        attributesList.add(new Attribute("Address", "NO pullair kovil rias"));
+        attributesList.add(new Attribute("NIC No", "873643030V"));
+        attributesList.add(new Attribute("B'day", "1987/12/29"));
+        attributesList.add(new Attribute("Previous balance", "12500.00"));
+        attributesList.add(new Attribute("Last Transaction", "3000.00"));
+        /*attributesList.add(new Attribute("test", "test"));
         attributesList.add(new Attribute("test", "test"));
         attributesList.add(new Attribute("test", "test"));
         attributesList.add(new Attribute("test", "test"));
@@ -41,15 +50,7 @@ public class TransactionDetailsActivity extends Activity {
         attributesList.add(new Attribute("test", "test"));
         attributesList.add(new Attribute("test", "test"));
         attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-        attributesList.add(new Attribute("test", "test"));
-
+*/
         // populate list
         transactionDetailsListView = (ListView) findViewById(R.id.transaction_details_list);
         adapter = new AttributeListAdapter(TransactionDetailsActivity.this, attributesList);

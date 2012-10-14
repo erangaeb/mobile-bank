@@ -14,6 +14,9 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:id="@+id/rl1"
+            android:layout_weight="1"
+            android:layout_marginRight="40dp"
             android:layout_alignParentLeft="true" >
 
             <Button
@@ -24,16 +27,18 @@
                 android:layout_marginLeft="10dp" >
             </Button>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/search_result_list_layout_filter_text"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textSize="17dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@+id/search_result_layout_back_button"
-                android:text="Search result"
-                android:textColor="#ffffff"
-                android:textSize="20dp" >
-            </TextView>
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+            </EditText>
 
             <!--<Button
                 android:id="@+id/search_result_layout_search_button"
@@ -73,13 +78,13 @@
    	
    	</LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@drawable/header_background_button" >
 
-        <!-- <LinearLayout
+        &lt;!&ndash; <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -98,7 +103,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/vancouve_button_selector" />
-        </LinearLayout> -->
-    </LinearLayout>
+        </LinearLayout> &ndash;&gt;
+    </LinearLayout>-->
 
 </LinearLayout>

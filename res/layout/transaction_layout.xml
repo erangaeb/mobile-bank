@@ -174,20 +174,22 @@
 
          <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_centerVertical="true"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/transaction_layout_done_button"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:background="@drawable/new_transaction_button"
                 android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/transaction_layout_cancel_button"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:background="@drawable/new_transaction_button"
                 android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>

@@ -23,6 +23,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     EditText amountEditText;
     Button doneButton;
     Button cancelButton;
+    Button searchButton;
 
     /**
      * {@inheritDoc}
@@ -36,9 +37,12 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
         doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
         cancelButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
+        searchButton = (Button)findViewById(R.id.transaction_layout_search_button);
 
         doneButton.setOnClickListener(TransactionActivity.this);
         cancelButton.setOnClickListener(TransactionActivity.this);
+        searchButton.setOnClickListener(TransactionActivity.this);
+
     }
 
     /**
@@ -101,6 +105,9 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
         } else if(view == cancelButton) {
 
+        } else if(view == searchButton) {
+            // display search list
+            startActivity(new Intent(TransactionActivity.this, SearchResultListActivity.class));
         }
     }
 }
