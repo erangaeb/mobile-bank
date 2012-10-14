@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Client;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author erangaeb@gmail.com (eranga bandara)
  */
-public class SearchResultListAdapter extends BaseAdapter {
+public class ClientListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Client> clientList;
@@ -29,7 +28,7 @@ public class SearchResultListAdapter extends BaseAdapter {
      * @param context
      * @param clientList
      */
-    public SearchResultListAdapter(Context context, ArrayList<Client> clientList) {
+    public ClientListAdapter(Context context, ArrayList<Client> clientList) {
         this.context = context;
         this.clientList = clientList;
     }
@@ -68,7 +67,7 @@ public class SearchResultListAdapter extends BaseAdapter {
         if (view == null) {
             //inflate print_list_row layout
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.search_result_list_row_layout, viewGroup, false);
+            view = inflater.inflate(R.layout.client_list_row_layout, viewGroup, false);
 
             //create view holder to store reference to child views
             holder=new ViewHolder();

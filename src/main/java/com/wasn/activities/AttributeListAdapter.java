@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 /**
  * List adapter class to display attributes (attributes like key,value pairs)
+ * This class use to populate TransactionDetailsActivity and ClientDetailsActivity
  *
  * @author erangaeb@gmail.com (eranga bandara)
  */

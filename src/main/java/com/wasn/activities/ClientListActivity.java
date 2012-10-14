@@ -21,14 +21,14 @@ import java.util.regex.Pattern;
  *
  * @author erangaeb@gmail.com (eranga bandara)
  */
-public class SearchResultListActivity extends Activity {
+public class ClientListActivity extends Activity {
 
     MobileBankApplication application;
 
     ListView searchResultListView;
     ArrayList<Client> clientList;
     ArrayList<Client> filteredClientList = new ArrayList<Client>();
-    SearchResultListAdapter adapter;
+    ClientListAdapter adapter;
 
     EditText filterText;
 
@@ -38,9 +38,9 @@ public class SearchResultListActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_result_list_layout);
+        setContentView(R.layout.client_list_layout);
 
-        application = (MobileBankApplication) SearchResultListActivity.this.getApplication();
+        application = (MobileBankApplication) ClientListActivity.this.getApplication();
 
         filterText = (EditText) findViewById(R.id.search_result_list_layout_filter_text);
 
@@ -52,7 +52,7 @@ public class SearchResultListActivity extends Activity {
 
         // populate list
         searchResultListView = (ListView) findViewById(R.id.search_result_list);
-        adapter = new SearchResultListAdapter(SearchResultListActivity.this, clientList);
+        adapter = new ClientListAdapter(ClientListActivity.this, clientList);
         searchResultListView.setAdapter(adapter);
 
         // to prevent initial focus on filter text
@@ -88,7 +88,7 @@ public class SearchResultListActivity extends Activity {
                 }
 
                 // set adapter
-                adapter = new SearchResultListAdapter(SearchResultListActivity.this, filteredClientList);
+                adapter = new ClientListAdapter(ClientListActivity.this, filteredClientList);
                 searchResultListView.setAdapter(adapter);
             }
 
@@ -113,9 +113,10 @@ public class SearchResultListActivity extends Activity {
         //set long press listener
         searchResultListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // get corresponding client and display client details activity
+                // get corresponding client and share in application
                 Client client= (Client)adapter.getItem(i);
-                startActivity(new Intent(SearchResultListActivity.this, TransactionDetailsActivity.class));
+                application.setClient(client);
+                startActivity(new Intent(ClientListActivity.this, ClientDetailsActivity.class));
 
                 return true;
             }
@@ -130,7 +131,7 @@ public class SearchResultListActivity extends Activity {
         super.onResume();
 
         // reset list content
-        adapter = new SearchResultListAdapter(SearchResultListActivity.this, clientList);
+        adapter = new ClientListAdapter(ClientListActivity.this, clientList);
         searchResultListView.setAdapter(adapter);
     }
 }

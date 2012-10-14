@@ -17,7 +17,7 @@
                 android:layout_alignParentLeft="true" >
 
             <Button
-                    android:id="@+id/transaction_details_list_layout_back_button"
+                    android:id="@+id/client_details_list_layout_back_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_centerVertical="true"
@@ -29,8 +29,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/transaction_details_list_layout_back_button"
-                    android:text="Transaction details"
+                    android:layout_toRightOf="@+id/client_details_list_layout_back_button"
+                    android:text="Client Details"
                     android:textColor="#ffffff"
                     android:textSize="20dp" >
             </TextView>
@@ -47,7 +47,7 @@
         </RelativeLayout>
 
         <Button
-                android:id="@+id/transaction_details_list_layout_help_button"
+                android:id="@+id/client_details_list_layout_help_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentRight="true"
@@ -63,7 +63,7 @@
             android:layout_weight="1">
 
         <ListView
-                android:id="@+id/transaction_details_list"
+                android:id="@+id/client_details_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:cacheColorHint="@android:color/transparent"
@@ -86,14 +86,14 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/transaction_details_list_layout_print_button"
+                android:id="@+id/client_details_list_layout_done_button"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/new_transaction_button" />
 
             <Button
-                android:id="@+id/transaction_details_list_layout_cancel_button"
+                android:id="@+id/client_details_list_layout_cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"

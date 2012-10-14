@@ -84,10 +84,15 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         String accountNo = accountEditText.getText().toString();
         String amount = amountEditText.getText().toString();
 
-        // validate fields,
         try {
+            // validate form fields and get corresponding client to the account
             TransactionUtils.validateFields(accountNo, amount);
-            TransactionUtils.createTransaction("001", accountNo, amount, application.getClient());
+            Client client = TransactionUtils.getMatchingClient(accountNo);
+
+            // create transaction and share in application
+            Transaction transaction = TransactionUtils.createTransaction("001", accountNo, amount, client);
+            application.setTransaction(transaction);
+
             startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
         } catch (NumberFormatException e) {
             displayMessageDialog("Error", "Invalid amount, make sure amount is correct");
@@ -144,7 +149,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         } else if(view == searchButton) {
             // display search list
-            startActivity(new Intent(TransactionActivity.this, SearchResultListActivity.class));
+            startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
         }
     }
 }

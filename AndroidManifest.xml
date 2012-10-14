@@ -31,6 +31,16 @@
         </activity>
 
         <activity
+                android:name=".ClientDetailsActivity"
+                android:screenOrientation="portrait"
+                android:configChanges="orientation"
+                android:launchMode="singleTask"
+                android:clearTaskOnLaunch="true"
+                android:theme="@android:style/Theme.NoTitleBar"
+                android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
+        <activity
                 android:name=".TransactionActivity"
                 android:screenOrientation="portrait"
                 android:configChanges="orientation"
@@ -41,7 +51,7 @@
         </activity>
 
         <activity
-                android:name=".SearchResultListActivity"
+                android:name=".ClientListActivity"
                 android:screenOrientation="portrait"
                 android:configChanges="orientation"
                 android:launchMode="singleTask"

@@ -26,7 +26,7 @@ public class TransactionUtils {
             throw new IllegalArgumentException();
         }
 
-        // check availability of account
+        // TO-DO check availability of account
 
         // validate amount
         try {
@@ -50,9 +50,6 @@ public class TransactionUtils {
         // can raise InvalidBalanceAmountException
         try {
             // check availability of account and create transaction
-            // currently checking only account is same to client account
-            // TO-DO - need to check account with client database
-            // TO-DO - need to extract corresponding client from database
             if (account.equals(client.getAccountNo())) {
                 Transaction transaction = new Transaction(branchId,
                                                           client.getName(),
@@ -95,6 +92,17 @@ public class TransactionUtils {
         } catch (NumberFormatException e) {
             throw new InvalidBalanceAmountException();
         }
+    }
+
+    /**
+     * Get matching client from the database
+     *
+     * @param accountNo client account no
+     */
+    public static Client getMatchingClient(String accountNo) throws InvalidAccountException {
+        // TO-DO - need to check account with client database
+        // TO-DO - need to extract corresponding client from database
+        return new Client("004", "Eranga bnadara heratha", "Test NIC", "Test bday", "7856", "3000", "test");
     }
 
 }
