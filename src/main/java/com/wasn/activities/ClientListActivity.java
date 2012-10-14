@@ -105,8 +105,8 @@ public class ClientListActivity extends Activity {
                 application.setClient(client);
 
                 // back to transaction activity
-
-
+                startActivity(new Intent(ClientListActivity.this, TransactionActivity.class));
+                ClientListActivity.this.finish();
             }
         });
 
@@ -133,5 +133,14 @@ public class ClientListActivity extends Activity {
         // reset list content
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
         searchResultListView.setAdapter(adapter);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ClientListActivity.this, TransactionActivity.class));
+        ClientListActivity.this.finish();
     }
 }

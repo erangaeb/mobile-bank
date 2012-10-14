@@ -43,6 +43,7 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
         if(view == transactionButton) {
             // display transaction activity
             startActivity(new Intent(MobileBankActivity.this, TransactionActivity.class));
+            MobileBankActivity.this.finish();
         } else if(view == summaryButton) {
 
         } else if(view == settingsButton) {

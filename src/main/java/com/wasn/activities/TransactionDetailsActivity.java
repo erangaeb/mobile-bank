@@ -1,6 +1,7 @@
 package com.wasn.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -96,7 +97,19 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
             // print and save transaction
         } else if(view == cancelButton) {
             // back to TransactionActivity
+            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+            TransactionDetailsActivity.this.finish();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        // back to TransactionActivity
+        startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+        TransactionDetailsActivity.this.finish();
     }
 
 }

@@ -94,6 +94,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             application.setTransaction(transaction);
 
             startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
+            TransactionActivity.this.finish();
         } catch (NumberFormatException e) {
             displayMessageDialog("Error", "Invalid amount, make sure amount is correct");
         } catch (IllegalArgumentException e) {
@@ -146,10 +147,23 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         if(view == doneButton) {
             initTransaction();
         } else if(view == cancelButton) {
-
+            // back to main activity
+            startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
+            TransactionActivity.this.finish();
         } else if(view == searchButton) {
             // display search list
             startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
+            TransactionActivity.this.finish();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        // back to main activity
+        startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
+        TransactionActivity.this.finish();
     }
 }

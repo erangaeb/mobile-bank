@@ -1,6 +1,7 @@
 package com.wasn.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -91,8 +92,22 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
 
         } else if(view == doneButton) {
             // back to TransactionActivity
+            Intent intent = new Intent(ClientDetailsActivity.this, TransactionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            ClientDetailsActivity.this.finish();
         } else if(view == cancelButton) {
             // back to ClientListActivity
+            ClientDetailsActivity.this.finish();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        // back to ClientListActivity
+        ClientDetailsActivity.this.finish();
     }
 }
