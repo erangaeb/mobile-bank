@@ -24,15 +24,7 @@ public class MobileBankApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //resetFields();
-    }
-
-    /**
-     * Reset shared object values
-     */
-    public void resetFields() {
-        transaction = new Transaction("", "", "", "", "", "", "", "", "", "", "", "", "");
-        client = new Client("", "", "", "", "", "", "");
+        resetFields();
     }
 
     /**
@@ -41,7 +33,17 @@ public class MobileBankApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        //resetFields();
+        resetFields();
+    }
+
+    /**
+     * Reset shared object values
+     */
+    public void resetFields() {
+        //transaction = new Transaction("", "", "", "", "", "", "", "", "", "", "", "", "");
+        //client = new Client("", "", "", "", "", "", "");
+        transaction = null;
+        client = null;
     }
 
     public Transaction getTransaction() {

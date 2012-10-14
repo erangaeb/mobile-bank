@@ -10,6 +10,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.InvalidAccountException;
+import com.wasn.exceptions.InvalidBalanceAmountException;
+import com.wasn.pojos.Client;
+import com.wasn.pojos.Transaction;
 import com.wasn.utils.TransactionUtils;
 
 /**
@@ -19,6 +24,9 @@ import com.wasn.utils.TransactionUtils;
  */
 public class TransactionActivity extends Activity implements View.OnClickListener {
 
+    MobileBankApplication application;
+
+    // form components
     EditText accountEditText;
     EditText amountEditText;
     Button doneButton;
@@ -33,6 +41,15 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_layout);
 
+        init();
+    }
+
+    /**
+     * Initialize form components and values
+     */
+    public void init() {
+        application = (MobileBankApplication) TransactionActivity.this.getApplication();
+
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
         doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
@@ -43,22 +60,43 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         cancelButton.setOnClickListener(TransactionActivity.this);
         searchButton.setOnClickListener(TransactionActivity.this);
 
+        // set values for form fields
+        if(application.getTransaction() !=null) {
+            // have transaction
+            Transaction transaction = application.getTransaction();
+
+            accountEditText.setText(transaction.getClientAccountNo());
+            amountEditText.setText(transaction.getTransactionAmount());
+        } else {
+            if(application.getClient() != null) {
+                // no transaction, but have client
+                Client client = application.getClient();
+
+                accountEditText.setText(client.getAccountNo());
+            }
+        }
     }
 
     /**
-     * Make new transaction
+     * Initialize new transaction
      */
-    public void makeTransaction() {
+    public void initTransaction() {
         String accountNo = accountEditText.getText().toString();
         String amount = amountEditText.getText().toString();
 
         // validate fields,
         try {
             TransactionUtils.validateFields(accountNo, amount);
+            TransactionUtils.createTransaction("001", accountNo, amount, application.getClient());
+            startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
         } catch (NumberFormatException e) {
-            displayMessageDialog("Error", "Invalid amount, make sure amount tis correct");
+            displayMessageDialog("Error", "Invalid amount, make sure amount is correct");
         } catch (IllegalArgumentException e) {
             displayMessageDialog("Error", "Empty fields, make sure not empty account and amount");
+        } catch (InvalidAccountException e) {
+            displayMessageDialog("Error", "Invalid account, make sure account is correct");
+        } catch (InvalidBalanceAmountException e) {
+            displayMessageDialog("Error", "Invalid balance amount, please recheck corresponding client details");
         }
     }
 
@@ -101,8 +139,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
      */
     public void onClick(View view) {
         if(view == doneButton) {
-            // display transaction  details activity
-            startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));
+            initTransaction();
         } else if(view == cancelButton) {
 
         } else if(view == searchButton) {
