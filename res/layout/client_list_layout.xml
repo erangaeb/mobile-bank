@@ -20,7 +20,7 @@
             android:layout_alignParentLeft="true" >
 
             <Button
-                android:id="@+id/search_result_layout_back_button"
+                android:id="@+id/client_layout_back_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_centerVertical="true"
@@ -28,12 +28,12 @@
             </Button>
 
             <EditText
-                android:id="@+id/search_result_list_layout_filter_text"
+                android:id="@+id/client_layout_filter_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="17dp"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/search_result_layout_back_button"
+                android:layout_toRightOf="@+id/client_layout_back_button"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="10dp"
@@ -52,7 +52,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/search_result_layout_help_button"
+            android:id="@+id/client_layout_help_button"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
@@ -68,7 +68,7 @@
     	android:layout_weight="1">
     
 	    <ListView
-	        android:id="@+id/search_result_list"
+	        android:id="@+id/client_list"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:cacheColorHint="@android:color/transparent"

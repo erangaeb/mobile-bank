@@ -71,11 +71,11 @@ public class ClientListAdapter extends BaseAdapter {
 
             //create view holder to store reference to child views
             holder=new ViewHolder();
-            holder.clientIcon = (ImageView) view.findViewById(R.id.client_icon);
-            holder.clientNameTextView = (TextView) view.findViewById(R.id.client_name);
-            holder.clientBirthDateTextView = (TextView) view.findViewById(R.id.search_result_list_row_birth_date);
-            holder.clientAccountNoTextView = (TextView) view.findViewById(R.id.client_account_no);
-            holder.clientNICTextView = (TextView) view.findViewById(R.id.client_nic);
+            holder.clientIcon = (ImageView) view.findViewById(R.id.client_list_row_layout_client_icon);
+            holder.clientNameTextView = (TextView) view.findViewById(R.id.client_list_row_layout_client_name);
+            holder.clientBirthDateTextView = (TextView) view.findViewById(R.id.client_list_row_layout_birth_date);
+            holder.clientAccountNoTextView = (TextView) view.findViewById(R.id.client_list_row_layout_account_no);
+            holder.clientNICTextView = (TextView) view.findViewById(R.id.client_list_row_layout_nic);
 
             view.setTag(holder);
         } else {

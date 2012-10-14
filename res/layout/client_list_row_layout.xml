@@ -6,7 +6,7 @@
         android:layout_height="wrap_content">
 
     <ImageView
-            android:id="@+id/client_icon"
+            android:id="@+id/client_list_row_layout_client_icon"
             android:layout_width="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
@@ -31,7 +31,7 @@
                 android:orientation="horizontal">
 
             <TextView
-                    android:id="@+id/client_name"
+                    android:id="@+id/client_list_row_layout_client_name"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textSize="16dp"
@@ -40,7 +40,7 @@
             </TextView>
 
             <TextView
-                    android:id="@+id/search_result_list_row_birth_date"
+                    android:id="@+id/client_list_row_layout_birth_date"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:textColor="#4a4a4a"
@@ -55,7 +55,7 @@
                 android:orientation="horizontal">
 
             <TextView
-                    android:id="@+id/client_account_no"
+                    android:id="@+id/client_list_row_layout_account_no"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textSize="12dp"
@@ -64,7 +64,7 @@
             </TextView>
 
             <TextView
-                    android:id="@+id/client_nic"
+                    android:id="@+id/client_list_row_layout_nic"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:textSize="12dp"

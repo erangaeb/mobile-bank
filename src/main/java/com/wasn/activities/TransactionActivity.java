@@ -89,6 +89,12 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             TransactionUtils.validateFields(accountNo, amount);
             Client client = TransactionUtils.getMatchingClient(accountNo);
 
+            //////////////////
+            client.setAccountNo(application.getClient().getAccountNo());
+            //////////////////
+
+            application.setClient(client);
+
             // create transaction and share in application
             Transaction transaction = TransactionUtils.createTransaction("001", accountNo, amount, client);
             application.setTransaction(transaction);
