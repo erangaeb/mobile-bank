@@ -82,6 +82,8 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
      */
     public void onClick(View view) {
         if(view == back) {
+            // back to ClientListActivity
+            ClientDetailsActivity.this.finish();
 
         //} else if(view == helpButton) {
 

@@ -33,9 +33,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     RelativeLayout back;
     RelativeLayout search;
     RelativeLayout help;
-    //Button doneButton;
-    //Button cancelButton;
-    //Button searchButton;
+    RelativeLayout done;
 
     /**
      * {@inheritDoc}
@@ -59,10 +57,12 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         back = (RelativeLayout) findViewById(R.id.transaction_layout_back);
         search = (RelativeLayout) findViewById(R.id.transaction_layout_search);
         help = (RelativeLayout) findViewById(R.id.transaction_layout_help);
+        done = (RelativeLayout) findViewById(R.id.transaction_layout_done);
 
         back.setOnClickListener(TransactionActivity.this);
         search.setOnClickListener(TransactionActivity.this);
         help.setOnClickListener(TransactionActivity.this);
+        done.setOnClickListener(TransactionActivity.this);
 
         // set values for form fields
         if(application.getTransaction() !=null) {
@@ -155,15 +155,17 @@ public class TransactionActivity extends Activity implements View.OnClickListene
      */
     public void onClick(View view) {
         if(view == back) {
-            initTransaction();
-        } else if(view == help) {
             // back to main activity
             startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
             TransactionActivity.this.finish();
+        } else if(view == help) {
+
         } else if(view == search) {
             // display search list
             startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
             TransactionActivity.this.finish();
+        } else if(view == done) {
+            initTransaction();
         }
     }
 

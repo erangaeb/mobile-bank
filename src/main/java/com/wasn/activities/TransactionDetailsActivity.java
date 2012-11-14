@@ -88,7 +88,8 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
      */
     public void onClick(View view) {
         if(view == back) {
-
+            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+            TransactionDetailsActivity.this.finish();
         } else if(view == help) {
 
         } else if(view == print) {
