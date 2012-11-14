@@ -28,7 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="12dp"
-                android:background="@drawable/new_transaction_button" >
+                android:background="@drawable/transaction" >
             </Button>
         </LinearLayout>
 
@@ -42,7 +42,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="12dp"
-                android:background="@drawable/new_transaction_button" >
+                android:background="@drawable/summary1" >
             </Button>
         </LinearLayout>
 
@@ -56,7 +56,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="12dp"
-                android:background="@drawable/new_transaction_button" >
+                android:background="@drawable/settings1" >
             </Button>
         </LinearLayout>
 
@@ -65,27 +65,43 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp" >
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Logout"
-            android:layout_marginRight="15dp"
-            android:textSize="17sp"
-            android:layout_toLeftOf="@+id/logout_button"
-            android:textColor="#4a4a4a">
-        </TextView>
-        
-        <Button 
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:layout_width="115dp"
+            android:layout_height="34dp"
+            android:clickable="true"
+            android:background="@drawable/logout_button_selector"
             android:layout_alignParentRight="true"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="11dp"
-            android:id="@+id/logout_button"
-            android:background="@drawable/logout_button">
-            
-        </Button>
+            android:layout_marginRight="13dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Logout"
+                android:textStyle="bold"
+                android:layout_marginRight="15dp"
+                android:textSize="17sp"
+                android:layout_toLeftOf="@+id/mobile_bank_layout_logout"
+                android:textColor="#e9e7e7">
+            </TextView>
+
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/mobile_bank_layout_logout">
+                <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/capture_layout_clear_icon"
+                    android:background="@drawable/user">
+                </ImageView>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </LinearLayout>
