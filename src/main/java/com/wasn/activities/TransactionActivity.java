@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.exceptions.InvalidAccountException;
@@ -29,6 +30,9 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     // form components
     EditText accountEditText;
     EditText amountEditText;
+    RelativeLayout back;
+    RelativeLayout search;
+    RelativeLayout help;
     //Button doneButton;
     //Button cancelButton;
     //Button searchButton;
@@ -52,13 +56,13 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
-        //doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
-        //cancelButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
-        //searchButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
+        back = (RelativeLayout) findViewById(R.id.transaction_layout_back);
+        search = (RelativeLayout) findViewById(R.id.transaction_layout_search);
+        help = (RelativeLayout) findViewById(R.id.transaction_layout_help);
 
-        //doneButton.setOnClickListener(TransactionActivity.this);
-        //cancelButton.setOnClickListener(TransactionActivity.this);
-        //searchButton.setOnClickListener(TransactionActivity.this);
+        back.setOnClickListener(TransactionActivity.this);
+        search.setOnClickListener(TransactionActivity.this);
+        help.setOnClickListener(TransactionActivity.this);
 
         // set values for form fields
         if(application.getTransaction() !=null) {
@@ -150,17 +154,17 @@ public class TransactionActivity extends Activity implements View.OnClickListene
      * @param view
      */
     public void onClick(View view) {
-       /* if(view == doneButton) {
+        if(view == back) {
             initTransaction();
-        } else if(view == cancelButton) {
+        } else if(view == help) {
             // back to main activity
             startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
             TransactionActivity.this.finish();
-        } else if(view == searchButton) {
+        } else if(view == search) {
             // display search list
             startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
             TransactionActivity.this.finish();
-        }*/
+        }
     }
 
     /**

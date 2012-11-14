@@ -34,8 +34,8 @@ public class ClientListActivity extends Activity implements View.OnClickListener
 
     // activity components
     EditText filterText;
-    Button backButton;
-    Button helpButton;
+    //Button backButton;
+    //Button helpButton;
 
     /**
      * {@inheritDoc}
@@ -55,11 +55,11 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         application = (MobileBankApplication) ClientListActivity.this.getApplication();
 
         filterText = (EditText) findViewById(R.id.client_layout_filter_text);
-        backButton = (Button) findViewById(R.id.client_layout_back_button);
-        helpButton = (Button) findViewById(R.id.client_layout_help_button);
+        //backButton = (Button) findViewById(R.id.client_layout_back_button);
+        //helpButton = (Button) findViewById(R.id.client_layout_help_button);
 
-        backButton.setOnClickListener(ClientListActivity.this);
-        helpButton.setOnClickListener(ClientListActivity.this);
+        //backButton.setOnClickListener(ClientListActivity.this);
+        //helpButton.setOnClickListener(ClientListActivity.this);
 
         // temporarily fill elements to list
         clientList = new ArrayList<Client>();
@@ -165,9 +165,9 @@ public class ClientListActivity extends Activity implements View.OnClickListener
      * {@inheritDoc}
      */
     public void onClick(View view) {
-        if(view == backButton) {
+        //if(view == backButton) {
 
-        }
+        //}
 
     }
 

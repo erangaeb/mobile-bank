@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Client;
@@ -27,10 +28,8 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
     AttributeListAdapter adapter;
 
     // form components
-    Button backButton;
-    Button helpButton;
-    Button doneButton;
-    Button cancelButton;
+    RelativeLayout back;
+    RelativeLayout done;
 
     /**
      * {@inheritDoc}
@@ -49,15 +48,11 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
     public void init() {
         application = (MobileBankApplication) ClientDetailsActivity.this.getApplication();
 
-        backButton = (Button) findViewById(R.id.client_details_list_layout_back_button);
-        helpButton = (Button) findViewById(R.id.client_details_list_layout_help_button);
-        doneButton = (Button) findViewById(R.id.client_details_list_layout_done_button);
-        cancelButton = (Button) findViewById(R.id.client_details_list_layout_cancel_button);
+        back = (RelativeLayout) findViewById(R.id.client_details_list_layout_back);
+        done = (RelativeLayout) findViewById(R.id.client_details_list_layout_done);
 
-        backButton.setOnClickListener(ClientDetailsActivity.this);
-        helpButton.setOnClickListener(ClientDetailsActivity.this);
-        doneButton.setOnClickListener(ClientDetailsActivity.this);
-        cancelButton.setOnClickListener(ClientDetailsActivity.this);
+        back.setOnClickListener(ClientDetailsActivity.this);
+        done.setOnClickListener(ClientDetailsActivity.this);
 
         Client client = application.getClient();
 
@@ -86,18 +81,15 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
      * {@inheritDoc}
      */
     public void onClick(View view) {
-        if(view == backButton) {
+        if(view == back) {
 
-        } else if(view == helpButton) {
+        //} else if(view == helpButton) {
 
-        } else if(view == doneButton) {
+        } else if(view == done) {
             // back to TransactionActivity
             Intent intent = new Intent(ClientDetailsActivity.this, TransactionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            ClientDetailsActivity.this.finish();
-        } else if(view == cancelButton) {
-            // back to ClientListActivity
             ClientDetailsActivity.this.finish();
         }
     }

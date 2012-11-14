@@ -73,7 +73,7 @@
                 android:background="@drawable/button_selector"
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
-                android:id="@+id/capture_layout_help">
+                android:id="@+id/transaction_layout_back">
             <ImageView
                     android:layout_height="32dp"
                     android:layout_width="32dp"
@@ -98,7 +98,7 @@
                 android:background="@drawable/button_selector"
                 android:layout_alignParentRight="true"
                 android:clickable="true"
-                android:id="@+id/capture_layout_send">
+                android:id="@+id/transaction_layout_help">
             <ImageView
                     android:layout_height="32dp"
                     android:layout_width="32dp"
@@ -121,8 +121,8 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_selector"
                 android:clickable="true"
-                android:id="@+id/capture_layout_clear"
-                android:layout_toLeftOf="@+id/capture_layout_send">
+                android:id="@+id/transaction_layout_search"
+                android:layout_toLeftOf="@+id/transaction_layout_help">
             <ImageView
                     android:layout_height="32dp"
                     android:layout_width="32dp"
@@ -265,7 +265,7 @@
 
              <RelativeLayout
                      android:layout_marginLeft="6dp"
-                     android:layout_marginRight="3dp"
+                     android:layout_marginRight="6dp"
                      android:layout_marginTop="6dp"
                      android:layout_marginBottom="6dp"
                      android:layout_width="fill_parent"
@@ -283,7 +283,7 @@
                  </TextView>
              </RelativeLayout>
 
-             <RelativeLayout
+             <!--<RelativeLayout
                      android:layout_marginLeft="3dp"
                      android:layout_marginRight="6dp"
                      android:layout_marginTop="6dp"
@@ -302,7 +302,7 @@
                          android:text="Cancel">
                  </TextView>
 
-             </RelativeLayout>
+             </RelativeLayout>-->
         </LinearLayout>
     </LinearLayout>
 

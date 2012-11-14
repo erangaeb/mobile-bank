@@ -2,64 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#e7e4e4"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@drawable/header_background_button"
+        android:background="#333333"
         android:clickable="true" >
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/rl1"
-            android:layout_weight="1"
-            android:layout_marginRight="40dp"
-            android:layout_alignParentLeft="true" >
+                android:layout_width="53dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_selector"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:id="@+id/capture_layout_help">
+            <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/capture_layout_about_icon"
+                    android:background="@drawable/back">
+            </ImageView>
 
-            <Button
-                android:id="@+id/client_layout_back_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp" >
-            </Button>
+            <TextView
+                    android:id="@+id/tab_splitter"
+                    android:layout_width="1dp"
 
-            <EditText
-                android:id="@+id/client_layout_filter_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/client_layout_back_button"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-            </EditText>
-
-            <!--<Button
-                android:id="@+id/search_result_layout_search_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="50dp"
-                android:clickable="true" >
-            </Button>-->
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="#4a4a4a">
+            </TextView>
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/client_layout_help_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
+        <EditText
+            android:id="@+id/client_layout_filter_text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textSize="17dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:clickable="true" >
-        </Button>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp">
+        </EditText>
+
+        <RelativeLayout
+                android:layout_width="53dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_selector"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:id="@+id/capture_layout_send">
+            <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/capture_layout_send_icon"
+                    android:background="@drawable/help">
+            </ImageView>
+
+            <TextView
+                    android:id="@+id/tab_splitter"
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:background="#4a4a4a">
+            </TextView>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout
