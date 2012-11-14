@@ -29,9 +29,9 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     // form components
     EditText accountEditText;
     EditText amountEditText;
-    Button doneButton;
-    Button cancelButton;
-    Button searchButton;
+    //Button doneButton;
+    //Button cancelButton;
+    //Button searchButton;
 
     /**
      * {@inheritDoc}
@@ -52,13 +52,13 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
-        doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
-        cancelButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
-        searchButton = (Button)findViewById(R.id.transaction_layout_search_button);
+        //doneButton = (Button)findViewById(R.id.transaction_layout_done_button);
+        //cancelButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
+        //searchButton = (Button)findViewById(R.id.transaction_layout_cancel_button);
 
-        doneButton.setOnClickListener(TransactionActivity.this);
-        cancelButton.setOnClickListener(TransactionActivity.this);
-        searchButton.setOnClickListener(TransactionActivity.this);
+        //doneButton.setOnClickListener(TransactionActivity.this);
+        //cancelButton.setOnClickListener(TransactionActivity.this);
+        //searchButton.setOnClickListener(TransactionActivity.this);
 
         // set values for form fields
         if(application.getTransaction() !=null) {
@@ -150,7 +150,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
      * @param view
      */
     public void onClick(View view) {
-        if(view == doneButton) {
+       /* if(view == doneButton) {
             initTransaction();
         } else if(view == cancelButton) {
             // back to main activity
@@ -160,7 +160,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             // display search list
             startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
             TransactionActivity.this.finish();
-        }
+        }*/
     }
 
     /**
