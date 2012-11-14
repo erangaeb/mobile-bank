@@ -68,6 +68,14 @@ public class ClientListActivity extends Activity implements View.OnClickListener
 
         // populate list view
         searchResultListView = (ListView) findViewById(R.id.client_list);
+
+        // add header and footer
+        View headerView = View.inflate(this, R.layout.header, null);
+        View footerView = View.inflate(this, R.layout.footer, null);
+
+        searchResultListView.addHeaderView(headerView);
+        searchResultListView.addFooterView(footerView);
+
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
         searchResultListView.setAdapter(adapter);
 

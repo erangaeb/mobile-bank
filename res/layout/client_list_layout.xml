@@ -65,11 +65,11 @@
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentLeft="true"
-                    android:background="#4a4a4a">
+                android:id="@+id/tab_splitter"
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#4a4a4a">
             </TextView>
         </RelativeLayout>
 
@@ -79,15 +79,19 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	android:layout_weight="1">
-    
-	    <ListView
-	        android:id="@+id/client_list"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:cacheColorHint="@android:color/transparent"
-	        android:divider="@drawable/list_seperator"
-	        android:dividerHeight="1dp">
-	   	</ListView>
+
+        <ListView
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp"
+            android:background="#e5e5e5"
+            android:id="@+id/client_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@drawable/list_seperator"
+            android:scrollbarStyle="outsideInset"
+            android:dividerHeight="0dp">
+        </ListView>
    	
    	</LinearLayout>
 

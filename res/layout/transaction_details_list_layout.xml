@@ -2,59 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="#e7e4e4"
+              android:background="#ffffff"
               android:orientation="vertical" >
 
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="@drawable/header_background_button"
+            android:background="#333333"
             android:clickable="true" >
 
         <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="53dp"
                 android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true" >
-
-            <Button
-                    android:id="@+id/transaction_details_list_layout_back_button"
-                    android:layout_width="32dp"
+                android:background="@drawable/button_selector"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:id="@+id/transaction_details_layout_back">
+            <ImageView
                     android:layout_height="32dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp" >
-            </Button>
+                    android:layout_width="32dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/capture_layout_about_icon"
+                    android:background="@drawable/back">
+            </ImageView>
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/transaction_details_list_layout_back_button"
-                    android:text="Transaction details"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp" >
-            </TextView>
+                    android:id="@+id/tab_splitter"
+                    android:layout_width="1dp"
 
-            <!--<Button
-                android:id="@+id/search_result_layout_search_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="50dp"
-                android:clickable="true" >
-            </Button>-->
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="#4a4a4a">
+            </TextView>
         </RelativeLayout>
 
-        <Button
-                android:id="@+id/transaction_details_list_layout_help_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentRight="true"
+        <!--<EditText
+                android:id="@+id/client_layout_filter_text"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textSize="17dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:clickable="true" >
-        </Button>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp">
+        </EditText>-->
+
+        <RelativeLayout
+                android:layout_width="53dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_selector"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:id="@+id/transaction_details_layout_help">
+            <ImageView
+                    android:layout_height="32dp"
+                    android:layout_width="32dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/capture_layout_send_icon"
+                    android:background="@drawable/help">
+            </ImageView>
+
+            <TextView
+                    android:id="@+id/tab_splitter"
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:background="#4a4a4a">
+            </TextView>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -77,27 +95,54 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:background="@drawable/header_background_button" >
+            android:background="#333333" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/transaction_details_list_layout_print_button"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/new_transaction_button" />
+                android:layout_centerVertical="true"
+                android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/transaction_details_list_layout_cancel_button"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/new_transaction_button" />
+            <RelativeLayout
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/done_button_selector"
+                    android:clickable="true"
+                    android:layout_weight="1"
+                    android:id="@+id/transaction_details_layout_print">
+                <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/capture_layout_clear_icon"
+                        android:text="Print">
+                </TextView>
+            </RelativeLayout>
+
+            <!--<RelativeLayout
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/done_button_selector"
+                    android:clickable="true"
+                    android:id="@+id/capture_layout_clear"
+                    android:layout_weight="1">
+                <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/capture_layout_clear_icon"
+                        android:text="Cancel">
+                </TextView>
+
+            </RelativeLayout>-->
         </LinearLayout>
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Transaction;
@@ -27,10 +28,9 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     AttributeListAdapter adapter;
 
     // form components
-    Button backButton;
-    Button helpButton;
-    Button printButton;
-    Button cancelButton;
+    RelativeLayout back;
+    RelativeLayout help;
+    RelativeLayout print;
 
     /**
      * {@inheritDoc}
@@ -49,15 +49,13 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     public void init() {
         application = (MobileBankApplication) TransactionDetailsActivity.this.getApplication();
 
-        backButton = (Button) findViewById(R.id.transaction_details_list_layout_back_button);
-        helpButton = (Button) findViewById(R.id.transaction_details_list_layout_help_button);
-        printButton = (Button) findViewById(R.id.transaction_details_list_layout_print_button);
-        cancelButton = (Button) findViewById(R.id.transaction_details_list_layout_cancel_button);
+        back = (RelativeLayout) findViewById(R.id.transaction_details_layout_back);
+        help = (RelativeLayout) findViewById(R.id.transaction_details_layout_help);
+        print = (RelativeLayout) findViewById(R.id.transaction_details_layout_print);
 
-        backButton.setOnClickListener(TransactionDetailsActivity.this);
-        helpButton.setOnClickListener(TransactionDetailsActivity.this);
-        printButton.setOnClickListener(TransactionDetailsActivity.this);
-        cancelButton.setOnClickListener(TransactionDetailsActivity.this);
+        back.setOnClickListener(TransactionDetailsActivity.this);
+        help.setOnClickListener(TransactionDetailsActivity.this);
+        print.setOnClickListener(TransactionDetailsActivity.this);
 
         Transaction transaction = application.getTransaction();
 
@@ -89,16 +87,12 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
      * {@inheritDoc}
      */
     public void onClick(View view) {
-        if(view == backButton) {
+        if(view == back) {
 
-        } else if(view == helpButton) {
+        } else if(view == help) {
 
-        } else if(view == printButton) {
+        } else if(view == print) {
             // print and save transaction
-        } else if(view == cancelButton) {
-            // back to TransactionActivity
-            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
-            TransactionDetailsActivity.this.finish();
         }
     }
 

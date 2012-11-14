@@ -65,43 +65,35 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Logout"
+            android:layout_marginRight="15dp"
+            android:textSize="17sp"
+            android:layout_toLeftOf="@+id/mobile_bank_layout_logout"
+            android:textColor="#4a4a4a">
+        </TextView>
+
         <RelativeLayout
-            android:layout_centerVertical="true"
-            android:layout_width="115dp"
-            android:layout_height="34dp"
-            android:clickable="true"
-            android:background="@drawable/logout_button_selector"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="13dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/logout_button_selector"
+            android:clickable="true"
+            android:id="@+id/mobile_bank_layout_logout">
+            <ImageView
+                android:layout_height="32dp"
+                android:layout_width="32dp"
                 android:layout_centerInParent="true"
-                android:text="Logout"
-                android:textStyle="bold"
-                android:layout_marginRight="15dp"
-                android:textSize="17sp"
-                android:layout_toLeftOf="@+id/mobile_bank_layout_logout"
-                android:textColor="#e9e7e7">
-            </TextView>
+                android:id="@+id/capture_layout_clear_icon"
+                android:background="@drawable/user">
+            </ImageView>
 
-            <RelativeLayout
-                android:layout_alignParentRight="true"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_centerInParent="true"
-                android:id="@+id/mobile_bank_layout_logout">
-                <ImageView
-                    android:layout_height="32dp"
-                    android:layout_width="32dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_clear_icon"
-                    android:background="@drawable/user">
-                </ImageView>
-
-            </RelativeLayout>
         </RelativeLayout>
-
     </RelativeLayout>
 
 </LinearLayout>
