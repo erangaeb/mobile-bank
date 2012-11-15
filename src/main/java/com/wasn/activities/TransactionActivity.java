@@ -102,12 +102,12 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         try {
             // validate form fields and get corresponding client to the account
             TransactionUtils.validateFields(accountNo, amount);
-            Client client = TransactionUtils.getMatchingClient(accountNo);
 
+            // get matching client
+            Client client = application.getMobileBankData().getClient(accountNo);
             //////////////////
             client.setAccountNo(application.getClient().getAccountNo());
             //////////////////
-
             application.setClient(client);
 
             // create transaction and share in application

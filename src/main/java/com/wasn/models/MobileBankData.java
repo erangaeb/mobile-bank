@@ -4,7 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.wasn.exceptions.InvalidAccountException;
+import com.wasn.pojos.Client;
+import com.wasn.pojos.Transaction;
+
+import java.util.ArrayList;
 
 /**
  * Database class of mobile bank
@@ -300,6 +306,196 @@ public class MobileBankData {
 
         //update application data
         db.update(DBHelper.TABLE_NAME_APP_DATA, appDataValues, "attribute_name=?",new String[]{"receiptNo"});
+
+        db.close();
+    }
+
+    /**
+     * get all client data from database
+     * @return clientList
+     */
+    public ArrayList<Client> getAllClients() {
+        ArrayList<Client> clientList = new ArrayList<Client>();
+
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        // create a cursor to get all client data
+        Cursor clientCursor = db.query(DBHelper.TABLE_NAME_CLIENT, null, null, null,null, null, null);
+
+        //until has elements
+        while(clientCursor.moveToNext()){
+            // get client attributes
+            String clientId=clientCursor.getString(0);
+            String clientName=clientCursor.getString(1);
+            String clientNic=clientCursor.getString(2);
+            String birthDate=clientCursor.getString(3);
+            String accountNo=clientCursor.getString(4);
+            String balanceAmount=clientCursor.getString(5);
+            String previousTransaction=clientCursor.getString(6);
+
+            // create client
+            Client client=new Client(clientId, clientName, clientNic, birthDate, accountNo, balanceAmount, previousTransaction);
+
+            clientList.add(client);
+        }
+
+        clientCursor.close();
+        db.close();
+
+        return clientList;
+    }
+
+    /**
+     * Get matching client to given account no
+     * @param accountNo client's account no
+     * @return matching client
+     * @throws InvalidAccountException, no matching client means invalid account
+     */
+    public Client getClient(String accountNo) throws InvalidAccountException {
+        Client client = null;
+
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor clientCursor = db.query(DBHelper.TABLE_NAME_CLIENT, null, "account_no=?" ,new String[]{accountNo},null, null, null);
+
+        // has elements in cursor
+        if(clientCursor.moveToNext()) {
+            clientCursor.moveToFirst();
+
+            // get client attributes
+            String clientId=clientCursor.getString(0);
+            String clientName=clientCursor.getString(1);
+            String clientNic=clientCursor.getString(2);
+            String clientBirthDate=clientCursor.getString(3);
+            String balanceAmount=clientCursor.getString(5);
+            String previousTransaction=clientCursor.getString(6);
+
+            client = new Client(clientId, clientName, clientNic, clientBirthDate, accountNo, balanceAmount, previousTransaction);
+        }
+
+        clientCursor.close();
+        db.close();
+
+        // no such client means invalid account
+        if(client == null) {
+            throw new InvalidAccountException();
+        }
+
+        return client;
+    }
+
+    /**
+     * update account balance of corresponding client
+     * @param accountNo clients account no
+     * @param balance balance amount
+     */
+    public void updateBalanceAmount(String accountNo, String balance) {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values
+        ContentValues clientValues =new ContentValues();
+        clientValues.put("balance_amount", balance);
+
+        //update balance amount data
+        db.update(DBHelper.TABLE_NAME_CLIENT, clientValues, "account_no=?",new String[]{accountNo});
+
+        db.close();
+    }
+
+    /**
+     * Get all transactions from database
+     */
+    public ArrayList<Transaction> getAllTransactions() {
+        ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
+
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        // create a cursor to get transaction data
+        Cursor transactionCursor = db.query(DBHelper.TABLE_NAME_TRANSACTION, null, null, null,null, null, null);
+
+        // read all
+        while(transactionCursor.moveToNext()) {
+            // get transaction attributes
+            String branchId = transactionCursor.getString(1);
+            String clientId = transactionCursor.getString(2);
+            String clientName = transactionCursor.getString(3);
+            String clientNic = transactionCursor.getString(4);
+            String accountNo = transactionCursor.getString(5);
+            String previousBalance = transactionCursor.getString(6);
+            String transactionAmount = transactionCursor.getString(7);
+            String currentBalance = transactionCursor.getString(8);
+            String transactionTime = transactionCursor.getString(9);
+            String transactionType = transactionCursor.getString(10);
+            String checkNo = transactionCursor.getString(11);
+            String description = transactionCursor.getString(12);
+            String receiptId = transactionCursor.getString(13);
+
+            Transaction transaction=new Transaction(branchId,
+                                                    clientName,
+                                                    clientNic,
+                                                    accountNo,
+                                                    previousBalance,
+                                                    transactionAmount,
+                                                    currentBalance,
+                                                    transactionTime,
+                                                    receiptId,
+                                                    clientId,
+                                                    transactionType,
+                                                    checkNo,
+                                                    description);
+
+            transactionList.add(transaction);
+        }
+
+        transactionCursor.close();
+        db.close();
+
+        return transactionList;
+    }
+
+    /**
+     * Insert transaction into database
+     * @param transaction
+     * @throws SQLiteException
+     */
+    public void insertTransaction(Transaction transaction) throws android.database.SQLException {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values for transaction record
+        ContentValues transactionValues =new ContentValues();
+        transactionValues.put("branch_id", transaction.getBranchId());
+        transactionValues.put("client_id", transaction.getClientId());
+        transactionValues.put("client_name", transaction.getClinetName());
+        transactionValues.put("client_nic", transaction.getClinetNic());
+        transactionValues.put("account_no", transaction.getClientAccountNo());
+        transactionValues.put("previous_balance", transaction.getPreviousBalance());
+        transactionValues.put("transaction_amount", transaction.getTransactionAmount());
+        transactionValues.put("current_balance", transaction.getCurrentBalance());
+        transactionValues.put("transaction_time", transaction.getTransactionTime());
+        transactionValues.put("transaction_type", transaction.getTransactionType());
+        transactionValues.put("check_no", transaction.getCheckNo());
+        transactionValues.put("description", transaction.getDescription());
+        transactionValues.put("receipt_id", transaction.getReceiptId());
+        transactionValues.put("synced_state", "0");
+
+        // throws exception if inset fails
+        db.insertOrThrow(DBHelper.TABLE_NAME_TRANSACTION, null, transactionValues);
+
+        db.close();
+    }
+
+    /**
+     * update synced state of a transaction
+     * set synced_state to 1
+     */
+    public void updateTransactionSyncState() {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values
+        ContentValues updateValues =new ContentValues();
+        updateValues.put("synced_state", "1");
+
+        //update sync state
+        db.update(DBHelper.TABLE_NAME_TRANSACTION, updateValues, "synced_state=?",new String[]{"0"});
 
         db.close();
     }

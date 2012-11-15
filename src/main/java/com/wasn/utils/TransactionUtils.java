@@ -92,15 +92,4 @@ public class TransactionUtils {
         }
     }
 
-    /**
-     * Get matching client from the database
-     *
-     * @param accountNo client account no
-     */
-    public static Client getMatchingClient(String accountNo) throws InvalidAccountException {
-        // TO-DO - need to check account with client database
-        // TO-DO - need to extract corresponding client from database
-        return new Client("004", "Eranga bnadara heratha", "Test NIC", "Test bday", "7856", "3000", "test");
-    }
-
 }
