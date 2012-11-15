@@ -4,4 +4,6 @@
     <string name="hello">Hello World, MobileBankActivity!</string>
     <string name="app_name">MobileBank</string>
 
+    <string name="no_client">Ooooops\nNo downloaded clients</string>
+
 </resources>

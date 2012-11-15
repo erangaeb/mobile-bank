@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,6 +38,9 @@ public class ClientListActivity extends Activity implements View.OnClickListener
     RelativeLayout back;
     RelativeLayout help;
 
+    // to handle empty view
+    ViewStub emptyView;
+
     /**
      * {@inheritDoc}
      */
@@ -61,13 +65,9 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         back.setOnClickListener(ClientListActivity.this);
         help.setOnClickListener(ClientListActivity.this);
 
-        // temporarily fill elements to list
-        clientList = new ArrayList<Client>();
-        filteredClientList = new ArrayList<Client>();
-        populateClientList();
-
         // populate list view
         clientListView = (ListView) findViewById(R.id.client_list);
+        emptyView = (ViewStub) findViewById(R.id.client_list_layout_empty_view);
 
         // add header and footer
         View headerView = View.inflate(this, R.layout.header, null);
@@ -75,8 +75,18 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         clientListView.addHeaderView(headerView);
         clientListView.addFooterView(footerView);
 
+        // fill lists
+        clientList = application.getMobileBankData().getAllClients();
+        //populateClientList();
+        filteredClientList = new ArrayList<Client>();
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
-        clientListView.setAdapter(adapter);
+
+        // handle empty view display
+        if(clientList.size() > 0) {
+            clientListView.setAdapter(adapter);
+        } else {
+            displayEmptyView();
+        }
 
         // use to prevent initial focus on filter text
         clientListView.setFocusableInTouchMode(true);
@@ -155,6 +165,18 @@ public class ClientListActivity extends Activity implements View.OnClickListener
             Client client = new Client(""+i, "Eranga bnadara heratha" +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
             clientList.add(client);
         }
+    }
+
+    /**
+     * Display empty view when no clients
+     */
+    public void displayEmptyView() {
+        clientListView.setEmptyView(emptyView);
+
+        // disable filter
+        filterText.setEnabled(false);
+        filterText.setClickable(false);
+        filterText.setFocusable(false);
     }
 
     /**

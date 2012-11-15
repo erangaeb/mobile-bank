@@ -89,6 +89,14 @@
             android:listSelector="@drawable/list_selctor"
             android:dividerHeight="0dp">
         </ListView>
+
+        <ViewStub
+            android:id="@+id/client_list_layout_empty_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout="@layout/empty">
+        </ViewStub>
    	
    	</LinearLayout>
 
