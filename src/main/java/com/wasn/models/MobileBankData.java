@@ -346,6 +346,36 @@ public class MobileBankData {
     }
 
     /**
+     * Insert client details in to database
+     * @param clients list of client
+     */
+    public void insetClients(ArrayList<Client> clients) throws android.database.SQLException {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //delete all records in client table
+        db.delete(DBHelper.TABLE_NAME_CLIENT, null, null);
+
+        //create content values for client record
+        ContentValues clientValues =new ContentValues();
+
+        for(int i=0;i<clients.size();i++){
+            //fill content value
+            clientValues.put("id", clients.get(i).getId());
+            clientValues.put("name", clients.get(i).getName());
+            clientValues.put("nic", clients.get(i).getNic());
+            clientValues.put("birth_date", clients.get(i).getBirthDate());
+            clientValues.put("account_no", clients.get(i).getAccountNo());
+            clientValues.put("balance_amount", clients.get(i).getBalanceAmount());
+            clientValues.put("previous_transaction", clients.get(i).getPreviousTransaction());
+
+            // throw exception if insert fail
+            db.insertOrThrow(DBHelper.TABLE_NAME_CLIENT, null, clientValues);
+        }
+
+        db.close();
+    }
+
+    /**
      * Get matching client to given account no
      * @param accountNo client's account no
      * @return matching client

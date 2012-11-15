@@ -32,6 +32,9 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         application = (MobileBankApplication) activity.getApplication();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String doInBackground(String... strings) {
         String branchId = strings[0];
@@ -51,7 +54,7 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         // download and save client list
         try {
             ArrayList<Client> clientList = new DataCommunication().getClients(branchId);
-            // application.getMobileBankData().
+            application.getMobileBankData().insetClients(clientList);
 
             downloadStatus = "1";
         } catch (URISyntaxException e) {
@@ -74,8 +77,22 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
             // server response error
             e.printStackTrace();
             downloadStatus = "-3";
+        } catch (android.database.SQLException e) {
+            // database error
+            e.printStackTrace();
+            downloadStatus = "-4";
         }
 
         return downloadStatus;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onPostExecute(String status) {
+        super.onPostExecute(status);
+
+
     }
 }
