@@ -71,7 +71,8 @@
             android:layout_centerInParent="true"
             android:text="Logout"
             android:layout_marginRight="15dp"
-            android:textSize="17sp"
+            android:textSize="16sp"
+            android:id="@+id/mobile_bank_layout_logout_text"
             android:layout_toLeftOf="@+id/mobile_bank_layout_logout"
             android:textColor="#4a4a4a">
         </TextView>
@@ -86,10 +87,9 @@
             android:clickable="true"
             android:id="@+id/mobile_bank_layout_logout">
             <ImageView
-                android:layout_height="32dp"
-                android:layout_width="32dp"
+                android:layout_height="25dp"
+                android:layout_width="25dp"
                 android:layout_centerInParent="true"
-                android:id="@+id/capture_layout_clear_icon"
                 android:background="@drawable/user">
             </ImageView>
 
