@@ -55,8 +55,9 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
         back = (RelativeLayout) findViewById(R.id.transaction_details_layout_back);
         help = (RelativeLayout) findViewById(R.id.transaction_details_layout_help);
         print = (RelativeLayout) findViewById(R.id.transaction_details_layout_print);
-        headerText = (TextView) findViewById(R.id.transaction_details_list_layout_header_text);
 
+        // set custom font for header text
+        headerText = (TextView) findViewById(R.id.transaction_details_list_layout_header_text);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
         headerText.setTypeface(face);
         headerText.setTypeface(null, Typeface.BOLD);
