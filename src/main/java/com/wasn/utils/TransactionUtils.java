@@ -26,8 +26,6 @@ public class TransactionUtils {
             throw new IllegalArgumentException();
         }
 
-        // TO-DO check availability of account
-
         // validate amount
         try {
             Double.parseDouble(amount);

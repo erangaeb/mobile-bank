@@ -37,6 +37,24 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/client_details_list_layout_back">
+
+            <TextView
+                    android:id="@+id/client_details_list_layout_header_text"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="Client Details">
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
                 android:layout_width="53dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_selector"
@@ -67,13 +85,27 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-        <ListView
+        <!--<ListView
                 android:id="@+id/client_details_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@drawable/list_seperator"
                 android:dividerHeight="1dp">
+        </ListView>-->
+
+        <ListView
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp"
+            android:background="#e5e5e5"
+            android:id="@+id/client_details_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@drawable/list_seperator"
+            android:scrollbarStyle="outsideInset"
+            android:listSelector="@drawable/list_selctor"
+            android:dividerHeight="0dp">
         </ListView>
 
     </LinearLayout>

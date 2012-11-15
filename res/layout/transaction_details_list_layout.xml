@@ -36,18 +36,23 @@
             </TextView>
         </RelativeLayout>
 
-        <!--<EditText
-                android:id="@+id/client_layout_filter_text"
-                android:layout_width="fill_parent"
+        <RelativeLayout
                 android:layout_height="fill_parent"
-                android:textSize="17dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp">
-        </EditText>-->
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/transaction_details_layout_back">
+
+            <TextView
+                    android:id="@+id/transaction_details_list_layout_header_text"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="Transaction Details">
+            </TextView>
+
+        </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="53dp"
@@ -80,13 +85,27 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-        <ListView
+        <!--<ListView
                 android:id="@+id/transaction_details_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@drawable/list_seperator"
                 android:dividerHeight="1dp">
+        </ListView>-->
+
+        <ListView
+                android:paddingLeft="10dp"
+                android:paddingRight="4dp"
+                android:background="#e5e5e5"
+                android:id="@+id/transaction_details_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@drawable/list_seperator"
+                android:scrollbarStyle="outsideInset"
+                android:listSelector="@drawable/list_selctor"
+                android:dividerHeight="0dp">
         </ListView>
 
     </LinearLayout>

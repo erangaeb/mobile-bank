@@ -5,61 +5,6 @@
     android:background="#ffffff"
     android:orientation="vertical" >
 
-    <!--<RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/header_background_button"
-        android:clickable="true" >
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true" >
-
-            <Button
-                android:id="@+id/transaction_layout_back_button"
-                android:layout_width="50dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/back"
-                android:layout_centerVertical="true">
-            </Button>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/transaction_layout_back_button"
-                android:text="New Transaction"
-                android:textColor="#ffffff"
-                android:textSize="20dp" >
-            </TextView>
-
-            <Button
-                android:id="@+id/transaction_layout_search_button"
-                android:layout_width="50dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/search"
-                android:layout_toLeftOf="@+id/transaction_layout_help_button"
-                android:layout_centerVertical="true"
-                android:clickable="true" >
-            </Button>
-
-            <Button
-                android:id="@+id/transaction_layout_help_button"
-                android:layout_width="50dp"
-                android:background="@drawable/help"
-                android:layout_height="fill_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:clickable="true" >
-            </Button>
-
-        </RelativeLayout>
-
-
-    </RelativeLayout>-->
-
     <RelativeLayout
             android:layout_width="fill_parent"
             android:background="#333333"
@@ -78,19 +23,35 @@
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_about_icon"
                     android:background="@drawable/back">
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
                     android:layout_width="1dp"
-
                     android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
                     android:background="#4a4a4a">
             </TextView>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/transaction_layout_back">
+
+            <TextView
+                android:id="@+id/transaction_layout_header_text"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="New Transaction">
+            </TextView>
+
+        </RelativeLayout>
+
 
         <RelativeLayout
                 android:layout_width="53dp"
@@ -103,12 +64,10 @@
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_send_icon"
                     android:background="@drawable/help">
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
                     android:layout_alignParentLeft="true"
@@ -127,12 +86,10 @@
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_clear_icon"
                     android:background="@drawable/search">
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
                     android:layout_alignParentLeft="true"
@@ -204,50 +161,32 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="20dp"
-                android:text="Transaction type"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Note"
+                    android:textColor="#4a4a4a"
+                    android:textSize="17dp" >
             </TextView>
 
-            <RadioGroup 
-				android:id="@+id/transaction_layout_transaction_type_radiogroup"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content" 
-				android:orientation="horizontal"
-				android:layout_marginLeft="27dp">
-				
-				<RadioButton 
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content" 
-					android:id="@+id/transction_type_deposit" 
-					android:text=" Deposit"
-					android:textColor="#000000" 
-					android:checked="true"
-					android:textSize="17dp">
-				</RadioButton>
-				
-				<RadioButton 
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content" 
-					android:id="@+id/transction_type_withdraw"
-					android:text=" Withdra"
-					android:textColor="#000000"
-					android:layout_marginLeft="5dp"
-					android:textSize="17dp">
-				</RadioButton>
-			
-			</RadioGroup>
-		    
+            <EditText
+                    android:id="@+id/settings_layout_address_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:textSize="20dp" >
+            </EditText>
         </LinearLayout>
     </LinearLayout>
 
@@ -278,7 +217,6 @@
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
                          android:layout_centerInParent="true"
-                         android:id="@+id/capture_layout_clear_icon"
                          android:text="Done">
                  </TextView>
              </RelativeLayout>

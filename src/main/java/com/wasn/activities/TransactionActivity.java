@@ -3,6 +3,7 @@ package com.wasn.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +31,13 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     // form components
     EditText accountEditText;
     EditText amountEditText;
+
     RelativeLayout back;
     RelativeLayout search;
     RelativeLayout help;
     RelativeLayout done;
+
+    TextView headerText;
 
     /**
      * {@inheritDoc}
@@ -54,19 +58,26 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
+
         back = (RelativeLayout) findViewById(R.id.transaction_layout_back);
         search = (RelativeLayout) findViewById(R.id.transaction_layout_search);
         help = (RelativeLayout) findViewById(R.id.transaction_layout_help);
         done = (RelativeLayout) findViewById(R.id.transaction_layout_done);
+
+        // set custom font to header text
+        headerText = (TextView) findViewById(R.id.transaction_layout_header_text);
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        headerText.setTypeface(face);
+        headerText.setTypeface(null, Typeface.BOLD);
 
         back.setOnClickListener(TransactionActivity.this);
         search.setOnClickListener(TransactionActivity.this);
         help.setOnClickListener(TransactionActivity.this);
         done.setOnClickListener(TransactionActivity.this);
 
-        // set values for form fields
         if(application.getTransaction() !=null) {
             // have transaction
+            // set values for form fields
             Transaction transaction = application.getTransaction();
 
             accountEditText.setText(transaction.getClientAccountNo());
@@ -158,6 +169,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             // back to main activity
             startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
             TransactionActivity.this.finish();
+            application.resetFields();
         } else if(view == help) {
 
         } else if(view == search) {
@@ -177,5 +189,6 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         // back to main activity
         startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
         TransactionActivity.this.finish();
+        application.resetFields();
     }
 }

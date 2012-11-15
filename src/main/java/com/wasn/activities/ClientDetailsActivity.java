@@ -2,11 +2,13 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Client;
@@ -30,6 +32,7 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
     // form components
     RelativeLayout back;
     RelativeLayout done;
+    TextView headerText;
 
     /**
      * {@inheritDoc}
@@ -50,6 +53,11 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
 
         back = (RelativeLayout) findViewById(R.id.client_details_list_layout_back);
         done = (RelativeLayout) findViewById(R.id.client_details_list_layout_done);
+        headerText = (TextView) findViewById(R.id.client_details_list_layout_header_text);
+
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        headerText.setTypeface(face);
+        headerText.setTypeface(null, Typeface.BOLD);
 
         back.setOnClickListener(ClientDetailsActivity.this);
         done.setOnClickListener(ClientDetailsActivity.this);
@@ -70,6 +78,14 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
 
             // populate list
             clientDetailsListView = (ListView) findViewById(R.id.client_details_list);
+
+            // add header and footer
+            View headerView = View.inflate(this, R.layout.header, null);
+            View footerView = View.inflate(this, R.layout.footer, null);
+
+            clientDetailsListView.addHeaderView(headerView);
+            clientDetailsListView.addFooterView(footerView);
+
             adapter = new AttributeListAdapter(ClientDetailsActivity.this, attributesList);
             clientDetailsListView.setAdapter(adapter);
         } else {

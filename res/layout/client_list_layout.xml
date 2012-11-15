@@ -40,6 +40,7 @@
             android:id="@+id/client_layout_filter_text"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:hint="search client"
             android:textSize="17dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -90,6 +91,7 @@
             android:cacheColorHint="@android:color/transparent"
             android:divider="@drawable/list_seperator"
             android:scrollbarStyle="outsideInset"
+            android:listSelector="@drawable/list_selctor"
             android:dividerHeight="0dp">
         </ListView>
    	

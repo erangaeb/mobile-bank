@@ -2,11 +2,13 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Transaction;
@@ -31,6 +33,7 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     RelativeLayout back;
     RelativeLayout help;
     RelativeLayout print;
+    TextView headerText;
 
     /**
      * {@inheritDoc}
@@ -52,6 +55,11 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
         back = (RelativeLayout) findViewById(R.id.transaction_details_layout_back);
         help = (RelativeLayout) findViewById(R.id.transaction_details_layout_help);
         print = (RelativeLayout) findViewById(R.id.transaction_details_layout_print);
+        headerText = (TextView) findViewById(R.id.transaction_details_list_layout_header_text);
+
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        headerText.setTypeface(face);
+        headerText.setTypeface(null, Typeface.BOLD);
 
         back.setOnClickListener(TransactionDetailsActivity.this);
         help.setOnClickListener(TransactionDetailsActivity.this);
@@ -76,6 +84,14 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
 
             // populate list
             transactionDetailsListView = (ListView) findViewById(R.id.transaction_details_list);
+
+            // add header and footer
+            View headerView = View.inflate(this, R.layout.header, null);
+            View footerView = View.inflate(this, R.layout.footer, null);
+
+            transactionDetailsListView.addHeaderView(headerView);
+            transactionDetailsListView.addFooterView(footerView);
+
             adapter = new AttributeListAdapter(TransactionDetailsActivity.this, attributesList);
             transactionDetailsListView.setAdapter(adapter);
         } else {
