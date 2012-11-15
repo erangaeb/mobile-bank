@@ -103,15 +103,20 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             // validate form fields and get corresponding client to the account
             TransactionUtils.validateFields(accountNo, amount);
 
-            // get matching client
+            // get matching client and share in application
             Client client = application.getMobileBankData().getClient(accountNo);
-            //////////////////
-            client.setAccountNo(application.getClient().getAccountNo());
-            //////////////////
             application.setClient(client);
 
+            // get receipt no
+            // database stored previous receipt no
+            String receiptNo = Integer.toString(Integer.parseInt(application.getMobileBankData().getReceiptNo()) + 1);
+
+            // get branch id
+            // database stored branch id as well
+            String branchId = application.getMobileBankData().getBranchId();
+
             // create transaction and share in application
-            Transaction transaction = TransactionUtils.createTransaction("001", accountNo, amount, client);
+            Transaction transaction = TransactionUtils.createTransaction(branchId, receiptNo, amount, client);
             application.setTransaction(transaction);
 
             startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));

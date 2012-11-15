@@ -6,6 +6,8 @@ import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Utility class of transaction activity
@@ -34,42 +36,32 @@ public class TransactionUtils {
         }
     }
 
-
     /**
      * Crete new transaction
      *
-     * @param account account no
+     * @param branchId user's branch id
+     * @param receiptNo current receipt no
      * @param amount  transaction amount
      * @param client  transaction client
      * @return transaction
      * @throws InvalidAccountException
      */
-    public static Transaction createTransaction(String branchId, String account, String amount, Client client) throws InvalidAccountException, InvalidBalanceAmountException {
-        // can raise InvalidBalanceAmountException
-        try {
-            // check availability of account and create transaction
-            if (account.equals(client.getAccountNo())) {
-                Transaction transaction = new Transaction(branchId,
-                                                          client.getName(),
-                                                          client.getNic(),
-                                                          account,
-                                                          client.getBalanceAmount(),
-                                                          amount,
-                                                          getBalanceAmount(client.getBalanceAmount(), amount),
-                                                          "transaction-tim",
-                                                          "receipt-id",
-                                                          client.getId(),
-                                                          "DEPOSIT",
-                                                          "check-no",
-                                                          "description");
+    public static Transaction createTransaction(String branchId, String receiptNo, String amount, Client client) throws InvalidAccountException, InvalidBalanceAmountException {
+        Transaction transaction = new Transaction(branchId,
+                                                  client.getName(),
+                                                  client.getNic(),
+                                                  client.getAccountNo(),
+                                                  client.getBalanceAmount(),
+                                                  amount,
+                                                  getBalanceAmount(client.getBalanceAmount(), amount),
+                                                  getTransactionTime(),
+                                                  getReceiptId(branchId, receiptNo),
+                                                  client.getId(),
+                                                  "DEPOSIT",
+                                                  "check-no",
+                                                  "description");
 
-                return transaction;
-            } else {
-                throw new InvalidAccountException();
-            }
-        } catch(InvalidBalanceAmountException e) {
-            throw e;
-        }
+        return transaction;
     }
 
     /**
@@ -90,6 +82,40 @@ public class TransactionUtils {
         } catch (NumberFormatException e) {
             throw new InvalidBalanceAmountException();
         }
+    }
+
+    /**
+     * Get current date and time as transaction time
+     * format - yyyy/MM/dd HH:mm:ss
+     * @return
+     */
+    private static String getTransactionTime() {
+        //date format
+        String DATE_FORMAT_NOW = "yyyy/MM/dd HH:mm:ss";
+
+        // generate time
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_NOW);
+
+        return simpleDateFormat.format(calendar.getTime());
+    }
+
+    /**
+     * Generate receipt id according to receipt no and branch id
+     * @param branchId  users branch id
+     * @param receiptNo receipt no
+     * @return receiptId
+     */
+    public static String getReceiptId(String branchId, String receiptNo) {
+        String receiptId;
+
+        if(branchId.length()==1){
+            receiptId="0"+branchId + receiptNo;
+        } else {
+            receiptId=branchId+receiptNo;
+        }
+
+        return receiptId;
     }
 
 }
