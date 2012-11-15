@@ -1,6 +1,7 @@
 package com.wasn.application;
 
 import android.app.Application;
+import com.wasn.models.MobileBankData;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
@@ -18,6 +19,9 @@ public class MobileBankApplication extends Application {
     // currently selected client
     Client client;
 
+    // database class instance
+    MobileBankData mobileBankData;
+
     /**
      * {@inheritDoc}
      */
@@ -25,6 +29,8 @@ public class MobileBankApplication extends Application {
     public void onCreate() {
         super.onCreate();
         resetFields();
+
+        mobileBankData = new MobileBankData(MobileBankApplication.this);
     }
 
     /**
@@ -34,16 +40,21 @@ public class MobileBankApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         resetFields();
+
+        // close database connections
+        mobileBankData.close();
     }
 
     /**
      * Reset shared object values
      */
     public void resetFields() {
-        //transaction = new Transaction("", "", "", "", "", "", "", "", "", "", "", "", "");
-        //client = new Client("", "", "", "", "", "", "");
         transaction = null;
         client = null;
+    }
+
+    public MobileBankData getMobileBankData() {
+        return mobileBankData;
     }
 
     public Transaction getTransaction() {

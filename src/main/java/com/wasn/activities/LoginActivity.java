@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.User;
 import com.wasn.utils.LoginUtils;
 
@@ -21,6 +22,8 @@ import com.wasn.utils.LoginUtils;
  * @author erangaeb@gmail.com (eranga bandara)
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
+
+    MobileBankApplication application;
 
     // form components
     EditText usernameText;
@@ -42,11 +45,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * Initialize activity components
      */
     public void init() {
+        application = (MobileBankApplication) LoginActivity.this.getApplication();
+
         usernameText = (EditText) findViewById(R.id.login_layout_username);
         passwordText = (EditText) findViewById(R.id.login_layout_password);
         login = (RelativeLayout) findViewById(R.id.login_layout_login);
 
         login.setOnClickListener(LoginActivity.this);
+
+        System.out.println("login state " + application.getMobileBankData().getLoginState());
+        application.getMobileBankData().setLoginState("1");
+        System.out.println("login state " + application.getMobileBankData().getLoginState());
     }
 
     /**
