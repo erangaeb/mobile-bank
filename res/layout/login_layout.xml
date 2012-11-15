@@ -49,9 +49,10 @@
                     android:hint="password"
                     android:layout_height="50dp"
                     android:singleLine="true"
+                    android:password="true"
                     android:background="@drawable/password_field_shape"
-                    android:layout_below="@+id/login_layout_username">
-
+                    android:layout_below="@+id/login_layout_username"
+                    android:id="@+id/login_layout_password">
                 </EditText>
 
             </RelativeLayout>

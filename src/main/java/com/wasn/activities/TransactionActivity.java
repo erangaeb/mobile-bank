@@ -149,6 +149,12 @@ public class TransactionActivity extends Activity implements View.OnClickListene
         messageHeaderTextView.setText(messageHeader);
         messageTextView.setText(message);
 
+        // set custom font
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        messageHeaderTextView.setTypeface(face);
+        messageHeaderTextView.setTypeface(null, Typeface.BOLD);
+        messageTextView.setTypeface(face);
+
         //set ok button
         Button okButton = (Button) dialog.findViewById(R.id.message_dialog_layout_yes_button);
         okButton.setOnClickListener(new View.OnClickListener() {

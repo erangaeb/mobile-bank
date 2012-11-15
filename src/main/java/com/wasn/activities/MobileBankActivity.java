@@ -52,4 +52,14 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
             MobileBankActivity.this.finish();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        // back to main activity
+        startActivity(new Intent(MobileBankActivity.this, LoginActivity.class));
+        MobileBankActivity.this.finish();
+    }
 }

@@ -9,14 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Created with IntelliJ IDEA.
- * User: eranga
- * Date: 11/14/12
- * Time: 11:03 PM
- * To change this template use File | Settings | File Templates.
+ * Activity class correspond to settings
+ *
+ * @author erangaeb@gmail.com (eranga bandara)
  */
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
+    // activity components
     RelativeLayout back;
     RelativeLayout help;
     RelativeLayout save;
@@ -33,12 +32,16 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         init();
     }
 
+    /**
+     * Initialize activity components and values
+     */
     public void init() {
         back = (RelativeLayout) findViewById(R.id.settings_layout_back);
         help = (RelativeLayout) findViewById(R.id.settings_layout_help);
         save = (RelativeLayout) findViewById(R.id.settings_layout_save);
-        headerText = (TextView) findViewById(R.id.settings_layout_header_text);
 
+        // set custom font to header text
+        headerText = (TextView) findViewById(R.id.settings_layout_header_text);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
         headerText.setTypeface(face);
         headerText.setTypeface(null, Typeface.BOLD);
@@ -48,6 +51,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         save.setOnClickListener(SettingsActivity.this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void onClick(View view) {
         if(view == back) {
             // back to main activity
@@ -56,5 +62,15 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         } else if(view == help) {
 
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onBackPressed() {
+        // back to main activity
+        startActivity(new Intent(SettingsActivity.this, MobileBankActivity.class));
+        SettingsActivity.this.finish();
     }
 }
