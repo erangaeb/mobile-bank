@@ -34,6 +34,14 @@ public class ClientListAdapter extends BaseAdapter {
     }
 
     /**
+     * Add filtered client to list
+     */
+    public void reloadAdapter(ArrayList<Client> clientList) {
+        this.clientList = clientList;
+        notifyDataSetChanged();
+    }
+
+    /**
      * Get size of attribute list
      */
     public int getCount() {

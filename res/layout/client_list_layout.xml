@@ -17,19 +17,16 @@
                 android:background="@drawable/button_selector"
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
-                android:id="@+id/capture_layout_help">
+                android:id="@+id/client_list_layout_back">
             <ImageView
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_about_icon"
                     android:background="@drawable/back">
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
                     android:layout_width="1dp"
-
                     android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
                     android:background="#4a4a4a">
@@ -37,7 +34,7 @@
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/client_layout_filter_text"
+            android:id="@+id/client_list_layout_filter_text"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:hint="search client"
@@ -56,17 +53,15 @@
                 android:background="@drawable/button_selector"
                 android:layout_alignParentRight="true"
                 android:clickable="true"
-                android:id="@+id/capture_layout_send">
+                android:id="@+id/client_list_layout_help">
             <ImageView
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_send_icon"
                     android:background="@drawable/help">
             </ImageView>
 
             <TextView
-                android:id="@+id/tab_splitter"
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
@@ -89,8 +84,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:cacheColorHint="@android:color/transparent"
-            android:divider="@drawable/list_seperator"
             android:scrollbarStyle="outsideInset"
+            android:divider="@drawable/list_seperator"
             android:listSelector="@drawable/list_selctor"
             android:dividerHeight="0dp">
         </ListView>

@@ -78,7 +78,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="3dp"
                 android:id="@+id/message_dialog_layout_yes_button"
-                android:background="@drawable/button_selctor"
+                android:background="@drawable/dialog_button_selector"
                 android:text="OK">
             </Button>
 

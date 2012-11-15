@@ -7,9 +7,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Client;
 
@@ -27,15 +27,15 @@ public class ClientListActivity extends Activity implements View.OnClickListener
     MobileBankApplication application;
 
     // use to populate and filter list
-    ListView searchResultListView;
+    ListView clientListView;
     ArrayList<Client> clientList;
     ArrayList<Client> filteredClientList = new ArrayList<Client>();
     ClientListAdapter adapter;
 
     // activity components
     EditText filterText;
-    //Button backButton;
-    //Button helpButton;
+    RelativeLayout back;
+    RelativeLayout help;
 
     /**
      * {@inheritDoc}
@@ -54,12 +54,12 @@ public class ClientListActivity extends Activity implements View.OnClickListener
     public void init() {
         application = (MobileBankApplication) ClientListActivity.this.getApplication();
 
-        filterText = (EditText) findViewById(R.id.client_layout_filter_text);
-        //backButton = (Button) findViewById(R.id.client_layout_back_button);
-        //helpButton = (Button) findViewById(R.id.client_layout_help_button);
+        filterText = (EditText) findViewById(R.id.client_list_layout_filter_text);
+        back = (RelativeLayout) findViewById(R.id.client_list_layout_back);
+        help = (RelativeLayout) findViewById(R.id.client_list_layout_help);
 
-        //backButton.setOnClickListener(ClientListActivity.this);
-        //helpButton.setOnClickListener(ClientListActivity.this);
+        back.setOnClickListener(ClientListActivity.this);
+        help.setOnClickListener(ClientListActivity.this);
 
         // temporarily fill elements to list
         clientList = new ArrayList<Client>();
@@ -67,21 +67,20 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         populateClientList();
 
         // populate list view
-        searchResultListView = (ListView) findViewById(R.id.client_list);
+        clientListView = (ListView) findViewById(R.id.client_list);
 
         // add header and footer
         View headerView = View.inflate(this, R.layout.header, null);
         View footerView = View.inflate(this, R.layout.footer, null);
-
-        searchResultListView.addHeaderView(headerView);
-        searchResultListView.addFooterView(footerView);
+        clientListView.addHeaderView(headerView);
+        clientListView.addFooterView(footerView);
 
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
-        searchResultListView.setAdapter(adapter);
+        clientListView.setAdapter(adapter);
 
         // use to prevent initial focus on filter text
-        searchResultListView.setFocusableInTouchMode(true);
-        searchResultListView.requestFocus();
+        clientListView.setFocusableInTouchMode(true);
+        clientListView.requestFocus();
 
         // set text change listener
         filterText.addTextChangedListener(new TextWatcher() {
@@ -111,9 +110,8 @@ public class ClientListActivity extends Activity implements View.OnClickListener
                     }
                 }
 
-                // set adapter
-                adapter = new ClientListAdapter(ClientListActivity.this, filteredClientList);
-                searchResultListView.setAdapter(adapter);
+                // reload adapter
+                adapter.reloadAdapter(filteredClientList);
             }
 
             public void afterTextChanged(Editable editable) {
@@ -122,10 +120,11 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         });
 
         // set click listener
-        searchResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        clientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("click " + adapter.getCount() + "index " + i);
                 // get corresponding client and share in application
-                Client client = (Client)adapter.getItem(i);
+                Client client = (Client)adapter.getItem(i-1);
                 application.setClient(client);
 
                 // back to transaction activity
@@ -135,10 +134,11 @@ public class ClientListActivity extends Activity implements View.OnClickListener
         });
 
         //set long press listener
-        searchResultListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        clientListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("long click " + adapter.getCount() + "index " + i);
                 // get corresponding client and share in application
-                Client client= (Client)adapter.getItem(i);
+                Client client= (Client)adapter.getItem(i-1);
                 application.setClient(client);
                 startActivity(new Intent(ClientListActivity.this, ClientDetailsActivity.class));
 
@@ -163,20 +163,22 @@ public class ClientListActivity extends Activity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+        filterText.setText("");
 
         // reset list content
-        adapter = new ClientListAdapter(ClientListActivity.this, clientList);
-        searchResultListView.setAdapter(adapter);
+        adapter.reloadAdapter(clientList);
     }
 
     /**
      * {@inheritDoc}
      */
     public void onClick(View view) {
-        //if(view == backButton) {
+        if(view == back) {
+            startActivity(new Intent(ClientListActivity.this, TransactionActivity.class));
+            ClientListActivity.this.finish();
+        } else if(view == help) {
 
-        //}
-
+        }
     }
 
     /**
