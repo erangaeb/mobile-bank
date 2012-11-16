@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
@@ -25,7 +26,10 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     RelativeLayout help;
     RelativeLayout unsyncedTransactionHeader;
     RelativeLayout allTransactionHeader;
+    LinearLayout bottomPannel;
+    RelativeLayout done;
     TextView headerText;
+    TextView doneText;
     TextView unsyncedTransactionHeaderText;
     TextView allTransactionHeaderText;
 
@@ -54,7 +58,10 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         help = (RelativeLayout) findViewById(R.id.transaction_list_layout_help);
         unsyncedTransactionHeader = (RelativeLayout) findViewById(R.id.transaction_list_layout_unsynced_transaction_header);
         allTransactionHeader = (RelativeLayout) findViewById(R.id.transaction_list_layout_all_transaction_header);
+        bottomPannel = (LinearLayout) findViewById(R.id.transaction_list_layout_bottom_pannel);
+        done = (RelativeLayout) findViewById(R.id.transaction_list_layout_done);
         headerText = (TextView) findViewById(R.id.transaction_list_layout_header_text);
+        doneText = (TextView) findViewById(R.id.transaction_list_layout_done_text);
         unsyncedTransactionHeaderText = (TextView) findViewById(R.id.transaction_list_layout_unsynced_transaction_header_text);
         allTransactionHeaderText = (TextView) findViewById(R.id.transaction_list_layout_all_transaction_header_text);
 
@@ -89,6 +96,11 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         unsyncedTransactionHeaderText.setTypeface(null, Typeface.BOLD);
         allTransactionHeaderText.setTextColor(defaultColors);
         allTransactionHeaderText.setTypeface(null, Typeface.NORMAL);
+
+        changeDoneButtonText("Sync");
+
+        // todo enable bottom if unsynced transaction available
+        disableBottomPannel();
     }
 
     /**
@@ -103,6 +115,33 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         allTransactionHeaderText.setTypeface(null, Typeface.BOLD);
         unsyncedTransactionHeaderText.setTextColor(defaultColors);
         unsyncedTransactionHeaderText.setTypeface(null, Typeface.NORMAL);
+
+        changeDoneButtonText("Summary");
+
+        // todo enable bottom pannel if transactions available
+        enableBottomPannel();
+    }
+
+    /**
+     * disable bottom pannel
+     */
+    public void disableBottomPannel() {
+        bottomPannel.setVisibility(View.GONE);
+    }
+
+    /**
+     * display bottom pannel
+     */
+    public void enableBottomPannel() {
+        bottomPannel.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Change text of done button
+     * @param text
+     */
+    public void changeDoneButtonText(String text) {
+        doneText.setText(text);
     }
 
     /**

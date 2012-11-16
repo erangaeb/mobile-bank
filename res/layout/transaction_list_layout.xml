@@ -152,7 +152,8 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-            android:background="#333333" >
+            android:background="#333333"
+            android:id="@+id/transaction_list_layout_bottom_pannel">
 
         <LinearLayout
                 android:layout_width="fill_parent"
@@ -170,12 +171,13 @@
                     android:background="@drawable/done_button_selector"
                     android:clickable="true"
                     android:layout_weight="1"
-                    android:id="@+id/transaction_layout_done">
+                    android:id="@+id/transaction_list_layout_done">
                 <TextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Sync">
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/transaction_list_layout_done_text"
+                    android:text="Sync">
                 </TextView>
             </RelativeLayout>
 
