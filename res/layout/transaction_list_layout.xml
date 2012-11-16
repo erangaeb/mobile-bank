@@ -55,26 +55,26 @@
         </RelativeLayout>
 
         <RelativeLayout
-                android:layout_width="53dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/button_selector"
-                android:layout_alignParentRight="true"
-                android:clickable="true"
-                android:id="@+id/transaction_list_layout_help">
+            android:layout_width="53dp"
+            android:layout_height="fill_parent"
+            android:background="@drawable/button_selector"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:id="@+id/transaction_list_layout_help">
             <ImageView
-                    android:layout_height="32dp"
-                    android:layout_width="32dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/capture_layout_send_icon"
-                    android:background="@drawable/help">
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/capture_layout_send_icon"
+                android:background="@drawable/help">
             </ImageView>
 
             <TextView
-                    android:id="@+id/tab_splitter"
-                    android:layout_width="1dp"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentLeft="true"
-                    android:background="#4a4a4a">
+                android:id="@+id/tab_splitter"
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#4a4a4a">
             </TextView>
         </RelativeLayout>
 
@@ -86,34 +86,34 @@
         android:clickable="true" >
 
         <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/sync_header_selector"
-                android:clickable="true"
-                android:layout_weight="1"
-                android:id="@+id/transaction_list_layout_unsynced_transaction_header">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/sync_header_selector"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:id="@+id/transaction_list_layout_unsynced_transaction_header">
             <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/transaction_list_layout_unsynced_transaction_header_text"
-                    android:text="Unsynced">
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/transaction_list_layout_unsynced_transaction_header_text"
+                android:text="Unsynced">
             </TextView>
         </RelativeLayout>
 
         <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/sync_header_selector"
-                android:clickable="true"
-                android:layout_weight="1"
-                android:id="@+id/transaction_list_layout_all_transaction_header">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/sync_header_selector"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:id="@+id/transaction_list_layout_all_transaction_header">
             <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/transaction_list_layout_all_transaction_header_text"
-                    android:text="All">
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/transaction_list_layout_all_transaction_header_text"
+                android:text="All">
             </TextView>
         </RelativeLayout>
 

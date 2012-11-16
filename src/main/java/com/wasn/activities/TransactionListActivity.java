@@ -97,7 +97,7 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
 
         allTransactionList = new ArrayList<Transaction>();
         populateList();
-        // todo get al transactions from database
+        // todo get all transactions from database
 
         // add header and footer
         View headerView = View.inflate(this, R.layout.header, null);

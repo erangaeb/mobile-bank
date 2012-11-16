@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Client;
-import com.wasn.pojos.Transaction;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -78,7 +77,7 @@ public class ClientListActivity extends Activity implements View.OnClickListener
 
         // fill lists
         clientList = application.getMobileBankData().getAllClients();
-        populateClientList();
+        //populateClientList();
         filteredClientList = new ArrayList<Client>();
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
 

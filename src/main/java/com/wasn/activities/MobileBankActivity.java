@@ -1,10 +1,13 @@
 package com.wasn.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -79,11 +82,61 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
             startActivity(new Intent(MobileBankActivity.this, SettingsActivity.class));
             MobileBankActivity.this.finish();
         } else if(view == logout) {
-            // logout
-            startActivity(new Intent(MobileBankActivity.this, LoginActivity.class));
-            MobileBankActivity.this.finish();
-            application.resetFields();
+            displayInformationMessageDialog("Are you sure, you want to logout? ");
         }
+    }
+
+    /**
+     * Display message dialog when user going to logout
+     * @param message
+     */
+    public void displayInformationMessageDialog(String message) {
+        final Dialog dialog = new Dialog(MobileBankActivity.this);
+
+        //set layout for dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.information_message_dialog_layout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        // set dialog texts
+        TextView messageHeaderTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_header_text);
+        TextView messageTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_text);
+        messageTextView.setText(message);
+
+        // set custom font
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        messageHeaderTextView.setTypeface(face);
+        messageHeaderTextView.setTypeface(null, Typeface.BOLD);
+        messageTextView.setTypeface(face);
+
+        //set ok button
+        Button okButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_ok_button);
+        okButton.setTypeface(face);
+        okButton.setTypeface(null, Typeface.BOLD);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // todo set login state to false
+                application.resetFields();
+
+                // back to login activity
+                startActivity(new Intent(MobileBankActivity.this, LoginActivity.class));
+                MobileBankActivity.this.finish();
+                dialog.cancel();
+            }
+        });
+
+        // cancel button
+        Button cancelButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_cancel_button);
+        cancelButton.setTypeface(face);
+        cancelButton.setTypeface(null, Typeface.BOLD);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 
     /**
@@ -91,8 +144,6 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
      */
     @Override
     public void onBackPressed() {
-        // back to main activity
-        startActivity(new Intent(MobileBankActivity.this, LoginActivity.class));
-        MobileBankActivity.this.finish();
+        displayInformationMessageDialog("Are you sure, you want to logout? ");
     }
 }

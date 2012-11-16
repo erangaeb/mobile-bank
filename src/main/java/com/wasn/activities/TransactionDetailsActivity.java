@@ -1,10 +1,13 @@
 package com.wasn.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -113,6 +116,64 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     }
 
     /**
+     * Display message dialog when user going to logout
+     * @param message
+     */
+    public void displayInformationMessageDialog(String message) {
+        final Dialog dialog = new Dialog(TransactionDetailsActivity.this);
+
+        //set layout for dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.information_message_dialog_layout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        // set dialog texts
+        TextView messageHeaderTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_header_text);
+        TextView messageTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_text);
+        messageTextView.setText(message);
+
+        // set custom font
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        messageHeaderTextView.setTypeface(face);
+        messageHeaderTextView.setTypeface(null, Typeface.BOLD);
+        messageTextView.setTypeface(face);
+
+        //set ok button
+        Button okButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_ok_button);
+        okButton.setTypeface(face);
+        okButton.setTypeface(null, Typeface.BOLD);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // printing event need to handle according to previous activity
+                if(previousActivity.equals(MobileBankActivity.class.getName())) {
+                    dialog.cancel();
+                    // print and save transaction in database
+                    // print two receipts
+
+                } else {
+                    dialog.cancel();
+                    // print only one receipt
+                    // reprint
+
+                }
+            }
+        });
+
+        // cancel button
+        Button cancelButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_cancel_button);
+        cancelButton.setTypeface(face);
+        cancelButton.setTypeface(null, Typeface.BOLD);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void onClick(View view) {
@@ -126,15 +187,7 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
         } else if(view == help) {
 
         } else if(view == print) {
-            // printing event need to handle according to previous activity
-            if(previousActivity.equals(MobileBankActivity.class.getName())) {
-                // print and save transaction in database
-                // print two receipts
-
-            } else {
-                // print only one receipt
-                // reprint
-            }
+            displayInformationMessageDialog("Do you wnt to print the receipt? make sure bluetooth is ON");
         }
     }
 

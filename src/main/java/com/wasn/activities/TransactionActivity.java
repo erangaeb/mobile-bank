@@ -162,6 +162,8 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         //set ok button
         Button okButton = (Button) dialog.findViewById(R.id.message_dialog_layout_yes_button);
+        okButton.setTypeface(face);
+        okButton.setTypeface(null, Typeface.BOLD);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.cancel();
