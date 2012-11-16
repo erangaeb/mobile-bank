@@ -35,7 +35,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="27dp"
+                    android:textSize="28dp"
+                    android:textColor="#4a4a4a"
                     android:id="@+id/download_layout_header_text"
                     android:text="Download">
                 </TextView>
@@ -44,22 +45,23 @@
                     android:layout_marginTop="20dp"
                     android:layout_below="@+id/download_layout_header_text"
                     android:layout_width="fill_parent"
+                    android:textColor="#4a4a4a"
                     android:layout_height="wrap_content"
                     android:id="@+id/download_layout_information_text"
                     android:gravity="center"
-                    android:textSize="17dp"
+                    android:textSize="18dp"
                     android:text="Client data need to be have in the system to do transactions">
                 </TextView>
 
                 <TextView
                     android:layout_marginTop="20dp"
-                    android:textColor="#000000"
+                    android:textColor="#4a4a4a"
                     android:id="@+id/download_layout_question_text"
                     android:layout_below="@+id/download_layout_information_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="17dp"
+                    android:textSize="15dp"
                     android:text="Already have downloaded client details Do you want to re-download the data?">
                 </TextView>
 
