@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Client;
+import com.wasn.pojos.Transaction;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -77,7 +78,7 @@ public class ClientListActivity extends Activity implements View.OnClickListener
 
         // fill lists
         clientList = application.getMobileBankData().getAllClients();
-        //populateClientList();
+        populateClientList();
         filteredClientList = new ArrayList<Client>();
         adapter = new ClientListAdapter(ClientListActivity.this, clientList);
 
@@ -86,6 +87,7 @@ public class ClientListActivity extends Activity implements View.OnClickListener
             clientListView.setAdapter(adapter);
         } else {
             displayEmptyView();
+            disableFilterText();
         }
 
         // use to prevent initial focus on filter text
@@ -171,9 +173,16 @@ public class ClientListActivity extends Activity implements View.OnClickListener
      * Display empty view when no clients
      */
     public void displayEmptyView() {
+        adapter = new ClientListAdapter(ClientListActivity.this, new ArrayList<Client>());
+        clientListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         clientListView.setEmptyView(emptyView);
+    }
 
-        // disable filter
+    /**
+     * Disable filter text
+     */
+    public void disableFilterText() {
         filterText.setEnabled(false);
         filterText.setClickable(false);
         filterText.setFocusable(false);

@@ -100,9 +100,6 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
         if(view == back) {
             // back to ClientListActivity
             ClientDetailsActivity.this.finish();
-
-        //} else if(view == helpButton) {
-
         } else if(view == done) {
             // back to TransactionActivity
             Intent intent = new Intent(ClientDetailsActivity.this, TransactionActivity.class);

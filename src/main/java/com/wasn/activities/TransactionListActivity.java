@@ -8,11 +8,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
 import java.util.ArrayList;
@@ -106,6 +104,22 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         View footerView = View.inflate(this, R.layout.footer, null);
         transactionListView.addHeaderView(headerView);
         transactionListView.addFooterView(footerView);
+
+        //set long press listener
+        transactionListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // get corresponding transaction and share in application
+                Transaction transaction = (Transaction)adapter.getItem(i-1);
+                application.setTransaction(transaction);
+
+                // start new activity
+                Intent intent = new Intent(TransactionListActivity.this, TransactionDetailsActivity.class);
+                intent.putExtra("ACTIVITY_NAME", TransactionListActivity.class.getName());
+                startActivity(intent);
+
+                return true;
+            }
+        });
 
         // initially select unsynced transaction
         selectUnsyncedTransactionHeader();

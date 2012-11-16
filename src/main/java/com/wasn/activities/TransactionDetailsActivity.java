@@ -24,6 +24,9 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
 
     MobileBankApplication application;
 
+    // previous activity name
+    private static String previousActivity;
+
     // use to populate list
     ListView transactionDetailsListView;
     ArrayList<Attribute> attributesList;
@@ -51,6 +54,15 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
      */
     public void init() {
         application = (MobileBankApplication) TransactionDetailsActivity.this.getApplication();
+
+        // get extra values
+        // previous activity name comes with extras
+        Bundle extra = getIntent().getExtras();
+        if(extra != null) {
+            previousActivity = extra.getString("ACTIVITY_NAME");
+        } else {
+            previousActivity = MobileBankActivity.class.getName();
+        }
 
         back = (RelativeLayout) findViewById(R.id.transaction_details_layout_back);
         help = (RelativeLayout) findViewById(R.id.transaction_details_layout_help);
@@ -105,12 +117,24 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
      */
     public void onClick(View view) {
         if(view == back) {
-            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+            if(previousActivity.equals(MobileBankActivity.class.getName())) {
+                // comes from mobile bank activity
+                startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+            }
+
             TransactionDetailsActivity.this.finish();
         } else if(view == help) {
 
         } else if(view == print) {
-            // print and save transaction
+            // printing event need to handle according to previous activity
+            if(previousActivity.equals(MobileBankActivity.class.getName())) {
+                // print and save transaction in database
+                // print two receipts
+
+            } else {
+                // print only one receipt
+                // reprint
+            }
         }
     }
 
@@ -119,8 +143,11 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
      */
     @Override
     public void onBackPressed() {
-        // back to TransactionActivity
-        startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+        if(previousActivity.equals(MobileBankActivity.class.getName())) {
+            // comes from mobile bank activity
+            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+        }
+
         TransactionDetailsActivity.this.finish();
     }
 
