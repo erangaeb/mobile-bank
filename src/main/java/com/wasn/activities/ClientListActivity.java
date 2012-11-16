@@ -152,7 +152,10 @@ public class ClientListActivity extends Activity implements View.OnClickListener
                 // get corresponding client and share in application
                 Client client= (Client)adapter.getItem(i-1);
                 application.setClient(client);
+
+                // got to client details activity
                 startActivity(new Intent(ClientListActivity.this, ClientDetailsActivity.class));
+                ClientListActivity.this.finish();
 
                 return true;
             }

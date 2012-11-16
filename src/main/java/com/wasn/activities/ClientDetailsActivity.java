@@ -99,6 +99,7 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
     public void onClick(View view) {
         if(view == back) {
             // back to ClientListActivity
+            startActivity(new Intent(ClientDetailsActivity.this, ClientListActivity.class));
             ClientDetailsActivity.this.finish();
         } else if(view == done) {
             // back to TransactionActivity
@@ -115,6 +116,7 @@ public class ClientDetailsActivity extends Activity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         // back to ClientListActivity
+        startActivity(new Intent(ClientDetailsActivity.this, ClientListActivity.class));
         ClientDetailsActivity.this.finish();
     }
 }
