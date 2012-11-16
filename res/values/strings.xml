@@ -5,5 +5,6 @@
     <string name="app_name">MobileBank</string>
 
     <string name="no_client">Ooooops\nNo downloaded clients</string>
+    <string name="no_transactions">Ooooops\nNo Transactions</string>
 
 </resources>

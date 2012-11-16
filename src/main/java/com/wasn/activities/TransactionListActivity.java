@@ -7,10 +7,15 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.pojos.Transaction;
+
+import java.util.ArrayList;
 
 /**
  * Activity class to display transaction list
@@ -32,6 +37,14 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     TextView doneText;
     TextView unsyncedTransactionHeaderText;
     TextView allTransactionHeaderText;
+
+    // use to populate list
+    ListView transactionListView;
+    TransactionListAdapter adapter;
+    ViewStub emptyView;
+
+    ArrayList<Transaction> allTransactionList;
+    ArrayList<Transaction> unSyncedTransactionList;
 
     // default color of texts
     ColorStateList defaultColors;
@@ -80,8 +93,69 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         unsyncedTransactionHeader.setOnClickListener(TransactionListActivity.this);
         allTransactionHeader.setOnClickListener(TransactionListActivity.this);
 
+        // populate list view
+        transactionListView = (ListView) findViewById(R.id.transaction_list);
+        emptyView = (ViewStub) findViewById(R.id.transaction_list_layout_empty_view);
+
+        allTransactionList = new ArrayList<Transaction>();
+        populateList();
+        // todo get al transactions from database
+
+        // add header and footer
+        View headerView = View.inflate(this, R.layout.header, null);
+        View footerView = View.inflate(this, R.layout.footer, null);
+        transactionListView.addHeaderView(headerView);
+        transactionListView.addFooterView(footerView);
+
         // initially select unsynced transaction
         selectUnsyncedTransactionHeader();
+        displayUnsyncedTransactionList();
+        changeDoneButtonText("Sync");
+    }
+
+    /**
+     * Display unsynced transaction list
+     */
+    public void displayUnsyncedTransactionList() {
+        // find unsynced transactions and display in list
+        unSyncedTransactionList = new ArrayList<Transaction>();
+
+        if(unSyncedTransactionList.size()>0) {
+            // have unsynced transaction
+            adapter = new TransactionListAdapter(TransactionListActivity.this, unSyncedTransactionList);
+            transactionListView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            enableBottomPannel();
+        } else {
+            disableBottomPannel();
+            displayEmptyView();
+        }
+    }
+
+    /**
+     * Display all transaction list
+     */
+    public void displayAllTransactionList() {
+        if(allTransactionList.size()>0) {
+            // have transaction
+            adapter = new TransactionListAdapter(TransactionListActivity.this, allTransactionList);
+            transactionListView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            enableBottomPannel();
+        } else {
+            disableBottomPannel();
+            displayEmptyView();
+        }
+    }
+
+    /**
+     * Display empty view when no clients
+     */
+    public void displayEmptyView() {
+        adapter = new TransactionListAdapter(TransactionListActivity.this, new ArrayList<Transaction>());
+        transactionListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        transactionListView.setEmptyView(emptyView);
     }
 
     /**
@@ -96,11 +170,6 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         unsyncedTransactionHeaderText.setTypeface(null, Typeface.BOLD);
         allTransactionHeaderText.setTextColor(defaultColors);
         allTransactionHeaderText.setTypeface(null, Typeface.NORMAL);
-
-        changeDoneButtonText("Sync");
-
-        // todo enable bottom if unsynced transaction available
-        disableBottomPannel();
     }
 
     /**
@@ -115,11 +184,6 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         allTransactionHeaderText.setTypeface(null, Typeface.BOLD);
         unsyncedTransactionHeaderText.setTextColor(defaultColors);
         unsyncedTransactionHeaderText.setTypeface(null, Typeface.NORMAL);
-
-        changeDoneButtonText("Summary");
-
-        // todo enable bottom pannel if transactions available
-        enableBottomPannel();
     }
 
     /**
@@ -144,6 +208,13 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         doneText.setText(text);
     }
 
+    public void populateList() {
+        for(int i=0; i<15; i++) {
+            Transaction transaction = new Transaction("1", "Test name " +i, "NIC", "88799" +i, "345", "45", "400", "TIME", "45", "34", "DEPOSIT", "CHECK_NO", "des");
+            allTransactionList.add(transaction);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -158,9 +229,13 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         } else if(view == unsyncedTransactionHeader) {
             // load unsynced list
             selectUnsyncedTransactionHeader();
+            displayUnsyncedTransactionList();
+            changeDoneButtonText("Sync");
         } else if(view == allTransactionHeader) {
             // load all transaction list
             selectAllTransactionHeader();
+            displayAllTransactionList();
+            changeDoneButtonText("Summary");
         }
     }
 

@@ -143,7 +143,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
-                android:layout="@layout/empty">
+                android:layout="@layout/empty_transaction">
         </ViewStub>
 
     </LinearLayout>
