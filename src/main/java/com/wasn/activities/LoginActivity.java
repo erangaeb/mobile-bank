@@ -73,7 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         try {
             LoginUtils.validateFields(user);
 
-            startActivity(new Intent(LoginActivity.this, MobileBankActivity.class));
+            startActivity(new Intent(LoginActivity.this, DownloadActivity.class));
             LoginActivity.this.finish();
 
             // todo - start background thread to authenticate user
