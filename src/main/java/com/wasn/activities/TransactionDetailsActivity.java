@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Transaction;
+import com.wasn.services.backgroundservices.PrintService;
 
 import java.util.ArrayList;
 
@@ -145,18 +146,18 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
         okButton.setTypeface(null, Typeface.BOLD);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // printing event need to handle according to previous activity
-                if(previousActivity.equals(MobileBankActivity.class.getName())) {
-                    dialog.cancel();
-                    // print and save transaction in database
-                    // print two receipts
-
-                } else {
-                    dialog.cancel();
-                    // print only one receipt
-                    // reprint
-
-                }
+            // printing event need to handle according to previous activity
+            if(previousActivity.equals(MobileBankActivity.class.getName())) {
+                dialog.cancel();
+                // print and save transaction in database
+                // print two receipts
+                new PrintService(TransactionDetailsActivity.this).execute("PRINT");
+            } else {
+                dialog.cancel();
+                // print only one receipt
+                // reprint
+                new PrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
+            }
             }
         });
 

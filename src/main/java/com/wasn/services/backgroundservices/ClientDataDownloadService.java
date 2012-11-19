@@ -1,6 +1,8 @@
 package com.wasn.services.backgroundservices;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import com.wasn.activities.DownloadActivity;
 import com.wasn.activities.MobileBankActivity;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.exceptions.CannotProcessRequestException;
@@ -20,14 +22,14 @@ import java.util.ArrayList;
  */
 public class ClientDataDownloadService extends AsyncTask<String, String, String> {
 
-    MobileBankActivity activity;
+    DownloadActivity activity;
     MobileBankApplication application;
 
     /**
      * Initialize cass members
      * @param activity
      */
-    public ClientDataDownloadService(MobileBankActivity activity) {
+    public ClientDataDownloadService(DownloadActivity activity) {
         this.activity = activity;
         application = (MobileBankApplication) activity.getApplication();
     }
@@ -52,7 +54,7 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         String downloadStatus = "0";
 
         // download and save client list
-        try {
+        /*try {
             ArrayList<Client> clientList = new DataCommunication().getClients(branchId);
             application.getMobileBankData().insetClients(clientList);
 
@@ -81,7 +83,19 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
             // database error
             e.printStackTrace();
             downloadStatus = "-4";
+        }*/
+
+        ArrayList<Client> clientList = new ArrayList<Client>();
+
+        // get sample client list
+        for (int i=0; i<15; i++) {
+            Client client = new Client(""+i, "Eranga bnadara heratha" +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
+            clientList.add(client);
         }
+
+        // add client list to database
+        application.getMobileBankData().insetClients(clientList);
+        application.getMobileBankData().setDownloadState("1");
 
         return downloadStatus;
     }
@@ -93,6 +107,8 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-
+        // download
+        activity.startActivity(new Intent(activity, MobileBankActivity.class));
+        activity.finish();
     }
 }

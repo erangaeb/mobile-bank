@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.services.backgroundservices.ClientDataDownloadService;
 
 /**
  * Activity class correspond to download
@@ -78,10 +79,7 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
      */
     public void onClick(View view) {
         if(view == download) {
-            // download
-            startActivity(new Intent(DownloadActivity.this, MobileBankActivity.class));
-            DownloadActivity.this.finish();
-            application.getMobileBankData().setDownloadState("1");
+            new ClientDataDownloadService(DownloadActivity.this).execute("1");
         } else if(view == skip) {
             // skip download and start mobile bank activity
             startActivity(new Intent(DownloadActivity.this, MobileBankActivity.class));
