@@ -40,14 +40,15 @@ public class TransactionUtils {
      * Crete new transaction
      *
      * @param branchId user's branch id
-     * @param receiptNo current receipt no
+     * @param transactionId current receipt no equals to transaction id
      * @param amount  transaction amount
      * @param client  transaction client
      * @return transaction
      * @throws InvalidAccountException
      */
-    public static Transaction createTransaction(String branchId, String receiptNo, String amount, Client client) throws InvalidAccountException, InvalidBalanceAmountException {
-        Transaction transaction = new Transaction(branchId,
+    public static Transaction createTransaction(String branchId, int transactionId, String amount, Client client) throws InvalidAccountException, InvalidBalanceAmountException {
+        Transaction transaction = new Transaction(transactionId,
+                                                  branchId,
                                                   client.getName(),
                                                   client.getNic(),
                                                   client.getAccountNo(),
@@ -55,7 +56,7 @@ public class TransactionUtils {
                                                   amount,
                                                   getBalanceAmount(client.getBalanceAmount(), amount),
                                                   getTransactionTime(),
-                                                  getReceiptId(branchId, receiptNo),
+                                                  getReceiptId(branchId, transactionId),
                                                   client.getId(),
                                                   "DEPOSIT",
                                                   "check-no",
@@ -106,7 +107,7 @@ public class TransactionUtils {
      * @param receiptNo receipt no
      * @return receiptId
      */
-    public static String getReceiptId(String branchId, String receiptNo) {
+    public static String getReceiptId(String branchId, int receiptNo) {
         String receiptId;
 
         if(branchId.length()==1){

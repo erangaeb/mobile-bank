@@ -109,14 +109,15 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
             // get receipt no
             // database stored previous receipt no
-            String receiptNo = Integer.toString(Integer.parseInt(application.getMobileBankData().getReceiptNo()) + 1);
+            // receipt no equals to transaction id
+            int transactionId = Integer.parseInt(application.getMobileBankData().getReceiptNo()) + 1;
 
             // get branch id
             // database stored branch id as well
             String branchId = application.getMobileBankData().getBranchId();
 
             // create transaction and share in application
-            Transaction transaction = TransactionUtils.createTransaction(branchId, receiptNo, amount, client);
+            Transaction transaction = TransactionUtils.createTransaction(branchId, transactionId, amount, client);
             application.setTransaction(transaction);
 
             startActivity(new Intent(TransactionActivity.this, TransactionDetailsActivity.class));

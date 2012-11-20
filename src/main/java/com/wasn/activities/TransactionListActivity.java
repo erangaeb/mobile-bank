@@ -95,8 +95,8 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         transactionListView = (ListView) findViewById(R.id.transaction_list);
         emptyView = (ViewStub) findViewById(R.id.transaction_list_layout_empty_view);
 
-        allTransactionList = new ArrayList<Transaction>();
-        populateList();
+        allTransactionList = application.getTransactionList();
+        //populateList();
         // todo get all transactions from database
 
         // add header and footer
@@ -224,7 +224,7 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
 
     public void populateList() {
         for(int i=0; i<15; i++) {
-            Transaction transaction = new Transaction("1", "Test name " +i, "NIC", "88799" +i, "345", "45", "400", "TIME", "45", "34", "DEPOSIT", "CHECK_NO", "des");
+            Transaction transaction = new Transaction(1,"1", "Test name " +i, "NIC", "88799" +i, "345", "45", "400", "TIME", "45", "34", "DEPOSIT", "CHECK_NO", "des");
             allTransactionList.add(transaction);
         }
     }

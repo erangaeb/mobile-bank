@@ -52,7 +52,7 @@ public class MobileBankData {
         public static final String TABLE_NAME_TRANSACTION = "raw_transaction";
         public static final String TABLE_NAME_APP_DATA = "app_data";
 
-        public static final int DB_VERSION = 3;
+        public static final int DB_VERSION = 4;
 
         public DBHelper() {
             super(context, DB_NAME, null, DB_VERSION);
@@ -116,7 +116,7 @@ public class MobileBankData {
             // printing receipt no
             ContentValues receiptValues=new ContentValues();
             receiptValues.put("attribute_name", "receiptNo");
-            receiptValues.put("attribute_value", "1");
+            receiptValues.put("attribute_value", "0");
 
             //insert application data to app_data table
             try {
@@ -445,6 +445,7 @@ public class MobileBankData {
         // read all
         while(transactionCursor.moveToNext()) {
             // get transaction attributes
+            int id = transactionCursor.getInt(0);
             String branchId = transactionCursor.getString(1);
             String clientId = transactionCursor.getString(2);
             String clientName = transactionCursor.getString(3);
@@ -459,7 +460,8 @@ public class MobileBankData {
             String description = transactionCursor.getString(12);
             String receiptId = transactionCursor.getString(13);
 
-            Transaction transaction=new Transaction(branchId,
+            Transaction transaction=new Transaction(id,
+                                                    branchId,
                                                     clientName,
                                                     clientNic,
                                                     accountNo,

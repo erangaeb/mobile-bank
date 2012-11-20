@@ -37,10 +37,15 @@ public class PrintService extends AsyncTask<String, String, String> {
         // send data to printer according to print state
         if(printState.equals("PRINT")) {
             Transaction transaction = application.getTransaction();
+
+            // todo send data to printer
+
+            // after printing save transaction and receipt no update client balance
             application.getMobileBankData().insertTransaction(transaction);
+            application.getMobileBankData().setReceiptNo(Integer.toString(transaction.getId()));
+            application.getMobileBankData().updateBalanceAmount(transaction.getClientAccountNo(), transaction.getCurrentBalance());
         } else if(printState.equals("RE_PRINT")) {
-            Transaction transaction = application.getTransaction();
-            application.getMobileBankData().insertTransaction(transaction);
+            // todo send data to printer
         } else {
             // print summary
         }
@@ -55,8 +60,6 @@ public class PrintService extends AsyncTask<String, String, String> {
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-        // download
-        //activity.startActivity(new Intent(activity, MobileBankActivity.class));
-        activity.finish();
+        activity.onPostPrint();
     }
 }

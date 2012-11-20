@@ -175,6 +175,23 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     }
 
     /**
+     * Execute after printing task
+     */
+    public void onPostPrint() {
+        if(previousActivity.equals(MobileBankActivity.class.getName())) {
+            // clear shared objects
+            application.resetFields();
+
+            // need to go back to transaction activity
+            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+            TransactionDetailsActivity.this.finish();
+        } else {
+            // back to transaction list
+            TransactionDetailsActivity.this.finish();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void onClick(View view) {

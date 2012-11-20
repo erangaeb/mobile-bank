@@ -5,6 +5,8 @@ import com.wasn.models.MobileBankData;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
+import java.util.ArrayList;
+
 /**
  * Application object class of mobile-bank
  * Keep shared objects
@@ -21,6 +23,9 @@ public class MobileBankApplication extends Application {
 
     // database class instance
     MobileBankData mobileBankData;
+
+    // hold transaction details
+    ArrayList<Transaction> transactionList;
 
     /**
      * {@inheritDoc}
@@ -51,6 +56,7 @@ public class MobileBankApplication extends Application {
     public void resetFields() {
         transaction = null;
         client = null;
+        transactionList = new ArrayList<Transaction>();
     }
 
     public MobileBankData getMobileBankData() {
@@ -73,4 +79,11 @@ public class MobileBankApplication extends Application {
         this.client = client;
     }
 
+    public ArrayList<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(ArrayList<Transaction> transactionList) {
+        this.transactionList = transactionList;
+    }
 }

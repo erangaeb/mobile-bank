@@ -7,6 +7,7 @@ package com.wasn.pojos;
  */
 public class Transaction {
 
+    int id;
     String branchId;
     String clinetName;
     String clinetNic;
@@ -21,7 +22,8 @@ public class Transaction {
     String checkNo;
     String description;
 
-    public Transaction(String branchId,
+    public Transaction(int id,
+                       String branchId,
                        String clinetName,
                        String clinetNic,
                        String clientAccountNo,
@@ -34,6 +36,7 @@ public class Transaction {
                        String transactionType,
                        String checkNo,
                        String description) {
+        this.id = id;
         this.branchId = branchId;
         this.clinetName = clinetName;
         this.clinetNic = clinetNic;
@@ -47,6 +50,14 @@ public class Transaction {
         this.transactionType = transactionType;
         this.checkNo = checkNo;
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBranchId() {
