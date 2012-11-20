@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
-import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
+import com.wasn.services.backgroundservices.TransactionSyncService;
+import com.wasn.utils.TransactionUtils;
 
 import java.util.ArrayList;
 
@@ -88,6 +89,7 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         // set click listeners
         back.setOnClickListener(TransactionListActivity.this);
         help.setOnClickListener(TransactionListActivity.this);
+        done.setOnClickListener(TransactionListActivity.this);
         unsyncedTransactionHeader.setOnClickListener(TransactionListActivity.this);
         allTransactionHeader.setOnClickListener(TransactionListActivity.this);
 
@@ -128,14 +130,14 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     }
 
     /**
-     * Display unsynced transaction list
+     * Display un synced transaction list
      */
     public void displayUnsyncedTransactionList() {
-        // find unsynced transactions and display in list
-        unSyncedTransactionList = new ArrayList<Transaction>();
+        // find un synced transactions and display in list
+        unSyncedTransactionList = TransactionUtils.getUnSyncedTransactionList(allTransactionList);
 
         if(unSyncedTransactionList.size()>0) {
-            // have unsynced transaction
+            // have un synced transaction
             adapter = new TransactionListAdapter(TransactionListActivity.this, unSyncedTransactionList);
             transactionListView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -222,11 +224,29 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         doneText.setText(text);
     }
 
-    public void populateList() {
-        for(int i=0; i<15; i++) {
-            Transaction transaction = new Transaction(1,"1", "Test name " +i, "NIC", "88799" +i, "345", "45", "400", "TIME", "45", "34", "DEPOSIT", "CHECK_NO", "des");
-            allTransactionList.add(transaction);
-        }
+    /**
+     * SYnc transactions to bank server
+     */
+    public void syncTransaction() {
+        // start thread to sync
+        new TransactionSyncService(TransactionListActivity.this).execute("");
+    }
+
+    /**
+     * Display summary activity
+     */
+    public void displaySummary() {
+
+    }
+
+    /**
+     * Execute after sync transactions
+     */
+    public void onPostSync() {
+        // no un synced transaction now
+        allTransactionList = application.getMobileBankData().getAllTransactions();
+        application.setTransactionList(allTransactionList);
+        displayEmptyView();
     }
 
     /**
@@ -241,7 +261,7 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         } else if(view == help) {
 
         } else if(view == unsyncedTransactionHeader) {
-            // load unsynced list
+            // load un synced list
             selectUnsyncedTransactionHeader();
             displayUnsyncedTransactionList();
             changeDoneButtonText("Sync");
@@ -250,6 +270,13 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
             selectAllTransactionHeader();
             displayAllTransactionList();
             changeDoneButtonText("Summary");
+        } else if(view == done) {
+            if(doneText.getText().toString().equals("Sync")) {
+                // sync transactions
+                syncTransaction();
+            } else if(doneText.getText().toString().equals("Summary")) {
+                // display summary activity
+            }
         }
     }
 

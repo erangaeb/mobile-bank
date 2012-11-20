@@ -150,7 +150,7 @@ public class MobileBankData {
      * get isLogged attribute from app_data table
      * @return loginState - login state with server
      */
-    public String getLoginState(){
+    public String getLoginState() {
         String loginState="0";
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -459,6 +459,7 @@ public class MobileBankData {
             String checkNo = transactionCursor.getString(11);
             String description = transactionCursor.getString(12);
             String receiptId = transactionCursor.getString(13);
+            String syncedState = transactionCursor.getString(14);
 
             Transaction transaction=new Transaction(id,
                                                     branchId,
@@ -473,7 +474,8 @@ public class MobileBankData {
                                                     clientId,
                                                     transactionType,
                                                     checkNo,
-                                                    description);
+                                                    description,
+                                                    syncedState);
 
             transactionList.add(transaction);
         }
@@ -519,15 +521,17 @@ public class MobileBankData {
      * update synced state of a transaction
      * set synced_state to 1
      */
-    public void updateTransactionSyncState() {
+    public void updateTransactionSyncState(ArrayList<Transaction> unSyncedTransactionList) {
         SQLiteDatabase db=dbHelper.getWritableDatabase();
 
         //create content values
         ContentValues updateValues =new ContentValues();
         updateValues.put("synced_state", "1");
 
-        //update sync state
-        db.update(DBHelper.TABLE_NAME_TRANSACTION, updateValues, "synced_state=?",new String[]{"0"});
+        for(int i=0; i<unSyncedTransactionList.size(); i++) {
+            //update sync state
+            db.update(DBHelper.TABLE_NAME_TRANSACTION, updateValues, "account_no=?",new String[]{unSyncedTransactionList.get(i).getClientAccountNo()});
+        }
 
         db.close();
     }

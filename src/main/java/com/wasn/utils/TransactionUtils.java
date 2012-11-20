@@ -7,6 +7,7 @@ import com.wasn.pojos.Transaction;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -60,7 +61,8 @@ public class TransactionUtils {
                                                   client.getId(),
                                                   "DEPOSIT",
                                                   "check-no",
-                                                  "description");
+                                                  "description",
+                                                  "0");
 
         return transaction;
     }
@@ -117,6 +119,24 @@ public class TransactionUtils {
         }
 
         return receiptId;
+    }
+
+    /**
+     * Filter un synced transactions
+     * @param transactionList all transactions
+     * @return unSyncedTransactionList
+     */
+    public static ArrayList<Transaction> getUnSyncedTransactionList(ArrayList<Transaction> transactionList) {
+        ArrayList<Transaction> unSyncedTransactionList = new ArrayList<Transaction>();
+
+        // filter un synced transactions
+        for (int i=0; i<transactionList.size(); i++) {
+            if(transactionList.get(i).getSyncedState().equals("0")) {
+                unSyncedTransactionList.add(transactionList.get(i));
+            }
+        }
+
+        return unSyncedTransactionList;
     }
 
 }

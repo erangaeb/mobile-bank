@@ -21,6 +21,7 @@ public class Transaction {
     String transactionType;
     String checkNo;
     String description;
+    String syncedState;
 
     public Transaction(int id,
                        String branchId,
@@ -35,7 +36,8 @@ public class Transaction {
                        String clientId,
                        String transactionType,
                        String checkNo,
-                       String description) {
+                       String description,
+                       String syncedState) {
         this.id = id;
         this.branchId = branchId;
         this.clinetName = clinetName;
@@ -50,6 +52,7 @@ public class Transaction {
         this.transactionType = transactionType;
         this.checkNo = checkNo;
         this.description = description;
+        this.syncedState = syncedState;
     }
 
     public int getId() {
@@ -162,5 +165,13 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSyncedState() {
+        return syncedState;
+    }
+
+    public void setSyncedState(String syncedState) {
+        this.syncedState = syncedState;
     }
 }
