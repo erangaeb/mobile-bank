@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
+import com.wasn.services.backgroundservices.SummaryPrintService;
 import com.wasn.utils.TransactionUtils;
 
 import java.util.ArrayList;
@@ -114,8 +115,8 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
         okButton.setTypeface(null, Typeface.BOLD);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //new PrintService(SummaryDetailsActivity.this).execute("SUMMARY");
                 dialog.cancel();
+                new SummaryPrintService(SummaryDetailsActivity.this).execute("SUMMARY");
             }
         });
 
@@ -133,6 +134,13 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
     }
 
     /**
+     * Execute after printing task
+     */
+    public void onPostPrint() {
+        SummaryDetailsActivity.this.finish();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void onClick(View view) {
@@ -141,7 +149,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
         } else if(view == help) {
 
         } else if(view == print) {
-            displayInformationMessageDialog("Do you wnt to print the summary? make sure bluetooth is ON");
+            displayInformationMessageDialog("Do you want to print the summary? make sure bluetooth is ON");
         }
     }
 

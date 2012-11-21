@@ -12,7 +12,7 @@ import com.wasn.pojos.Transaction;
  *
  * @author eranga.herath@pagero.com (eranga herath)
  */
-public class PrintService extends AsyncTask<String, String, String> {
+public class TransactionPrintService extends AsyncTask<String, String, String> {
 
     TransactionDetailsActivity activity;
     MobileBankApplication application;
@@ -21,7 +21,7 @@ public class PrintService extends AsyncTask<String, String, String> {
      * Initialize cass members
      * @param activity
      */
-    public PrintService(TransactionDetailsActivity activity) {
+    public TransactionPrintService(TransactionDetailsActivity activity) {
         this.activity = activity;
         application = (MobileBankApplication) activity.getApplication();
     }
@@ -46,8 +46,6 @@ public class PrintService extends AsyncTask<String, String, String> {
             application.getMobileBankData().updateBalanceAmount(transaction.getClientAccountNo(), transaction.getCurrentBalance());
         } else if(printState.equals("RE_PRINT")) {
             // todo send data to printer
-        } else {
-            // print summary
         }
 
         return null;

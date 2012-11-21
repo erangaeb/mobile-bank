@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Transaction;
-import com.wasn.services.backgroundservices.PrintService;
+import com.wasn.services.backgroundservices.TransactionPrintService;
 
 import java.util.ArrayList;
 
@@ -151,12 +151,12 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
                 dialog.cancel();
                 // print and save transaction in database
                 // print two receipts
-                new PrintService(TransactionDetailsActivity.this).execute("PRINT");
+                new TransactionPrintService(TransactionDetailsActivity.this).execute("PRINT");
             } else {
                 dialog.cancel();
                 // print only one receipt
                 // reprint
-                new PrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
+                new TransactionPrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
             }
             }
         });

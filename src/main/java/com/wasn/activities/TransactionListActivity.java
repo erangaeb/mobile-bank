@@ -14,7 +14,6 @@ import android.view.Window;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Transaction;
-import com.wasn.services.backgroundservices.PrintService;
 import com.wasn.services.backgroundservices.TransactionSyncService;
 import com.wasn.utils.TransactionUtils;
 
