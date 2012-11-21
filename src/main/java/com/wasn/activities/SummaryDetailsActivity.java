@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Attribute;
 import com.wasn.services.backgroundservices.SummaryPrintService;
@@ -34,6 +31,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
     AttributeListAdapter adapter;
 
     // form components
+    LinearLayout bottomPannel;
     RelativeLayout back;
     RelativeLayout help;
     RelativeLayout print;
@@ -56,6 +54,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
     public void init() {
         application = (MobileBankApplication) SummaryDetailsActivity.this.getApplication();
 
+        bottomPannel = (LinearLayout) findViewById(R.id.summary_details_layout_bottom_pannel);
         back = (RelativeLayout) findViewById(R.id.summary_details_layout_back);
         help = (RelativeLayout) findViewById(R.id.summary_details_layout_help);
         print = (RelativeLayout) findViewById(R.id.summary_details_layout_print);
@@ -74,6 +73,13 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
         attributesList = TransactionUtils.getSummary(application.getTransactionList());
         summaryDetailsListView = (ListView) findViewById(R.id.summary_details_list);
 
+        // need to disable print if un synced transaction available
+        if(TransactionUtils.getUnSyncedTransactionList(application.getTransactionList()).size()>0) {
+            disableBottomPannel();
+        } else {
+            enableBottomPannel();
+        }
+
         // add header and footer
         View headerView = View.inflate(this, R.layout.header, null);
         View footerView = View.inflate(this, R.layout.footer, null);
@@ -83,6 +89,20 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
 
         adapter = new AttributeListAdapter(SummaryDetailsActivity.this, attributesList);
         summaryDetailsListView.setAdapter(adapter);
+    }
+
+    /**
+     * disable bottom pannel
+     */
+    public void disableBottomPannel() {
+        bottomPannel.setVisibility(View.GONE);
+    }
+
+    /**
+     * display bottom pannel
+     */
+    public void enableBottomPannel() {
+        bottomPannel.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -137,6 +157,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
      * Execute after printing task
      */
     public void onPostPrint() {
+        startActivity(new Intent(SummaryDetailsActivity.this, TransactionListActivity.class));
         SummaryDetailsActivity.this.finish();
     }
 
