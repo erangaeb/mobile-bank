@@ -47,7 +47,7 @@ public class TransactionSyncService extends AsyncTask<String, String, String> {
         // todo sync transaction
 
         // todo update database transaction sync state
-        application.getMobileBankData().updateTransactionSyncState(unSyncedTransactionList);1
+        application.getMobileBankData().updateTransactionSyncState(unSyncedTransactionList);
 
         return "0";
     }

@@ -1,16 +1,20 @@
 package com.wasn.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.Window;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Transaction;
+import com.wasn.services.backgroundservices.PrintService;
 import com.wasn.services.backgroundservices.TransactionSyncService;
 import com.wasn.utils.TransactionUtils;
 
@@ -250,6 +254,54 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     }
 
     /**
+     * Display message dialog when user going to logout
+     * @param message
+     */
+    public void displayInformationMessageDialog(String message) {
+        final Dialog dialog = new Dialog(TransactionListActivity.this);
+
+        //set layout for dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.information_message_dialog_layout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        // set dialog texts
+        TextView messageHeaderTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_header_text);
+        TextView messageTextView = (TextView) dialog.findViewById(R.id.information_message_dialog_layout_message_text);
+        messageTextView.setText(message);
+
+        // set custom font
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        messageHeaderTextView.setTypeface(face);
+        messageHeaderTextView.setTypeface(null, Typeface.BOLD);
+        messageTextView.setTypeface(face);
+
+        //set ok button
+        Button okButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_ok_button);
+        okButton.setTypeface(face);
+        okButton.setTypeface(null, Typeface.BOLD);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+                syncTransaction();
+            }
+        });
+
+        // cancel button
+        Button cancelButton = (Button) dialog.findViewById(R.id.information_message_dialog_layout_cancel_button);
+        cancelButton.setTypeface(face);
+        cancelButton.setTypeface(null, Typeface.BOLD);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void onClick(View view) {
@@ -273,9 +325,10 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         } else if(view == done) {
             if(doneText.getText().toString().equals("Sync")) {
                 // sync transactions
-                syncTransaction();
+                displayInformationMessageDialog("Are you sure you want to sync transactions? ");
             } else if(doneText.getText().toString().equals("Summary")) {
                 // display summary activity
+                startActivity(new Intent(TransactionListActivity.this, SummaryDetailsActivity.class));
             }
         }
     }

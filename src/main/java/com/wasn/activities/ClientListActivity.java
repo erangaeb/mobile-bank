@@ -103,7 +103,7 @@ public class ClientListActivity extends Activity implements View.OnClickListener
                 // filter text with regex
                 String text = filterText.getText().toString().trim();
                 String regex = text;
-                Pattern pattern = Pattern.compile(regex,Pattern.CASE_INSENSITIVE| Pattern.MULTILINE);
+                Pattern pattern = Pattern.compile(regex,Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
                 int textLength = filterText.getText().length();
                 filteredClientList.clear();

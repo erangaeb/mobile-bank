@@ -2,6 +2,7 @@ package com.wasn.utils;
 
 import com.wasn.exceptions.InvalidAccountException;
 import com.wasn.exceptions.InvalidBalanceAmountException;
+import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
@@ -56,7 +57,7 @@ public class TransactionUtils {
                                                   client.getBalanceAmount(),
                                                   amount,
                                                   getBalanceAmount(client.getBalanceAmount(), amount),
-                                                  getTransactionTime(),
+                                                  getCurrentTime(),
                                                   getReceiptId(branchId, transactionId),
                                                   client.getId(),
                                                   "DEPOSIT",
@@ -92,7 +93,7 @@ public class TransactionUtils {
      * format - yyyy/MM/dd HH:mm:ss
      * @return
      */
-    private static String getTransactionTime() {
+    private static String getCurrentTime() {
         //date format
         String DATE_FORMAT_NOW = "yyyy/MM/dd HH:mm:ss";
 
@@ -138,5 +139,54 @@ public class TransactionUtils {
 
         return unSyncedTransactionList;
     }
+
+    /**
+     * Get summary as a list of attributes
+     * @param transactionList
+     */
+    public static ArrayList<Attribute> getSummary(ArrayList<Transaction> transactionList) {
+        ArrayList<Attribute> attributeList = new ArrayList<Attribute>();
+
+        String currentTime = getCurrentTime();
+        String branchId = transactionList.get(0).getBranchId();
+        int transactionCount = transactionList.size();
+
+        // get formatted total transaction amount
+        String totalTransactionAmount = "0.00";
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+        try {
+            totalTransactionAmount = decimalFormat.format(getTotalTransactionAmount(transactionList));
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+
+        String lastReceiptId = transactionList.get(transactionCount-1).getReceiptId();
+
+        // fill attribute list
+        attributeList.add(new Attribute("Time", currentTime));
+        attributeList.add(new Attribute("Branch ID", branchId));
+        attributeList.add(new Attribute("Transaction Count", Integer.toString(transactionCount)));
+        attributeList.add(new Attribute("Total Amount", totalTransactionAmount));
+        attributeList.add(new Attribute("Last Receipt ID", lastReceiptId));
+
+        return attributeList;
+    }
+
+    /**
+     * Get to total transaction amount
+     * @param transactionList
+     * @return deposit count
+     */
+    public static double getTotalTransactionAmount(ArrayList<Transaction> transactionList) throws NumberFormatException {
+        double total = 0;
+
+        for(int i=0; i<transactionList.size(); i++) {
+            total = total + Double.parseDouble(transactionList.get(i).getTransactionAmount());
+        }
+
+        return total;
+    }
+
 
 }
