@@ -31,6 +31,8 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         // todo send data to printer
 
+        application.getMobileBankData().deleteAllTransaction();
+        application.resetFields();
         return null;
     }
 

@@ -157,7 +157,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
      * Execute after printing task
      */
     public void onPostPrint() {
-        startActivity(new Intent(SummaryDetailsActivity.this, TransactionListActivity.class));
+        //startActivity(new Intent(SummaryDetailsActivity.this, TransactionListActivity.class));
         SummaryDetailsActivity.this.finish();
     }
 
@@ -170,7 +170,7 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
         } else if(view == help) {
 
         } else if(view == print) {
-            displayInformationMessageDialog("Do you want to print the summary? make sure bluetooth is ON");
+            displayInformationMessageDialog("Do you want to print the summary? After printing summary all the transaction will be deleted. make sure bluetooth is ON");
         }
     }
 

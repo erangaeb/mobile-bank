@@ -101,8 +101,6 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         emptyView = (ViewStub) findViewById(R.id.transaction_list_layout_empty_view);
 
         allTransactionList = application.getTransactionList();
-        //populateList();
-        // todo get all transactions from database
 
         // add header and footer
         View headerView = View.inflate(this, R.layout.header, null);
@@ -133,6 +131,22 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(unsyncedTransactionHeader.isSelected()) {
+            // display un synced list
+            displayUnsyncedTransactionList();
+        } else {
+            // all transactions
+            displayAllTransactionList();
+        }
+    }
+
+    /**
      * Display un synced transaction list
      */
     public void displayUnsyncedTransactionList() {
@@ -155,6 +169,8 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
      * Display all transaction list
      */
     public void displayAllTransactionList() {
+        allTransactionList = application.getTransactionList();
+
         if(allTransactionList.size()>0) {
             // have transaction
             adapter = new TransactionListAdapter(TransactionListActivity.this, allTransactionList);

@@ -536,4 +536,16 @@ public class MobileBankData {
         db.close();
     }
 
+    /**
+     * Delete all transaction after day end
+     */
+    public void deleteAllTransaction() {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //delete all records in client table
+        db.delete(DBHelper.TABLE_NAME_TRANSACTION, null, null);
+
+        db.close();
+    }
+
 }
