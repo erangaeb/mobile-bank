@@ -89,7 +89,7 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
 
         // get sample client list
         for (int i=0; i<15; i++) {
-            Client client = new Client(""+i, "Eranga bnadara heratha" +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
+            Client client = new Client(""+i, "Eranga bnadara " +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
             clientList.add(client);
         }
 
@@ -107,8 +107,6 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-        // download
-        activity.startActivity(new Intent(activity, MobileBankActivity.class));
-        activity.finish();
+        activity.onPostDownload();
     }
 }

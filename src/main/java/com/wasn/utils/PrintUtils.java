@@ -24,7 +24,7 @@ public class PrintUtils {
     private static final UUID SERVICE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     // printer bluetooth address
-    private static String bluetoothAddress = "00:03:7A:1A:1B:E7";
+    private static String bluetoothAddress = "00:22:58:38:AE:90";
 
     /**
      * Get bluetooth adaoer to deal with bluetooth related functionalities

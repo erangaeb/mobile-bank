@@ -2,20 +2,23 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.WindowManager;
+import android.widget.*;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.BluetoothNotAvailableException;
+import com.wasn.exceptions.BluetoothNotEnableException;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Transaction;
 import com.wasn.services.backgroundservices.TransactionPrintService;
+import com.wasn.utils.PrintUtils;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 public class TransactionDetailsActivity extends Activity implements View.OnClickListener {
 
     MobileBankApplication application;
+
+    public static final int DIALOG_LOADING = 1;
 
     // previous activity name
     private static String previousActivity;
@@ -41,6 +46,8 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     RelativeLayout help;
     RelativeLayout print;
     TextView headerText;
+
+    private ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -146,18 +153,38 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
         okButton.setTypeface(null, Typeface.BOLD);
         okButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            // printing event need to handle according to previous activity
-            if(previousActivity.equals(MobileBankActivity.class.getName())) {
-                dialog.cancel();
-                // print and save transaction in database
-                // print two receipts
-                new TransactionPrintService(TransactionDetailsActivity.this).execute("PRINT");
-            } else {
-                dialog.cancel();
-                // print only one receipt
-                // reprint
-                new TransactionPrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
-            }
+                // printing event need to handle according to previous activity
+                if(previousActivity.equals(MobileBankActivity.class.getName())) {
+                    dialog.cancel();
+                    // print and save transaction in database
+                    // print two receipts
+                    try {
+                        if(PrintUtils.isEnableBluetooth()) {
+                            showDialog(DIALOG_LOADING);
+                            new TransactionPrintService(TransactionDetailsActivity.this).execute("PRINT");
+                        }
+                    } catch (BluetoothNotEnableException e) {
+                        Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not enabled",Toast.LENGTH_LONG).show();
+                    } catch (BluetoothNotAvailableException e) {
+                        Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    dialog.cancel();
+                    // print only one receipt
+                    // reprint
+                    try {
+                        if(PrintUtils.isEnableBluetooth()) {
+                            showDialog(DIALOG_LOADING);
+                            new TransactionPrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
+                        }
+
+
+                    } catch (BluetoothNotEnableException e) {
+                        Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not enabled",Toast.LENGTH_LONG).show();
+                    } catch (BluetoothNotAvailableException e) {
+                        Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
@@ -175,19 +202,80 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     }
 
     /**
-     * Execute after printing task
+     * {@inheritDoc}
      */
-    public void onPostPrint() {
-        if(previousActivity.equals(MobileBankActivity.class.getName())) {
-            // clear shared objects
-            application.resetFields();
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DIALOG_LOADING:
+                // set layout of progress dialog
+                final Dialog dialog = new Dialog(TransactionDetailsActivity.this, android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                dialog.setContentView(R.layout.custom_progress_dialog_layout);
+                dialog.setCancelable(true);
 
-            // need to go back to transaction activity
-            startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
-            TransactionDetailsActivity.this.finish();
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+                return dialog;
+
+            default:
+                return null;
+        }
+    };
+
+    /**
+     * Close progress dialog
+     */
+    public void closeProgressDialog() {
+        dismissDialog(DIALOG_LOADING);
+    }
+
+    /**
+     * Execute after printing task
+     * @param status print status
+     */
+    public void onPostPrint(String status) {
+        // close progress dialog
+        closeProgressDialog();
+
+        if(previousActivity.equals(MobileBankActivity.class.getName())) {
+            if(status.equals("1")) {
+                // clear shared objects
+                application.resetFields();
+                Toast.makeText(TransactionDetailsActivity.this,"Transaction saved",Toast.LENGTH_LONG).show();
+
+                // need to go back to transaction activity
+                startActivity(new Intent(TransactionDetailsActivity.this, TransactionActivity.class));
+                TransactionDetailsActivity.this.finish();
+            } else if(status.equals("0")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Cannot print receipt",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-1") | (status.equals("-4"))) {
+                Toast.makeText(TransactionDetailsActivity.this,"Cannot connect to printer",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-2")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not enabled",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-3")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
+            }
         } else {
-            // back to transaction list
-            TransactionDetailsActivity.this.finish();
+            if(status.equals("1")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Receipt printed",Toast.LENGTH_LONG).show();
+
+                // back to transaction list
+                TransactionDetailsActivity.this.finish();
+            } else if(status.equals("0")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Cannot print receipt",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-1") | (status.equals("-4"))) {
+                Toast.makeText(TransactionDetailsActivity.this,"Cannot connect to printer",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-2")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not enabled",Toast.LENGTH_LONG).show();
+            } else if(status.equals("-3")) {
+                Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
+            }
         }
     }
 

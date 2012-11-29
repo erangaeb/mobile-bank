@@ -124,6 +124,6 @@ public class TransactionPrintService extends AsyncTask<String, String, String> {
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-        activity.onPostPrint();
+        activity.onPostPrint(status);
     }
 }
