@@ -4,16 +4,20 @@ import com.wasn.exceptions.CannotProcessRequestException;
 import com.wasn.exceptions.DataLostException;
 import com.wasn.exceptions.ResponseErrorException;
 import com.wasn.pojos.Client;
+import com.wasn.pojos.Transaction;
 import com.wasn.utils.NetworkUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -26,7 +30,7 @@ import java.util.ArrayList;
 public class DataCommunication {
 
     private static final String DOWNLOAD_URL = "http://10.100.31.5:8080/MBank_Server/SinkServlet";
-    private static final String SYNC_URL = "";
+    private static final String SYNC_URL = "http://10.100.31.5:8080/MBank_Server/TransactionServlet";
 
     /**
      * Get client details from server
@@ -66,6 +70,31 @@ public class DataCommunication {
         }
 
         return clientList;
+    }
+
+    public void syncTransactions(ArrayList<Transaction> transactionList) throws URISyntaxException, IOException, CannotProcessRequestException {
+        // get request to server
+        HttpClient httpclient = new DefaultHttpClient();
+        URI uri = new URI(DOWNLOAD_URL);
+        HttpPost httpPost = new HttpPost(uri);
+
+        StringEntity entity = new StringEntity(getSyncRecord(transactionList));
+        httpPost.setEntity(entity);
+
+        HttpResponse httpResponse =httpclient.execute(httpPost);
+        int status = httpResponse.getStatusLine().getStatusCode();
+
+        // successful request
+        if(status == HttpStatus.SC_OK) {
+            // extract response from server
+            HttpEntity httpEntity = httpResponse.getEntity();
+            if (httpEntity != null) {
+                InputStream inputStream = httpEntity.getContent();
+                String serverResponse = NetworkUtil.convertStreamToString(inputStream);
+            }
+        } else {
+            throw new CannotProcessRequestException();
+        }
     }
 
     /**
@@ -121,5 +150,36 @@ public class DataCommunication {
         }
 
         return clientList;
+    }
+
+    /**
+     * Create '\n' separated string with transaction details
+     * @param transactionList un-synced transaction list
+     * @return record
+     */
+    private String getSyncRecord(ArrayList<Transaction> transactionList) {
+        String syncRecord = "";
+
+        // initially add transaction count
+        syncRecord = syncRecord + "sync"+" "+transactionList.size()+"\n";
+
+        // append transaction records
+        for(int i=0;i<transactionList.size();i++){
+            Transaction transaction=transactionList.get(i);
+
+            //sending record consists \n
+            String transactionRecord = transaction.getTransactionTime().replace(" ", "  ")+","+
+                                       transaction.getClientAccountNo()+","+
+                                       transaction.getClientId()+","+
+                                       transaction.getTransactionType()+","+
+                                       transaction.getTransactionAmount()+","+
+                                       "empty"+","+
+                                       transaction.getBranchId()+","+
+                                       transaction.getReceiptId()+","+
+                                       "empty"+"\n";
+            syncRecord = syncRecord + transactionRecord;
+        }
+
+        return syncRecord;
     }
 }
