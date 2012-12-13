@@ -4,6 +4,15 @@ import android.os.AsyncTask;
 import com.wasn.activities.SummaryDetailsActivity;
 import com.wasn.activities.TransactionDetailsActivity;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.BluetoothNotAvailableException;
+import com.wasn.exceptions.BluetoothNotEnableException;
+import com.wasn.exceptions.CannotConnectToPrinterException;
+import com.wasn.exceptions.CannotPrintException;
+import com.wasn.pojos.Summary;
+import com.wasn.utils.PrintUtils;
+import com.wasn.utils.TransactionUtils;
+
+import java.io.IOException;
 
 /**
  * Background task that handles summary printing
@@ -29,11 +38,44 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
      */
     @Override
     protected String doInBackground(String... strings) {
-        // todo send data to printer
+        // send data to printer
+        return print();
+    }
 
-        application.getMobileBankData().deleteAllTransaction();
-        application.resetFields();
-        return null;
+    /**
+     * print summary receipt
+     * @return print status
+     */
+    private String print() {
+        Summary summary = TransactionUtils.getSummary(application.getTransactionList());
+
+        // send ate to printer
+        try {
+            PrintUtils.printSummary(summary);
+
+            // print summary means day end
+            // clear all data
+            application.getMobileBankData().deleteAllTransaction();
+            application.resetFields();
+
+            return "1";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "-1";
+        } catch (BluetoothNotEnableException e) {
+            e.printStackTrace();
+            return "-2";
+        } catch (BluetoothNotAvailableException e) {
+            e.printStackTrace();
+        } catch (CannotConnectToPrinterException e) {
+            e.printStackTrace();
+            return "-3";
+        } catch (CannotPrintException e) {
+            e.printStackTrace();
+            return "0";
+        }
+
+        return "0";
     }
 
     /**
@@ -43,6 +85,6 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-        activity.onPostPrint();
+        activity.onPostPrint(status);
     }
 }

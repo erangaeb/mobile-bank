@@ -4,6 +4,7 @@ import com.wasn.exceptions.InvalidAccountException;
 import com.wasn.exceptions.InvalidBalanceAmountException;
 import com.wasn.pojos.Attribute;
 import com.wasn.pojos.Client;
+import com.wasn.pojos.Summary;
 import com.wasn.pojos.Transaction;
 
 import java.text.DecimalFormat;
@@ -144,10 +145,7 @@ public class TransactionUtils {
      * Get summary as a list of attributes
      * @param transactionList
      */
-    public static ArrayList<Attribute> getSummary(ArrayList<Transaction> transactionList) {
-        ArrayList<Attribute> attributeList = new ArrayList<Attribute>();
-
-        String currentTime = getCurrentTime();
+    public static Summary getSummary(ArrayList<Transaction> transactionList) {
         String branchId = transactionList.get(0).getBranchId();
         int transactionCount = transactionList.size();
 
@@ -161,16 +159,11 @@ public class TransactionUtils {
             System.out.println(e);
         }
 
+        String currentTime = getCurrentTime();
         String lastReceiptId = transactionList.get(transactionCount-1).getReceiptId();
 
-        // fill attribute list
-        attributeList.add(new Attribute("Time", currentTime));
-        attributeList.add(new Attribute("Branch ID", branchId));
-        attributeList.add(new Attribute("Transaction Count", Integer.toString(transactionCount)));
-        attributeList.add(new Attribute("Total Amount", totalTransactionAmount));
-        attributeList.add(new Attribute("Last Receipt ID", lastReceiptId));
-
-        return attributeList;
+        // new summary
+        return new Summary(branchId, Integer.toString(transactionCount), totalTransactionAmount, currentTime, lastReceiptId);
     }
 
     /**
