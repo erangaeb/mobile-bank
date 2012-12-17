@@ -54,9 +54,13 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         String downloadStatus = "0";
 
         // download and save client list
-        /*try {
+        try {
             ArrayList<Client> clientList = new DataCommunication().getClients(branchId);
             application.getMobileBankData().insetClients(clientList);
+
+            // add client list to database
+            application.getMobileBankData().insetClients(clientList);
+            application.getMobileBankData().setDownloadState("1");
 
             downloadStatus = "1";
         } catch (URISyntaxException e) {
@@ -83,19 +87,7 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
             // database error
             e.printStackTrace();
             downloadStatus = "-4";
-        }*/
-
-        ArrayList<Client> clientList = new ArrayList<Client>();
-
-        // get sample client list
-        for (int i=0; i<15; i++) {
-            Client client = new Client(""+i, "Eranga bnadara " +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
-            clientList.add(client);
         }
-
-        // add client list to database
-        application.getMobileBankData().insetClients(clientList);
-        application.getMobileBankData().setDownloadState("1");
 
         return downloadStatus;
     }
@@ -107,6 +99,6 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
 
-        activity.onPostDownload();
+        activity.onPostDownload(status);
     }
 }

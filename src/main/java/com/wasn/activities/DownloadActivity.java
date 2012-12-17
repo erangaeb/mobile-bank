@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.services.backgroundservices.ClientDataDownloadService;
 
@@ -116,13 +117,35 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
 
     /**
      * execute after downloading client details
+     * @param status download status
      */
-    public void onPostDownload() {
+    public void onPostDownload(String status) {
         closeProgressDialog();
+
+        // display toast according to download status
+        if(status.equals("1")) {
+            displayToast("Successfully downloaded data");
+        } else if(status.equals("-2")) {
+            displayToast("Data lost while downloading");
+        } else if(status.equals("-3")) {
+            displayToast("Server response error");
+        } else if(status.equals("-4")) {
+            displayToast("Error in mobile database");
+        } else {
+            displayToast("Cannot process request");
+        }
 
         // start mobile bank activity
         startActivity(new Intent(DownloadActivity.this, MobileBankActivity.class));
         DownloadActivity.this.finish();
+    }
+
+    /**
+     * Display toast message
+     * @param message message tobe display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(DownloadActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -131,7 +154,7 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         if(view == download) {
             showDialog(DIALOG_LOADING);
-            new ClientDataDownloadService(DownloadActivity.this).execute("1");
+            new ClientDataDownloadService(DownloadActivity.this).execute("5");
         } else if(view == skip) {
             // skip download and start mobile bank activity
             startActivity(new Intent(DownloadActivity.this, MobileBankActivity.class));
