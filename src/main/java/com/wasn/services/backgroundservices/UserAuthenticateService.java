@@ -48,7 +48,14 @@ public class UserAuthenticateService extends AsyncTask<String, String, String> {
             // get branch id
             // store it in database
             int branchID = new DataCommunication().authenticateUser(username, password);
-            application.getMobileBankData().setBranchId(Integer.toString(branchID));
+
+            // match branch id
+            // mismatch means different branch id
+            // need to download data
+            if(!application.getMobileBankData().getBranchId().equals(Integer.toString(branchID))) {
+                application.getMobileBankData().setDownloadState("0");
+                application.getMobileBankData().setBranchId(Integer.toString(branchID));
+            }
             return "1";
         } catch (IOException e) {
             // cannot process request

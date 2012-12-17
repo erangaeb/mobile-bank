@@ -55,10 +55,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         login = (RelativeLayout) findViewById(R.id.login_layout_login);
 
         login.setOnClickListener(LoginActivity.this);
-
-        System.out.println("login state " + application.getMobileBankData().getLoginState());
-        application.getMobileBankData().setLoginState("1");
-        System.out.println("login state " + application.getMobileBankData().getLoginState());
     }
 
     /**
