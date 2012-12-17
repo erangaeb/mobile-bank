@@ -7,6 +7,7 @@ import com.wasn.exceptions.UnAuthenticatedUserException;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 import com.wasn.utils.NetworkUtil;
+import com.wasn.utils.SHA1;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -47,7 +48,7 @@ public class DataCommunication {
         // get request to server
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpGet;
-        URI uri = new URI(LOGIN_URL + "?username=" +username+"&" + "password="+password);
+        URI uri = new URI(LOGIN_URL + "?username=" +username+"&" + "password="+ SHA1.encode(password));
         httpGet = new HttpGet(uri);
 
         HttpResponse httpResponse = httpclient.execute(httpGet);

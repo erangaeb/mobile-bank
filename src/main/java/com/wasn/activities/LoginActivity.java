@@ -79,7 +79,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             // connect if only available network connection
             if(NetworkUtil.isAvailableNetwork(LoginActivity.this)) {
                 // start background thread to authenticate user
-                progressDialog = ProgressDialog.show(LoginActivity.this, "", "Authenticating user");
+                progressDialog = ProgressDialog.show(LoginActivity.this, "", "Authenticating user, Please wait");
                 new UserAuthenticateService(LoginActivity.this).execute(username, password);
             } else {
                 displayToast("No network connection");
