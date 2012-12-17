@@ -14,6 +14,7 @@ import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.User;
 import com.wasn.services.backgroundservices.UserAuthenticateService;
 import com.wasn.utils.LoginUtils;
+import com.wasn.utils.NetworkUtil;
 
 /**
  * Activity class correspond to login
@@ -75,9 +76,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         try {
             LoginUtils.validateFields(user);
 
-            // start background thread to authenticate user
-            progressDialog = ProgressDialog.show(LoginActivity.this, "", "Authenticating user");
-            new UserAuthenticateService(LoginActivity.this).execute(username, password);
+            // connect if only available network connection
+            if(NetworkUtil.isAvailableNetwork(LoginActivity.this)) {
+                // start background thread to authenticate user
+                progressDialog = ProgressDialog.show(LoginActivity.this, "", "Authenticating user");
+                new UserAuthenticateService(LoginActivity.this).execute(username, password);
+            } else {
+                displayToast("No network connection");
+            }
         } catch (IllegalArgumentException e) {
             displayMessageDialog("Error", "Empty fields, make sure not empty username and password");
         }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.services.backgroundservices.ClientDataDownloadService;
+import com.wasn.utils.NetworkUtil;
 
 /**
  * Activity class correspond to download
@@ -84,6 +85,20 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
     }
 
     /**
+     * Download data from server
+     */
+    public void download() {
+        // download data if only available network connection
+        if(NetworkUtil.isAvailableNetwork(DownloadActivity.this)) {
+            // start background thread to download data
+            progressDialog = ProgressDialog.show(DownloadActivity.this, "", "Downloading client data from bank server");
+            new ClientDataDownloadService(DownloadActivity.this).execute(application.getMobileBankData().getBranchId());
+        } else {
+            displayToast("No network connection");
+        }
+    }
+
+    /**
      * Close progress dialog
      */
     public void closeProgressDialog() {
@@ -130,14 +145,12 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
      */
     public void onClick(View view) {
         if(view == download) {
-            progressDialog = ProgressDialog.show(DownloadActivity.this, "", "Downloading client data from bank server");
-            new ClientDataDownloadService(DownloadActivity.this).execute("5");
+            download();
         } else if(view == skip) {
             // skip download and start mobile bank activity
             startActivity(new Intent(DownloadActivity.this, MobileBankActivity.class));
             DownloadActivity.this.finish();
         }
-
     }
 
 }
