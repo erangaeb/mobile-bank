@@ -2,6 +2,7 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -24,14 +25,15 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
 
     MobileBankApplication application;
 
-    public static final int DIALOG_LOADING = 1;
-
     // activity components
     TextView headerText;
     TextView informationText;
     TextView questionText;
     RelativeLayout download;
     RelativeLayout skip;
+
+    // display when downloading
+    public ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -82,37 +84,12 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DIALOG_LOADING:
-                // set layout of progress dialog
-                final Dialog dialog = new Dialog(DownloadActivity.this, android.R.style.Theme_Translucent);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                dialog.setContentView(R.layout.custom_progress_dialog_layout);
-                dialog.setCancelable(true);
-
-                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    public void onCancel(DialogInterface dialog) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-                return dialog;
-
-            default:
-                return null;
-        }
-    };
-
-    /**
      * Close progress dialog
      */
     public void closeProgressDialog() {
-        dismissDialog(DIALOG_LOADING);
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
     }
 
     /**
@@ -153,7 +130,7 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
      */
     public void onClick(View view) {
         if(view == download) {
-            showDialog(DIALOG_LOADING);
+            progressDialog = ProgressDialog.show(DownloadActivity.this, "", "Downloading client data from bank server");
             new ClientDataDownloadService(DownloadActivity.this).execute("5");
         } else if(view == skip) {
             // skip download and start mobile bank activity
