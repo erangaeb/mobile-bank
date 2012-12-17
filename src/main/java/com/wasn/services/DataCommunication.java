@@ -3,6 +3,7 @@ package com.wasn.services;
 import com.wasn.exceptions.CannotProcessRequestException;
 import com.wasn.exceptions.DataLostException;
 import com.wasn.exceptions.ResponseErrorException;
+import com.wasn.exceptions.UnAuthenticatedUserException;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 import com.wasn.utils.NetworkUtil;
@@ -17,7 +18,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -29,8 +29,58 @@ import java.util.ArrayList;
  */
 public class DataCommunication {
 
+    private static final String LOGIN_URL = "http://10.100.31.5:8080/MBank_Server/LoginServlet";
     private static final String DOWNLOAD_URL = "http://10.100.31.5:8080/MBank_Server/SinkServlet";
     private static final String SYNC_URL = "http://10.100.31.5:8080/MBank_Server/TransactionServlet";
+
+    /**
+     * Authentication user
+     * @param username username
+     * @param password password
+     * @return branch id
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws CannotProcessRequestException
+     * @throws UnAuthenticatedUserException
+     */
+    public int authenticateUser(String username, String password) throws IOException, URISyntaxException, CannotProcessRequestException, UnAuthenticatedUserException {
+        // get request to server
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpGet httpGet;
+        URI uri = new URI(LOGIN_URL + "?username=" +username+"&" + "password="+password);
+        httpGet = new HttpGet(uri);
+
+        HttpResponse httpResponse = httpclient.execute(httpGet);
+        int status = httpResponse.getStatusLine().getStatusCode();
+
+        // successful request
+        if(status == HttpStatus.SC_OK) {
+            // extract response from server
+            HttpEntity httpEntity = httpResponse.getEntity();
+            if (httpEntity != null) {
+                InputStream inputStream = httpEntity.getContent();
+                String serverResponse = NetworkUtil.convertStreamToString(inputStream);
+
+                // get branch id from response
+                int branchId = Integer.parseInt(serverResponse.replace("\n",""));
+
+                if(branchId == 0) {
+                    throw new UnAuthenticatedUserException();
+                } if(branchId < 0) {
+                    throw new CannotProcessRequestException();
+                } else {
+                    // user authenticated
+                    // valid user
+                    return branchId;
+                }
+            } else {
+                throw new CannotProcessRequestException();
+            }
+        } else {
+            throw new CannotProcessRequestException();
+        }
+    }
+
 
     /**
      * Get client details from server

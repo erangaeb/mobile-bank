@@ -1,9 +1,7 @@
 package com.wasn.services.backgroundservices;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import com.wasn.activities.DownloadActivity;
-import com.wasn.activities.MobileBankActivity;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.exceptions.CannotProcessRequestException;
 import com.wasn.exceptions.DataLostException;

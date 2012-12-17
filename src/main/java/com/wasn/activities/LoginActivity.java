@@ -2,18 +2,17 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.User;
+import com.wasn.services.backgroundservices.UserAuthenticateService;
 import com.wasn.utils.LoginUtils;
 
 /**
@@ -29,6 +28,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     EditText usernameText;
     EditText passwordText;
     RelativeLayout login;
+
+    // display when authenticating
+    public ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -73,13 +75,53 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         try {
             LoginUtils.validateFields(user);
 
-            startActivity(new Intent(LoginActivity.this, DownloadActivity.class));
-            LoginActivity.this.finish();
-
-            // todo - start background thread to authenticate user
+            // start background thread to authenticate user
+            progressDialog = ProgressDialog.show(LoginActivity.this, "", "Authenticating user");
+            new UserAuthenticateService(LoginActivity.this).execute(username, password);
         } catch (IllegalArgumentException e) {
             displayMessageDialog("Error", "Empty fields, make sure not empty username and password");
         }
+    }
+
+    /**
+     * Close progress dialog
+     */
+    public void closeProgressDialog() {
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    /**
+     * execute after login
+     * @param status login status
+     */
+    public void onPostLogin(String status) {
+        closeProgressDialog();
+
+        // display toast according to download status
+        if(status.equals("1")) {
+            // login success
+            startActivity(new Intent(LoginActivity.this, DownloadActivity.class));
+            LoginActivity.this.finish();
+        } else if(status.equals("0")) {
+            // login fail
+            displayToast("Authentication fails");
+        } else if(status.equals("-2")) {
+            // error in server response
+            displayToast("Server response error");
+        } else {
+            // cannot process request
+            displayToast("Cannot process request");
+        }
+    }
+
+    /**
+     * Display toast message
+     * @param message message tobe display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     /**
