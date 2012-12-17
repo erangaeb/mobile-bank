@@ -108,16 +108,7 @@ public class ClientListAdapter extends BaseAdapter {
         });
 
         // set backgrounds of list view rows
-        if(i == 0) {
-            // top item
-            view.setBackgroundResource(R.drawable.invoice_list_top_item_background);
-        } else if(i == clientList.size()-1) {
-            // middle items
-            view.setBackgroundResource(R.drawable.invoice_list_bottom_item_background);
-        } else {
-            // bottom items
-            view.setBackgroundResource(R.drawable.invoice_list_item_background);
-        }
+        view.setBackgroundResource(R.drawable.invoice_list_item_background);
 
         return view;
     }
