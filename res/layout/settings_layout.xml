@@ -98,13 +98,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="31dp"
                 android:layout_marginTop="15dp"
-                android:text="Printer bluetooth URL"
+                android:text="Printer bluetooth address"
                 android:textColor="#4a4a4a"
                 android:textSize="17dp" >
             </TextView>
 
             <EditText
-                android:id="@+id/settings_layout_printer_url_text"
+                android:id="@+id/settings_layout_printer_address_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -178,20 +178,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="31dp"
                 android:layout_marginTop="20dp"
-                android:text="Branch address"
+                android:text="Branch name"
                 android:textColor="#4a4a4a"
                 android:textSize="17dp" >
             </TextView>
 
             <EditText
-                android:id="@+id/settings_layout_address_text"
+                android:id="@+id/settings_layout_branch_name_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:lines="3"
+                android:inputType="text"
                 android:textSize="20dp" >
             </EditText>
         </LinearLayout>

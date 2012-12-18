@@ -52,7 +52,7 @@ public class MobileBankData {
         public static final String TABLE_NAME_TRANSACTION = "raw_transaction";
         public static final String TABLE_NAME_APP_DATA = "app_data";
 
-        public static final int DB_VERSION = 4;
+        public static final int DB_VERSION = 6;
 
         public DBHelper() {
             super(context, DB_NAME, null, DB_VERSION);
@@ -118,6 +118,25 @@ public class MobileBankData {
             receiptValues.put("attribute_name", "receiptNo");
             receiptValues.put("attribute_value", "0");
 
+            // printer bluetooth address
+            // need to use when printing
+            ContentValues printerAddressValues = new ContentValues();
+            printerAddressValues.put("attribute_name", "printerAddress");
+            printerAddressValues.put("attribute_value", "");
+
+            // branch telephone
+            // need to insert in receipt
+            // default value is head office
+            ContentValues telephoneNoValues = new ContentValues();
+            telephoneNoValues.put("attribute_name", "telephoneNo");
+            telephoneNoValues.put("attribute_value", "011 2393759");
+
+            // branch name
+            // need to insert in receipt
+            ContentValues branchNameValues = new ContentValues();
+            branchNameValues.put("attribute_name", "branchName");
+            branchNameValues.put("attribute_value", "Colombo 02");
+
             //insert application data to app_data table
             try {
                 //insert fail throw exception
@@ -125,6 +144,9 @@ public class MobileBankData {
                 db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, downloadValues);
                 db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, branchValues);
                 db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, receiptValues);
+                db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, printerAddressValues);
+                db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, telephoneNoValues);
+                db.insertOrThrow(DBHelper.TABLE_NAME_APP_DATA, null, branchNameValues);
             } catch (Exception e) {
                 System.out.println("database onCreateFails " + e);
             }
@@ -306,6 +328,129 @@ public class MobileBankData {
 
         //update application data
         db.update(DBHelper.TABLE_NAME_APP_DATA, appDataValues, "attribute_name=?",new String[]{"receiptNo"});
+
+        db.close();
+    }
+
+    /**
+     * Get printer bluetooth URL
+     * @return printer bluetooth address
+     */
+    public String getPrinterAddress() {
+        String printerAddress = "";
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // create cursor for get app data   ( table name		     columns   		select		 	 	select args  		  groupby   having  orderby )
+        Cursor appDataCursor = db.query(DBHelper.TABLE_NAME_APP_DATA , null  , "attribute_name=?", new String[]{"printerAddress"},  null   , null ,  null   );
+
+        //has elements in cursor
+        if(appDataCursor.moveToNext()){
+            appDataCursor.moveToLast();
+            printerAddress = appDataCursor.getString(2);
+        }
+
+        appDataCursor.close();
+        db.close();
+
+        return printerAddress;
+    }
+
+    /**
+     * Set printer address
+     * @param printerAddress bluetooth url
+     */
+    public void setPrinterAddress(String printerAddress) {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values
+        ContentValues appDataValues =new ContentValues();
+        appDataValues.put("attribute_value", printerAddress);
+
+        //update application data
+        db.update(DBHelper.TABLE_NAME_APP_DATA, appDataValues, "attribute_name=?",new String[]{"printerAddress"});
+
+        db.close();
+    }
+
+    /**
+     * Get branch telephone no
+     * @return telephone no
+     */
+    public String getTelephoneNo() {
+        String telephoneNo = "";
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // create cursor for get app data   ( table name		     columns   		select		 	 	select args  		  groupby   having  orderby )
+        Cursor appDataCursor = db.query(DBHelper.TABLE_NAME_APP_DATA , null  , "attribute_name=?", new String[]{"telephoneNo"},  null   , null ,  null   );
+
+        //has elements in cursor
+        if(appDataCursor.moveToNext()){
+            appDataCursor.moveToLast();
+            telephoneNo = appDataCursor.getString(2);
+        }
+
+        appDataCursor.close();
+        db.close();
+
+        return telephoneNo;
+    }
+
+    /**
+     * Set branch telephone noe
+     * @param telephoneNo
+     */
+    public void setTelephoneNo(String telephoneNo) {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values
+        ContentValues appDataValues =new ContentValues();
+        appDataValues.put("attribute_value", telephoneNo);
+
+        //update application data
+        db.update(DBHelper.TABLE_NAME_APP_DATA, appDataValues, "attribute_name=?",new String[]{"telephoneNo"});
+
+        db.close();
+    }
+
+    /**
+     * Get current branch name
+     * @return branch name
+     */
+    public String getBranchName() {
+        String branchName = "";
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // create cursor for get app data   ( table name		     columns   		select		 	 	select args  		  groupby   having  orderby )
+        Cursor appDataCursor = db.query(DBHelper.TABLE_NAME_APP_DATA , null  , "attribute_name=?", new String[]{"branchName"},  null   , null ,  null   );
+
+        //has elements in cursor
+        if(appDataCursor.moveToNext()){
+            appDataCursor.moveToLast();
+            branchName = appDataCursor.getString(2);
+        }
+
+        appDataCursor.close();
+        db.close();
+
+        return branchName;
+    }
+
+    /**
+     * Set branch name
+     * @param branchName
+     */
+    public void setBranchName(String branchName) {
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+
+        //create content values
+        ContentValues appDataValues =new ContentValues();
+        appDataValues.put("attribute_value", branchName);
+
+        //update application data
+        db.update(DBHelper.TABLE_NAME_APP_DATA, appDataValues, "attribute_name=?",new String[]{"branchName"});
 
         db.close();
     }
