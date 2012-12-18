@@ -7,6 +7,7 @@ import com.wasn.exceptions.BluetoothNotAvailableException;
 import com.wasn.exceptions.BluetoothNotEnableException;
 import com.wasn.exceptions.CannotConnectToPrinterException;
 import com.wasn.exceptions.CannotPrintException;
+import com.wasn.pojos.Settings;
 import com.wasn.pojos.Transaction;
 import com.wasn.utils.PrintUtils;
 
@@ -36,9 +37,8 @@ public class TransactionPrintService extends AsyncTask<String, String, String> {
      */
     @Override
     protected String doInBackground(String... strings) {
-        // print state determine PRINT,RE_PRINT
+        // print type determine PRINT,RE_PRINT
         String printType = strings[0];
-
         String printState = "0";
 
         // send data to printer according to print state
@@ -58,43 +58,20 @@ public class TransactionPrintService extends AsyncTask<String, String, String> {
     public String print() {
         Transaction transaction = application.getTransaction();
 
+        // printing attributes
+        String printerAddress = application.getMobileBankData().getPrinterAddress();
+        String telephoneNo = application.getMobileBankData().getTelephoneNo();
+        String branchName = application.getMobileBankData().getBranchName();
+        Settings settings = new Settings(printerAddress, telephoneNo, branchName);
+
         // send data to printer
         try {
-            PrintUtils.printReceipt(application.getTransaction());
+            PrintUtils.printReceipt(application.getTransaction(), settings);
 
             // after printing save transaction and receipt no update client balance
             application.getMobileBankData().insertTransaction(transaction);
             application.getMobileBankData().setReceiptNo(Integer.toString(transaction.getId()));
             application.getMobileBankData().updateBalanceAmount(transaction.getClientAccountNo(), transaction.getCurrentBalance());
-
-            return "1";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "-1";
-        } catch (BluetoothNotEnableException e) {
-            e.printStackTrace();
-            return "-2";
-        } catch (BluetoothNotAvailableException e) {
-            e.printStackTrace();
-        } catch (CannotConnectToPrinterException e) {
-            e.printStackTrace();
-            return "-3";
-        } catch (CannotPrintException e) {
-            e.printStackTrace();
-            return "0";
-        }
-
-        return "0";
-    }
-
-    /**
-     * re print receipt
-     * @return
-     */
-    public String rePrint() {
-        // send data to printer
-        try {
-            PrintUtils.rePrintReceipt(application.getTransaction());
 
             return "1";
         } catch (IOException e) {
@@ -112,6 +89,48 @@ public class TransactionPrintService extends AsyncTask<String, String, String> {
         } catch (CannotPrintException e) {
             e.printStackTrace();
             return "0";
+        } catch (IllegalArgumentException e) {
+            // invalid bluetooth address
+            e.printStackTrace();
+            return "-5";
+        }
+    }
+
+    /**
+     * re print receipt
+     * @return
+     */
+    public String rePrint() {
+        // printing attributes
+        String printerAddress = application.getMobileBankData().getPrinterAddress();
+        String telephoneNo = application.getMobileBankData().getTelephoneNo();
+        String branchName = application.getMobileBankData().getBranchName();
+        Settings settings = new Settings(printerAddress, telephoneNo, branchName);
+
+        // send data to printer
+        try {
+            PrintUtils.rePrintReceipt(application.getTransaction(), settings);
+
+            return "1";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "-1";
+        } catch (BluetoothNotEnableException e) {
+            e.printStackTrace();
+            return "-2";
+        } catch (BluetoothNotAvailableException e) {
+            e.printStackTrace();
+            return "-3";
+        } catch (CannotConnectToPrinterException e) {
+            e.printStackTrace();
+            return "-4";
+        } catch (CannotPrintException e) {
+            e.printStackTrace();
+            return "0";
+        } catch (IllegalArgumentException e) {
+            // invalid bluetooth address
+            e.printStackTrace();
+            return "-5";
         }
     }
 

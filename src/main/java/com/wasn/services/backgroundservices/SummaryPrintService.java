@@ -8,6 +8,7 @@ import com.wasn.exceptions.BluetoothNotAvailableException;
 import com.wasn.exceptions.BluetoothNotEnableException;
 import com.wasn.exceptions.CannotConnectToPrinterException;
 import com.wasn.exceptions.CannotPrintException;
+import com.wasn.pojos.Settings;
 import com.wasn.pojos.Summary;
 import com.wasn.utils.PrintUtils;
 import com.wasn.utils.TransactionUtils;
@@ -49,9 +50,15 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
     private String print() {
         Summary summary = TransactionUtils.getSummary(application.getTransactionList());
 
+        // printing attributes
+        String printerAddress = application.getMobileBankData().getPrinterAddress();
+        String telephoneNo = application.getMobileBankData().getTelephoneNo();
+        String branchName = application.getMobileBankData().getBranchName();
+        Settings settings = new Settings(printerAddress, telephoneNo, branchName);
+
         // send ate to printer
         try {
-            PrintUtils.printSummary(summary);
+            PrintUtils.printSummary(summary, settings);
 
             // print summary means day end
             // clear all data

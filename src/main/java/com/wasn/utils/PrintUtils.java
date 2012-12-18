@@ -7,6 +7,7 @@ import com.wasn.exceptions.BluetoothNotAvailableException;
 import com.wasn.exceptions.BluetoothNotEnableException;
 import com.wasn.exceptions.CannotConnectToPrinterException;
 import com.wasn.exceptions.CannotPrintException;
+import com.wasn.pojos.Settings;
 import com.wasn.pojos.Summary;
 import com.wasn.pojos.Transaction;
 
@@ -25,7 +26,7 @@ public class PrintUtils {
     private static final UUID SERVICE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     // printer bluetooth address
-    private static String bluetoothAddress = "00:22:58:38:AE:90";
+    //private static String bluetoothAddress = "00:22:58:38:AE:90";
 
     /**
      * Get bluetooth adaoer to deal with bluetooth related functionalities
@@ -57,13 +58,14 @@ public class PrintUtils {
 
     /**
      * Connect to printer
+     * @param bluetoothAddress printer address
      * @return outputStream
      * @throws BluetoothNotEnableException
      * @throws BluetoothNotAvailableException
      * @throws IOException
      * @throws CannotConnectToPrinterException
      */
-    public static OutputStream connectToPrinter() throws BluetoothNotEnableException, BluetoothNotAvailableException, IOException, CannotConnectToPrinterException, IllegalArgumentException {
+    public static OutputStream connectToPrinter(String bluetoothAddress) throws BluetoothNotEnableException, BluetoothNotAvailableException, IOException, CannotConnectToPrinterException, IllegalArgumentException {
         OutputStream outputStream = null;
 
         if(isEnableBluetooth()) {
@@ -88,14 +90,15 @@ public class PrintUtils {
     /**
      * Print receipt via bluetooth
      * @param transaction printing transaction
+     * @param settings
      * @throws IOException
      * @throws BluetoothNotEnableException
      * @throws BluetoothNotAvailableException
      * @throws CannotConnectToPrinterException
      * @throws CannotPrintException
      */
-    public static void printReceipt(Transaction transaction) throws IOException, BluetoothNotEnableException, BluetoothNotAvailableException, CannotConnectToPrinterException, CannotPrintException {
-        OutputStream outputStream = connectToPrinter();
+    public static void printReceipt(Transaction transaction, Settings settings) throws IOException, BluetoothNotEnableException, BluetoothNotAvailableException, CannotConnectToPrinterException, CannotPrintException, IllegalArgumentException {
+        OutputStream outputStream = connectToPrinter(settings.getPrinterAddress());
 
         // receipt header
         String address      = ".           SANASA Development Bank\r\n";
@@ -193,14 +196,15 @@ public class PrintUtils {
     /**
      * Re-print receipt
      * @param transaction transaction to re-print
+     * @param settings
      * @throws IOException
      * @throws BluetoothNotEnableException
      * @throws BluetoothNotAvailableException
      * @throws CannotConnectToPrinterException
      * @throws CannotPrintException
      */
-    public static void rePrintReceipt(Transaction transaction) throws IOException, BluetoothNotEnableException, BluetoothNotAvailableException, CannotConnectToPrinterException, CannotPrintException {
-        OutputStream outputStream = connectToPrinter();
+    public static void rePrintReceipt(Transaction transaction, Settings settings) throws IOException, BluetoothNotEnableException, BluetoothNotAvailableException, CannotConnectToPrinterException, CannotPrintException, IllegalArgumentException {
+        OutputStream outputStream = connectToPrinter(settings.getPrinterAddress());
 
         // receipt header
         String address      = ".           SANASA Development Bank\r\n";
@@ -273,14 +277,15 @@ public class PrintUtils {
     /**
      * Print summary
      * @param summary summary object
+     * @param settings
      * @throws BluetoothNotEnableException
      * @throws IOException
      * @throws CannotConnectToPrinterException
      * @throws BluetoothNotAvailableException
      * @throws CannotPrintException
      */
-    public static void printSummary(Summary summary) throws BluetoothNotEnableException, IOException, CannotConnectToPrinterException, BluetoothNotAvailableException, CannotPrintException {
-        OutputStream outputStream = connectToPrinter();
+    public static void printSummary(Summary summary, Settings settings) throws BluetoothNotEnableException, IOException, CannotConnectToPrinterException, BluetoothNotAvailableException, CannotPrintException, IllegalArgumentException {
+        OutputStream outputStream = connectToPrinter(settings.getPrinterAddress());
 
         // receipt header
         String address      = ".           SANASA Development Bank\r\n";
@@ -349,17 +354,16 @@ public class PrintUtils {
      * @throws CannotPrintException
      */
     public static void printTestPrint(String printerAddress) throws BluetoothNotEnableException, IOException, CannotConnectToPrinterException, BluetoothNotAvailableException, CannotPrintException, IllegalArgumentException {
-        bluetoothAddress = printerAddress;
-        OutputStream outputStream = connectToPrinter();
+        OutputStream outputStream = connectToPrinter(printerAddress);
 
         // receipt header
         String address      = ".           SANASA Development Bank\r\n";
-        String branch       = "                  colombo - 02     \r\n";
-        String telephoneNo  = "                Tel: 011 2393759   \r\n";
+        String branch       = "                  Test Branch     \r\n";
+        String telephoneNo  = "                   Tel: Test      \r\n";
 
         // printing receipt type
         // customer copy/ agent copy
-        String receiptType  = "           (Reprint Agent/Customer copy)      \r\n\r\n";
+        String receiptType  = "                  (Test copy)      \r\n\r\n";
 
         // logo printing command
         // ZPL(Zebra Program Language)

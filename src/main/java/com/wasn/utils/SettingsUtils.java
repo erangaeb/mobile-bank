@@ -1,7 +1,5 @@
 package com.wasn.utils;
 
-import com.wasn.pojos.Settings;
-
 /**
  * Utility class for settings activity
  *
