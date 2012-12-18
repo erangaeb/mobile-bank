@@ -1,8 +1,6 @@
 package com.wasn.services.backgroundservices;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import com.wasn.activities.MobileBankActivity;
 import com.wasn.activities.TransactionDetailsActivity;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.exceptions.BluetoothNotAvailableException;
@@ -25,7 +23,7 @@ public class TransactionPrintService extends AsyncTask<String, String, String> {
     MobileBankApplication application;
 
     /**
-     * Initialize cass members
+     * Initialize class members
      * @param activity
      */
     public TransactionPrintService(TransactionDetailsActivity activity) {

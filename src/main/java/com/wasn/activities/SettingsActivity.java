@@ -2,6 +2,7 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,7 +11,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.BluetoothNotAvailableException;
+import com.wasn.exceptions.BluetoothNotEnableException;
+import com.wasn.exceptions.UnTestedPrinterAddressException;
 import com.wasn.pojos.Settings;
+import com.wasn.services.backgroundservices.TestPrintService;
+import com.wasn.utils.PrintUtils;
 import com.wasn.utils.SettingsUtils;
 
 /**
@@ -22,6 +28,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     MobileBankApplication application;
 
+    // keep track with weather tested printer address
+    // testing via printing a test print
+    boolean isTestedPrintAddress;
+
     // activity components
     RelativeLayout back;
     RelativeLayout help;
@@ -31,6 +41,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     EditText printerAddressEditText;
     EditText telephoneNoEditText;
     EditText branchNameEditText;
+
+    // display when printing
+    public ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -48,6 +61,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
      */
     public void init() {
         application = (MobileBankApplication) getApplication();
+        isTestedPrintAddress = false;
 
         back = (RelativeLayout) findViewById(R.id.settings_layout_back);
         help = (RelativeLayout) findViewById(R.id.settings_layout_help);
@@ -75,9 +89,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         branchNameEditText = (EditText) findViewById(R.id.settings_layout_branch_name_text);
         branchNameEditText.setText(application.getMobileBankData().getBranchName());
 
-        // enable test print button if printer address available
-
-
         back.setOnClickListener(SettingsActivity.this);
         help.setOnClickListener(SettingsActivity.this);
         save.setOnClickListener(SettingsActivity.this);
@@ -95,7 +106,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Settings settings = new Settings(printerAddress, telephoneNo, branchName);
 
         try {
-            SettingsUtils.validatePrinterAddress(settings);
+            SettingsUtils.validatePrinterAddress(printerAddress);
 
             // save settings attributes in database
             savePrinterAddress(printerAddress);
@@ -110,6 +121,35 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             // empty printer address
             displayMessageDialog("Error", "Empty printer address, make sure not empty printer address");
             e.printStackTrace();
+        } catch (UnTestedPrinterAddressException e) {
+            // untested printer address
+            // need to print test print and validate the printer address
+            displayMessageDialog("Warning", "Print a test print and make sure valid printer address");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Print test print
+     */
+    public void print() {
+        String printerAddress = printerAddressEditText.getText().toString();
+
+        try {
+            // should not be empty printer address
+            SettingsUtils.validatePrinterAddress(printerAddress);
+
+            if(PrintUtils.isEnableBluetooth()) {
+                // start background thread to print test print
+                progressDialog = ProgressDialog.show(SettingsActivity.this, "", "Printing test print, Please wait ...");
+                new TestPrintService(SettingsActivity.this).execute(printerAddress);
+            }
+        } catch (BluetoothNotEnableException e) {
+            displayToast("Bluetooth not enabled");
+        } catch (BluetoothNotAvailableException e) {
+            displayToast("Bluetooth not available");
+        } catch (IllegalArgumentException e) {
+            displayToast("Empty printer address");
         }
     }
 
@@ -117,10 +157,15 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
      * Save printer address in database
      * @param printerAddress printer address
      */
-    public void savePrinterAddress(String printerAddress) {
+    public void savePrinterAddress(String printerAddress) throws UnTestedPrinterAddressException {
         if(!printerAddress.equals(application.getMobileBankData().getPrinterAddress())) {
             // save only different address
-            application.getMobileBankData().setPrinterAddress(printerAddress);
+            if(isTestedPrintAddress) {
+                application.getMobileBankData().setPrinterAddress(printerAddress);
+            } else {
+                // untested printer address
+                throw new UnTestedPrinterAddressException();
+            }
         }
     }
 
@@ -199,6 +244,42 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     }
 
     /**
+     * Close progress dialog
+     */
+    public void closeProgressDialog() {
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    /**
+     * Call after printing test print
+     * @param status print status
+     */
+    public void onPostPrint(String status) {
+        closeProgressDialog();
+
+        if(status.equals("1")) {
+            // valid print address
+            displayMessageDialog("Receipt printed", "Valid printer address, Now you can save settings");
+            isTestedPrintAddress = true;
+        } else if(status.equals("-2")) {
+            // bluetooth not enable
+            displayToast("Bluetooth not enabled");
+        } else if(status.equals("-3")) {
+            // bluetooth not available
+            displayToast("Bluetooth not available");
+        } else if(status.equals("-5")) {
+            // invalid bluetooth address
+            displayMessageDialog("Error", "Invalid printer address, Please make sure printer address is correct");
+        } else {
+            // cannot print
+            // may be invalid printer address
+            displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure printer address is correct and printer switched ON");
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void onClick(View view) {
@@ -210,6 +291,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
         } else if(view == save) {
             save();
+        } else if(view == testPrint) {
+            print();
         }
     }
 

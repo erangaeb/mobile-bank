@@ -11,11 +11,11 @@ public class SettingsUtils {
 
     /**
      * Validate printer address
-     * @param settings settings attributes
+     * @param printerAddress
      */
-    public static void validatePrinterAddress(Settings settings) throws IllegalArgumentException {
+    public static void validatePrinterAddress(String printerAddress) throws IllegalArgumentException {
         // check empty printer address since it dosen't have default value
-        if (settings.getPrinterAddress().equals("")) {
+        if (printerAddress.equals("")) {
             throw new IllegalArgumentException();
         }
     }
