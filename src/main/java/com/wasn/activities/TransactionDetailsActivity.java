@@ -3,14 +3,12 @@ package com.wasn.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.exceptions.BluetoothNotAvailableException;
@@ -31,8 +29,6 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
 
     MobileBankApplication application;
 
-    public static final int DIALOG_LOADING = 1;
-
     // previous activity name
     private static String previousActivity;
 
@@ -47,7 +43,8 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     RelativeLayout print;
     TextView headerText;
 
-    private ProgressDialog progressDialog;
+    // display when printing
+    public ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -160,7 +157,7 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
                     // print two receipts
                     try {
                         if(PrintUtils.isEnableBluetooth()) {
-                            showDialog(DIALOG_LOADING);
+                            progressDialog = ProgressDialog.show(TransactionDetailsActivity.this, "", "Printing receipt, Please wait ...");
                             new TransactionPrintService(TransactionDetailsActivity.this).execute("PRINT");
                         }
                     } catch (BluetoothNotEnableException e) {
@@ -174,7 +171,7 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
                     // reprint
                     try {
                         if(PrintUtils.isEnableBluetooth()) {
-                            showDialog(DIALOG_LOADING);
+                            progressDialog = ProgressDialog.show(TransactionDetailsActivity.this, "", "Printing receipt, Please wait ...");
                             new TransactionPrintService(TransactionDetailsActivity.this).execute("RE_PRINT");
                         }
 
@@ -242,37 +239,12 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DIALOG_LOADING:
-                // set layout of progress dialog
-                final Dialog dialog = new Dialog(TransactionDetailsActivity.this, android.R.style.Theme_Translucent);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                dialog.setContentView(R.layout.custom_progress_dialog_layout);
-                dialog.setCancelable(true);
-
-                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    public void onCancel(DialogInterface dialog) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-                return dialog;
-
-            default:
-                return null;
-        }
-    };
-
-    /**
      * Close progress dialog
      */
     public void closeProgressDialog() {
-        dismissDialog(DIALOG_LOADING);
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
     }
 
     /**

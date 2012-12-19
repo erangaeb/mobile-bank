@@ -29,7 +29,7 @@ public class PrintUtils {
     //private static String bluetoothAddress = "00:22:58:38:AE:90";
 
     /**
-     * Get bluetooth adaoer to deal with bluetooth related functionalities
+     * Get bluetooth adapter to deal with bluetooth related functionalities
      * @return bluetooth adapter
      */
     public static BluetoothAdapter getBluetoothAdapter() {
