@@ -179,6 +179,46 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
     }
 
     /**
+     * Display message dialog
+     *
+     * @param messageHeader message header
+     * @param message message to be display
+     */
+    public void displayMessageDialog(String messageHeader, String message) {
+        final Dialog dialog = new Dialog(SummaryDetailsActivity.this);
+
+        //set layout for dialog
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.message_dialog_layout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        // set dialog texts
+        TextView messageHeaderTextView = (TextView) dialog.findViewById(R.id.message_dialog_layout_message_header_text);
+        TextView messageTextView = (TextView) dialog.findViewById(R.id.message_dialog_layout_message_text);
+        messageHeaderTextView.setText(messageHeader);
+        messageTextView.setText(message);
+
+        // set custom font
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        messageHeaderTextView.setTypeface(face);
+        messageHeaderTextView.setTypeface(null, Typeface.BOLD);
+        messageTextView.setTypeface(face);
+
+        //set ok button
+        Button okButton = (Button) dialog.findViewById(R.id.message_dialog_layout_yes_button);
+        okButton.setTypeface(face);
+        okButton.setTypeface(null, Typeface.BOLD);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -221,18 +261,23 @@ public class SummaryDetailsActivity extends Activity implements View.OnClickList
         closeProgressDialog();
 
         if(status.equals("1")) {
-            Toast.makeText(SummaryDetailsActivity.this,"Receipt printed",Toast.LENGTH_LONG).show();
+            Toast.makeText(SummaryDetailsActivity.this,"Summary printed",Toast.LENGTH_LONG).show();
 
             // back to transaction list
             SummaryDetailsActivity.this.finish();
         } else if(status.equals("0")) {
             Toast.makeText(SummaryDetailsActivity.this,"Cannot print receipt",Toast.LENGTH_LONG).show();
-        } else if(status.equals("-1") | (status.equals("-4"))) {
-            Toast.makeText(SummaryDetailsActivity.this,"Cannot connect to printer",Toast.LENGTH_LONG).show();
         } else if(status.equals("-2")) {
             Toast.makeText(SummaryDetailsActivity.this,"Bluetooth not enabled",Toast.LENGTH_LONG).show();
         } else if(status.equals("-3")) {
             Toast.makeText(SummaryDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
+        } else if(status.equals("-5")) {
+            // invalid bluetooth address
+            displayMessageDialog("Error", "Invalid printer address, Please make sure correct printer address in Settings");
+        } else {
+            // cannot print
+            // may be invalid printer address
+            displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure correct printer address in Settings and printer switched ON");
         }
     }
 

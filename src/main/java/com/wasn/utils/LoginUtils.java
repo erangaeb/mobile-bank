@@ -1,5 +1,6 @@
 package com.wasn.utils;
 
+import com.wasn.exceptions.EmptyFieldsException;
 import com.wasn.exceptions.UnAuthenticatedUserException;
 import com.wasn.pojos.User;
 
@@ -15,10 +16,10 @@ public class LoginUtils {
      *
      * @param user current user
      */
-    public static void validateFields(User user) throws IllegalArgumentException {
+    public static void validateFields(User user) throws EmptyFieldsException {
         // check empty of fields
         if (user.getUsername().equals("") || user.getPassword().equals("")) {
-            throw new IllegalArgumentException();
+            throw new EmptyFieldsException();
         }
     }
 
@@ -27,10 +28,10 @@ public class LoginUtils {
      * @param password admin password
      * @return validity of password
      */
-    public static boolean validateAdminPassword(String password) throws IllegalArgumentException, UnAuthenticatedUserException {
+    public static boolean validateAdminPassword(String password) throws EmptyFieldsException, UnAuthenticatedUserException {
         // check empty
         if(password.equals("")) {
-            throw new IllegalArgumentException();
+            throw new EmptyFieldsException();
         } else {
             if(password.equals("1234")) {
                 return true;

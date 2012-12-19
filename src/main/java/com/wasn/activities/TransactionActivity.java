@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.EmptyFieldsException;
 import com.wasn.exceptions.InvalidAccountException;
 import com.wasn.exceptions.InvalidBalanceAmountException;
 import com.wasn.pojos.Client;
@@ -124,7 +125,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             TransactionActivity.this.finish();
         } catch (NumberFormatException e) {
             displayMessageDialog("Error", "Invalid amount, make sure amount is correct");
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyFieldsException e) {
             displayMessageDialog("Error", "Empty fields, make sure not empty account and amount");
         } catch (InvalidAccountException e) {
             displayMessageDialog("Error", "Invalid account, make sure account is correct");

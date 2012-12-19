@@ -292,7 +292,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 } catch (UnAuthenticatedUserException e) {
                     e.printStackTrace();
                     displayToast("Invalid password");
-                } catch (IllegalArgumentException e) {
+                } catch (EmptyFieldsException e) {
                     e.printStackTrace();
                     displayToast("Password empty");
                 }

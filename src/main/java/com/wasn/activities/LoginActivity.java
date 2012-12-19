@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
+import com.wasn.exceptions.EmptyFieldsException;
 import com.wasn.pojos.User;
 import com.wasn.services.backgroundservices.UserAuthenticateService;
 import com.wasn.utils.LoginUtils;
@@ -80,7 +81,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             } else {
                 displayToast("No network connection");
             }
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyFieldsException e) {
             displayMessageDialog("Error", "Empty fields, make sure not empty username and password");
         }
     }

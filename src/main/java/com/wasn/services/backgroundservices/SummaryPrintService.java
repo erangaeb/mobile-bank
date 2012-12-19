@@ -74,15 +74,18 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
             return "-2";
         } catch (BluetoothNotAvailableException e) {
             e.printStackTrace();
+            return "-3";
         } catch (CannotConnectToPrinterException e) {
             e.printStackTrace();
-            return "-3";
+            return "-4";
         } catch (CannotPrintException e) {
             e.printStackTrace();
             return "0";
+        } catch (IllegalArgumentException e) {
+            // invalid bluetooth address
+            e.printStackTrace();
+            return "-5";
         }
-
-        return "0";
     }
 
     /**

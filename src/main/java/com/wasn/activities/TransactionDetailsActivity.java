@@ -300,11 +300,11 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
                 Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
             } else if(status.equals("-5")) {
                 // invalid bluetooth address
-                displayMessageDialog("Error", "Invalid printer address, Please make sure printer address is correct");
+                displayMessageDialog("Error", "Invalid printer address, Please make sure correct printer address in Settings");
             } else {
                 // cannot print
                 // may be invalid printer address
-                displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure printer address is correct and printer switched ON");
+                displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure correct printer address in Settings and printer switched ON");
             }
         } else {
             if(status.equals("1")) {
@@ -320,11 +320,11 @@ public class TransactionDetailsActivity extends Activity implements View.OnClick
                 Toast.makeText(TransactionDetailsActivity.this,"Bluetooth not available",Toast.LENGTH_LONG).show();
             } else if(status.equals("-5")) {
                 // invalid bluetooth address
-                displayMessageDialog("Error", "Invalid printer address, Please make sure printer address is correct");
+                displayMessageDialog("Error", "Invalid printer address, Please make sure correct printer address in Settings");
             } else {
                 // cannot print
                 // may be invalid printer address
-                displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure printer address is correct and printer switched ON");
+                displayMessageDialog("Cannot print", "Printer address might be incorrect, Please make sure correct printer address in Settings and printer switched ON");
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.wasn.utils;
 
+import com.wasn.exceptions.EmptyFieldsException;
 import com.wasn.exceptions.InvalidAccountException;
 import com.wasn.exceptions.InvalidBalanceAmountException;
 import com.wasn.pojos.Attribute;
@@ -25,10 +26,10 @@ public class TransactionUtils {
      * @param accountNo
      * @param amount
      */
-    public static void validateFields(String accountNo, String amount) throws IllegalArgumentException, NumberFormatException {
+    public static void validateFields(String accountNo, String amount) throws EmptyFieldsException, NumberFormatException {
         // check empty of fields
         if (accountNo.equals("") || amount.equals("")) {
-            throw new IllegalArgumentException();
+            throw new EmptyFieldsException();
         }
 
         // validate amount
