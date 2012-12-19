@@ -7,4 +7,6 @@
     <string name="no_client">No downloaded clients</string>
     <string name="no_transactions">No Transactions</string>
 
+    <string name="admin_privileges_message">You need admin privileges\n to view or edit settings. Please enter Admin login password or contact your administrator.</string>
+
 </resources>
