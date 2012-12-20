@@ -108,7 +108,7 @@ public class ClientListAdapter extends BaseAdapter {
         });
 
         // set backgrounds of list view rows
-        view.setBackgroundResource(R.drawable.invoice_list_item_background);
+        view.setBackgroundResource(R.drawable.list_item_selector);
 
         return view;
     }

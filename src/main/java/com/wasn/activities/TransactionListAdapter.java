@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 
 import java.util.ArrayList;
@@ -100,7 +98,7 @@ public class TransactionListAdapter extends BaseAdapter {
         holder.transactionAmountTextView.setText(transaction.getTransactionAmount());
 
         // set backgrounds of list view rows
-        view.setBackgroundResource(R.drawable.invoice_list_item_background);
+        view.setBackgroundResource(R.drawable.list_item_selector);
 
         return view;
     }

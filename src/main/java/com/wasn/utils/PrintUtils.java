@@ -33,9 +33,7 @@ public class PrintUtils {
      * @return bluetooth adapter
      */
     public static BluetoothAdapter getBluetoothAdapter() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        return bluetoothAdapter;
+        return BluetoothAdapter.getDefaultAdapter();
     }
 
     /**

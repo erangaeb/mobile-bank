@@ -83,7 +83,7 @@ public class AttributeListAdapter extends BaseAdapter {
         holder.attributeNameTextView.setText(attribute.getAttributeName());
         holder.attributeValueTextView.setText(attribute.getAttributeValue());
 
-        view.setBackgroundResource(R.drawable.invoice_list_item_background);
+        view.setBackgroundResource(R.drawable.list_item_background);
 
         return view;
     }
