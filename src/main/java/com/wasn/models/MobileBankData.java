@@ -571,7 +571,25 @@ public class MobileBankData {
         clientValues.put("balance_amount", balance);
 
         //update balance amount data
-        db.update(DBHelper.TABLE_NAME_CLIENT, clientValues, "account_no=?",new String[]{accountNo});
+        db.update(DBHelper.TABLE_NAME_CLIENT, clientValues, "account_no=?", new String[]{accountNo});
+
+        db.close();
+    }
+
+    /**
+     * update previous transaction amount of corresponding client
+     * @param accountNo client account no
+     * @param amount transaction amount
+     */
+    public void updatePreviousTransactionAmount(String accountNo, String amount) {
+         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // create content values
+        ContentValues clientValues = new ContentValues();
+        clientValues.put("previous_transaction", amount);
+
+        // update previous transaction amount
+        db.update(DBHelper.TABLE_NAME_CLIENT, clientValues, "account_no=?", new String[]{accountNo});
 
         db.close();
     }
