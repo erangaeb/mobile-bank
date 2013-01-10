@@ -577,15 +577,16 @@ public class MobileBankData {
     }
 
     /**
-     * Get all transactions from database
+     * Get all transactions that match for given branch
+     * @param branch current branch
      */
-    public ArrayList<Transaction> getAllTransactions() {
+    public ArrayList<Transaction> getAllTransactions(String branch) {
         ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 
         SQLiteDatabase db=dbHelper.getWritableDatabase();
 
         // create a cursor to get transaction data
-        Cursor transactionCursor = db.query(DBHelper.TABLE_NAME_TRANSACTION, null, null, null,null, null, null);
+        Cursor transactionCursor = db.query(DBHelper.TABLE_NAME_TRANSACTION, null, "branch_id=?" ,new String[]{branch},null, null, null);
 
         // read all
         while(transactionCursor.moveToNext()) {
@@ -682,13 +683,15 @@ public class MobileBankData {
     }
 
     /**
-     * Delete all transaction after day end
+     * Delete all transactions that match for given branch
+     * delete after day end
+     * @param branch current branch
      */
-    public void deleteAllTransaction() {
+    public void deleteAllTransaction(String branch) {
         SQLiteDatabase db=dbHelper.getWritableDatabase();
 
-        //delete all records in client table
-        db.delete(DBHelper.TABLE_NAME_TRANSACTION, null, null);
+        //delete records
+        db.delete(DBHelper.TABLE_NAME_TRANSACTION, "branch_id=?" ,new String[]{branch});
 
         db.close();
     }

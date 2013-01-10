@@ -62,7 +62,7 @@ public class SummaryPrintService extends AsyncTask<String, String, String> {
 
             // print summary means day end
             // clear all data
-            application.getMobileBankData().deleteAllTransaction();
+            application.getMobileBankData().deleteAllTransaction(application.getMobileBankData().getBranchId());
             application.resetFields();
 
             return "1";

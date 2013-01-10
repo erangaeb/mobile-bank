@@ -73,7 +73,7 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
             MobileBankActivity.this.finish();
         } else if(view == summaryButton) {
             // get transactions from database
-            application.setTransactionList(application.getMobileBankData().getAllTransactions());
+            application.setTransactionList(application.getMobileBankData().getAllTransactions(application.getMobileBankData().getBranchId()));
 
             // display transaction list activity
             startActivity(new Intent(MobileBankActivity.this, TransactionListActivity.class));

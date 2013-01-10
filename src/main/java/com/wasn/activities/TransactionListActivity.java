@@ -263,7 +263,7 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
      */
     public void onPostSync() {
         // no un synced transaction now
-        allTransactionList = application.getMobileBankData().getAllTransactions();
+        allTransactionList = application.getMobileBankData().getAllTransactions(application.getMobileBankData().getBranchId());
         application.setTransactionList(allTransactionList);
         displayEmptyView();
     }
