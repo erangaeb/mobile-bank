@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -32,6 +33,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
     // form components
     EditText accountEditText;
     EditText amountEditText;
+    EditText noteEditText;
 
     RelativeLayout back;
     RelativeLayout search;
@@ -59,11 +61,24 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         accountEditText = (EditText)findViewById(R.id.transaction_layout_account_text);
         amountEditText = (EditText)findViewById(R.id.transaction_layout_amount_text);
+        noteEditText = (EditText) findViewById(R.id.transaction_layout_note_text);
 
         back = (RelativeLayout) findViewById(R.id.transaction_layout_back);
         search = (RelativeLayout) findViewById(R.id.transaction_layout_search);
         help = (RelativeLayout) findViewById(R.id.transaction_layout_help);
         done = (RelativeLayout) findViewById(R.id.transaction_layout_done);
+
+        // set done keyboard option with note text
+        noteEditText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction() == keyEvent.ACTION_DOWN && i==keyEvent.KEYCODE_ENTER) {
+                    // transaction done event
+                    initTransaction();
+                }
+
+                return false;
+            }
+        });
 
         // set custom font to header text
         headerText = (TextView) findViewById(R.id.transaction_layout_header_text);
