@@ -2,6 +2,7 @@ package com.wasn.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -14,7 +15,9 @@ import android.view.Window;
 import android.widget.*;
 import com.wasn.application.MobileBankApplication;
 import com.wasn.pojos.Transaction;
+import com.wasn.services.backgroundservices.ClientDataDownloadService;
 import com.wasn.services.backgroundservices.TransactionSyncService;
+import com.wasn.utils.NetworkUtil;
 import com.wasn.utils.TransactionUtils;
 
 import java.util.ArrayList;
@@ -50,6 +53,9 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
 
     // default color of texts
     ColorStateList defaultColors;
+
+    // display when syncing
+    public ProgressDialog progressDialog;
 
     /**
      * {@inheritDoc}
@@ -244,28 +250,53 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
     }
 
     /**
-     * SYnc transactions to bank server
+     * Sync transactions to bank server
      */
     public void syncTransaction() {
-        // start thread to sync
-        new TransactionSyncService(TransactionListActivity.this).execute("");
-    }
-
-    /**
-     * Display summary activity
-     */
-    public void displaySummary() {
-
+        // sync, if only available network connection
+        if(NetworkUtil.isAvailableNetwork(TransactionListActivity.this)) {
+            // start background thread to sync
+            progressDialog = ProgressDialog.show(TransactionListActivity.this, "", "Syncing transactions, please wait...");
+            new TransactionSyncService(TransactionListActivity.this).execute("SYNC");
+        } else {
+            displayToast("No network connection");
+        }
     }
 
     /**
      * Execute after sync transactions
+     * @param status sync status
      */
-    public void onPostSync() {
-        // no un synced transaction now
-        allTransactionList = application.getMobileBankData().getAllTransactions(application.getMobileBankData().getBranchId());
-        application.setTransactionList(allTransactionList);
-        displayEmptyView();
+    public void onPostSync(int status) {
+        closeProgressDialog();
+
+        // display toast according to sync status
+        if (status > 0) {
+            // sync success
+            // no un synced transaction now
+            allTransactionList = application.getMobileBankData().getAllTransactions(application.getMobileBankData().getBranchId());
+            application.setTransactionList(allTransactionList);
+            displayEmptyView();
+
+            displayToast("Synced " + status + "transactions ");
+        } else if(status == -1) {
+            displayToast("Sync fail, error in synced record");
+        } else if(status == -2) {
+            displayToast("Sync fail, server response error");
+        } else if(status == -3) {
+            displayToast("Server response error");
+        } else {
+            displayToast("Sync fail");
+        }
+    }
+
+    /**
+     * Close progress dialog
+     */
+    public void closeProgressDialog() {
+        if(progressDialog!=null) {
+            progressDialog.dismiss();
+        }
     }
 
     /**
@@ -314,6 +345,14 @@ public class TransactionListActivity extends Activity implements View.OnClickLis
         });
 
         dialog.show();
+    }
+
+    /**
+     * Display toast message
+     * @param message message tobe display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(TransactionListActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     /**

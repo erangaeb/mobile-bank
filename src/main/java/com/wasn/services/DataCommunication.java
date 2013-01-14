@@ -1,9 +1,6 @@
 package com.wasn.services;
 
-import com.wasn.exceptions.CannotProcessRequestException;
-import com.wasn.exceptions.DataLostException;
-import com.wasn.exceptions.ResponseErrorException;
-import com.wasn.exceptions.UnAuthenticatedUserException;
+import com.wasn.exceptions.*;
 import com.wasn.pojos.Client;
 import com.wasn.pojos.Transaction;
 import com.wasn.utils.NetworkUtil;
@@ -94,8 +91,6 @@ public class DataCommunication {
      * @throws ResponseErrorException
      */
     public ArrayList<Client> getClients(String branchId) throws URISyntaxException, IOException, CannotProcessRequestException, DataLostException, ResponseErrorException {
-        ArrayList<Client> clientList = new ArrayList<Client>();
-
         // get request to server
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpGet;
@@ -114,16 +109,26 @@ public class DataCommunication {
                 String serverResponse = NetworkUtil.convertStreamToString(inputStream);
 
                 // get client list by parsing server response
-                clientList = parserServerResponse(serverResponse);
+                return parserServerResponse(serverResponse);
+            } else {
+                throw new CannotProcessRequestException();
             }
         } else {
             throw new CannotProcessRequestException();
         }
-
-        return clientList;
     }
 
-    public void syncTransactions(ArrayList<Transaction> transactionList) throws URISyntaxException, IOException, CannotProcessRequestException {
+    /**
+     * sync transactions
+     * @param transactionList un synced transaction list
+     * @return synced records count
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws CannotProcessRequestException
+     * @throws ErrorInSyncedRecordException
+     * @throws ErrorInServerException
+     */
+    public int syncTransactions(ArrayList<Transaction> transactionList) throws URISyntaxException, IOException, CannotProcessRequestException, ErrorInSyncedRecordException, ErrorInServerException {
         // get request to server
         HttpClient httpclient = new DefaultHttpClient();
         URI uri = new URI(DOWNLOAD_URL);
@@ -142,6 +147,17 @@ public class DataCommunication {
             if (httpEntity != null) {
                 InputStream inputStream = httpEntity.getContent();
                 String serverResponse = NetworkUtil.convertStreamToString(inputStream);
+
+                // error in synced record
+                if(serverResponse.equals("-2") || serverResponse.equals("-5")) {
+                    throw new ErrorInSyncedRecordException();
+                } else if(serverResponse.equals("-1")) {
+                    throw new ErrorInServerException();
+                }
+
+                return Integer.parseInt(serverResponse);
+            } else {
+                throw new CannotProcessRequestException();
             }
         } else {
             throw new CannotProcessRequestException();
