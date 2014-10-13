@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Class that deals with generic data communication functionalities with backend
+ * Class that deals with generic data communication functionality with backend
  *
  * @author eranga.herath@pagero.com (eranga herath)
  */

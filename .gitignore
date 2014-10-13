@@ -19,3 +19,10 @@ target/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+# gradle related files
+.DS_Store
+proguard_logs/
+.gradle/
+build/
+senz/build/
