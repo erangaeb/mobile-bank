@@ -51,9 +51,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void init() {
         application = (MobileBankApplication) LoginActivity.this.getApplication();
 
-        usernameText = (EditText) findViewById(R.id.login_layout_username);
-        passwordText = (EditText) findViewById(R.id.login_layout_password);
-        login = (RelativeLayout) findViewById(R.id.login_layout_login);
+        usernameText = (EditText) findViewById(R.id.login_username);
+        passwordText = (EditText) findViewById(R.id.login_password);
+        login = (RelativeLayout) findViewById(R.id.sign_in_button_panel);
 
         login.setOnClickListener(LoginActivity.this);
     }
@@ -139,7 +139,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //set layout for dialog
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.message_dialog_layout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(true);
 
         // set dialog texts
