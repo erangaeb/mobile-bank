@@ -64,13 +64,14 @@
                     android:layout_height="32dp"
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/help">
+                    android:background="@drawable/done">
             </ImageView>
 
             <TextView
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
                     android:layout_alignParentLeft="true"
+
                     android:background="#4a4a4a">
             </TextView>
         </RelativeLayout>
@@ -99,96 +100,110 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="15dp"
-                android:text="Account No"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
-            </TextView>
-
-            <EditText
-                android:id="@+id/transaction_layout_account_text"
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:inputType="number"
-                android:textSize="20dp" >
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="20dp"
-                android:text="Amount"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
-            </TextView>
-
-            <EditText
-                android:id="@+id/transaction_layout_amount_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:inputType="numberDecimal"
-                android:textSize="20dp" >
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
                 android:orientation="vertical" >
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="31dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Note"
+                    android:layout_marginTop="25dp"
+                    android:text="Account No"
                     android:textColor="#4a4a4a"
                     android:textSize="17dp" >
-            </TextView>
+                </TextView>
 
-            <EditText
-                    android:id="@+id/transaction_layout_note_text"
+                <EditText
+                    android:id="@+id/transaction_layout_account_text"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:lines="3"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:textCursorDrawable="@null"
+                    android:textColor="#4a4a4a"
+                    android:background="@drawable/text_filed_shape"
                     android:textSize="20dp" >
-            </EditText>
-        </LinearLayout>
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Amount"
+                    android:textColor="#4a4a4a"
+                    android:textSize="17dp" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/transaction_layout_amount_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/text_filed_shape"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:padding="10dp"
+                    android:inputType="numberDecimal"
+                    android:textCursorDrawable="@null"
+                    android:textColor="#4a4a4a"
+                    android:textSize="20dp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="31dp"
+                        android:layout_marginTop="25dp"
+                        android:text="Note"
+                        android:textColor="#4a4a4a"
+                        android:textSize="17dp" >
+                </TextView>
+
+                <EditText
+                        android:id="@+id/transaction_layout_note_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="top"
+                    android:textCursorDrawable="@null"
+                        android:padding="10dp"
+                        android:textColor="#4a4a4a"
+                        android:background="@drawable/text_filed_shape"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:textSize="20dp" >
+                </EditText>
+            </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="fill_parent"

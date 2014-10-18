@@ -33,7 +33,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="0dp"
                     android:layout_marginBottom="52dp"
-                    android:text="#SignIn">
+                    android:text="Sign-In">
                 </TextView>
 
                 <EditText
@@ -107,6 +107,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="13dp"
                 android:clickable="true"
+                android:visibility="gone"
                 android:background="@color/transparent"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/not_registered"
