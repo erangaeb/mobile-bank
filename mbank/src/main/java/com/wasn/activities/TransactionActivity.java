@@ -37,7 +37,6 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
     RelativeLayout back;
     RelativeLayout search;
-    RelativeLayout help;
     RelativeLayout done;
 
     TextView headerText;
@@ -65,8 +64,8 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         back = (RelativeLayout) findViewById(R.id.transaction_layout_back);
         search = (RelativeLayout) findViewById(R.id.transaction_layout_search);
-        help = (RelativeLayout) findViewById(R.id.transaction_layout_help);
-        done = (RelativeLayout) findViewById(R.id.transaction_layout_done);
+        done = (RelativeLayout) findViewById(R.id.transaction_layout_help);
+        //done = (RelativeLayout) findViewById(R.id.transaction_layout_done);
 
         // set done keyboard option with note text
         noteEditText.setOnKeyListener(new View.OnKeyListener() {
@@ -88,8 +87,8 @@ public class TransactionActivity extends Activity implements View.OnClickListene
 
         back.setOnClickListener(TransactionActivity.this);
         search.setOnClickListener(TransactionActivity.this);
-        help.setOnClickListener(TransactionActivity.this);
         done.setOnClickListener(TransactionActivity.this);
+        //done.setOnClickListener(TransactionActivity.this);
 
         if(application.getTransaction() !=null) {
             // have transaction
@@ -200,9 +199,7 @@ public class TransactionActivity extends Activity implements View.OnClickListene
             startActivity(new Intent(TransactionActivity.this, MobileBankActivity.class));
             TransactionActivity.this.finish();
             application.resetFields();
-        } else if(view == help) {
-
-        } else if(view == search) {
+        }else if(view == search) {
             // display search list
             startActivity(new Intent(TransactionActivity.this, ClientListActivity.class));
             TransactionActivity.this.finish();

@@ -88,8 +88,7 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
         if(NetworkUtil.isAvailableNetwork(DownloadActivity.this)) {
             // start background thread to download data
             progressDialog = ProgressDialog.show(DownloadActivity.this, "", "Downloading client data from bank server");
-            //new ClientDataDownloadService(DownloadActivity.this).execute(application.getMobileBankData().getBranchId());
-            onPostDownload("1");
+            new ClientDataDownloadService(DownloadActivity.this).execute(application.getMobileBankData().getBranchId());
         } else {
             displayToast("No network connection");
         }

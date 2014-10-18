@@ -33,8 +33,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     // activity components
     RelativeLayout back;
-    RelativeLayout help;
     RelativeLayout save;
+    //RelativeLayout save;
     Button testPrint;
     TextView headerText;
     EditText printerAddressEditText;
@@ -63,8 +63,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         isTestedPrintAddress = false;
 
         back = (RelativeLayout) findViewById(R.id.settings_layout_back);
-        help = (RelativeLayout) findViewById(R.id.settings_layout_help);
-        save = (RelativeLayout) findViewById(R.id.settings_layout_save);
+        save = (RelativeLayout) findViewById(R.id.settings_layout_help);
+        //save = (RelativeLayout) findViewById(R.id.settings_layout_save);
         testPrint = (Button) findViewById(R.id.settings_layout_test_print_button);
 
         // set custom font to header text
@@ -89,8 +89,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         branchNameEditText.setText(application.getMobileBankData().getBranchName());
 
         back.setOnClickListener(SettingsActivity.this);
-        help.setOnClickListener(SettingsActivity.this);
         save.setOnClickListener(SettingsActivity.this);
+        //save.setOnClickListener(SettingsActivity.this);
         testPrint.setOnClickListener(SettingsActivity.this);
     }
 
@@ -364,9 +364,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             // back to main activity
             startActivity(new Intent(SettingsActivity.this, MobileBankActivity.class));
             SettingsActivity.this.finish();
-        } else if(view == help) {
-
-        } else if(view == save) {
+        }else if(view == save) {
             save();
         } else if(view == testPrint) {
             print();

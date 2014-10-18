@@ -65,7 +65,7 @@
                     android:layout_width="32dp"
                     android:layout_centerInParent="true"
                     android:id="@+id/capture_layout_send_icon"
-                    android:background="@drawable/help">
+                    android:background="@drawable/done">
             </ImageView>
 
             <TextView
@@ -79,12 +79,10 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -92,111 +90,131 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="15dp"
-                android:text="Printer bluetooth address"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
-            </TextView>
-
-            <EditText
-                android:id="@+id/settings_layout_printer_address_text"
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:inputType="text"
-                android:textSize="20dp" >
-            </EditText>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_toLeftOf="@+id/settings_layout_test_print_button"
-                    android:text="Test print"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Printer bluetooth address"
                     android:textColor="#4a4a4a"
-                    android:textSize="17sp" >
+                    android:textSize="17dp" >
                 </TextView>
 
-                <Button
-                    android:id="@+id/settings_layout_test_print_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="31dp"
-                    android:background="@drawable/logout_button" >
-                </Button>
-            </RelativeLayout>
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/settings_layout_printer_address_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:padding="10dp"
+                    android:textCursorDrawable="@null"
+                    android:textColor="#4a4a4a"
+                    android:background="@drawable/text_filed_shape"
+                    android:layout_marginRight="30dp"
+                    android:inputType="text"
+                    android:textSize="20dp" >
+                </EditText>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="20dp"
-                android:text="Branch telophone no"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
-            </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_toLeftOf="@+id/settings_layout_test_print_button"
+                        android:text="Test print"
+                        android:textColor="#4a4a4a"
+                        android:textSize="17sp" >
+                    </TextView>
 
-            <EditText
-                android:id="@+id/settings_layout_telephone_no_text"
+                    <Button
+                        android:id="@+id/settings_layout_test_print_button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="31dp"
+                        android:background="@drawable/logout_button" >
+                    </Button>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:inputType="phone"
-                android:textSize="20dp" >
-            </EditText>
-        </LinearLayout>
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Branch telophone no"
+                    android:textColor="#4a4a4a"
+                    android:textSize="17dp" >
+                </TextView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="20dp"
-                android:text="Branch name"
-                android:textColor="#4a4a4a"
-                android:textSize="17dp" >
-            </TextView>
+                <EditText
+                    android:id="@+id/settings_layout_telephone_no_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/text_filed_shape"
+                    android:padding="10dp"
+                    android:textCursorDrawable="@null"
+                    android:textColor="#4a4a4a"
+                    android:layout_marginRight="30dp"
+                    android:inputType="phone"
+                    android:textSize="20dp" >
+                </EditText>
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/settings_layout_branch_name_text"
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:inputType="text"
-                android:textSize="20dp" >
-            </EditText>
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="31dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Branch name"
+                    android:textColor="#4a4a4a"
+                    android:textSize="17dp" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/settings_layout_branch_name_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/text_filed_shape"
+                    android:padding="10dp"
+                    android:textCursorDrawable="@null"
+                    android:textColor="#4a4a4a"
+                    android:inputType="text"
+                    android:textSize="20dp" >
+                </EditText>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:layout_gravity="bottom"
             android:background="#333333" >
 

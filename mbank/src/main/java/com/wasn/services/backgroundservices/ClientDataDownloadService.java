@@ -40,7 +40,8 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         String branchId = strings[0];
 
         // download data
-        return download(branchId);
+        //return download(branchId);
+        return downloadSampleData();
     }
 
     /**
@@ -88,6 +89,26 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         }
 
         return downloadStatus;
+    }
+
+    /**
+     * Insert sample data to database
+     * this is for debug purpose
+     */
+    private String downloadSampleData() {
+        ArrayList<Client> clientList = new ArrayList<Client>();
+
+        // get sample client list
+        for (int i=0; i<15; i++) {
+            Client client = new Client(""+i, "Eranga bnadara " +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
+            clientList.add(client);
+        }
+
+        // add client list to database
+        application.getMobileBankData().insetClients(clientList);
+        application.getMobileBankData().setDownloadState("1");
+
+        return "1";
     }
 
     /**
