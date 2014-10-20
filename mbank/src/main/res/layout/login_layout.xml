@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/freee">
+    android:background="@drawable/bbc">
 
     <ScrollView
         android:layout_width="fill_parent"

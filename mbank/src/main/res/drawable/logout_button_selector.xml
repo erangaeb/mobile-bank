@@ -14,7 +14,7 @@
                     android:angle="270" />
 
             <corners
-                android:radius="5dp"/>
+                android:radius="25dp"/>
         </shape>
 
     </item>
@@ -32,7 +32,7 @@
                     android:endColor="#333333"
                     android:angle="270"/>
             <corners
-                    android:radius="5dp"/>
+                    android:radius="25dp"/>
 
         </shape>
 

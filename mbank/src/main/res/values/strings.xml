@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, MobileBankActivity!</string>
-    <string name="app_name">MobileBank</string>
+    <string name="app_name">MBank</string>
 
     <string name="no_client">No downloaded clients</string>
     <string name="no_transactions">No Transactions</string>

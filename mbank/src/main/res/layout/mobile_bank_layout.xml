@@ -10,6 +10,28 @@
         android:layout_height="100dp"
         android:background="#333333"
         android:layout_marginBottom="12dp">
+        <TextView
+            android:layout_width="50dp"
+            android:id="@+id/mbank_icon"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="M"
+            android:textColor="#ffffff"
+            android:textSize="32sp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle_shape_green"
+            android:layout_centerVertical="true"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:textSize="35sp"-->
+            <!--android:layout_marginLeft="38dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:id="@+id/mbank_text"-->
+            <!--android:layout_toRightOf="@+id/mbank_icon"-->
+            <!--android:text="MBank"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_height="wrap_content" />-->
     </RelativeLayout>
 
     <LinearLayout
@@ -18,83 +40,177 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/main_button_selector">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/mobile_bank_layout_transaction_button"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_margin="12dp"-->
+                <!--android:background="@drawable/login_button_selector" >-->
+            <!--</Button>-->
+        <!--</LinearLayout>-->
+        <RelativeLayout
             android:layout_width="fill_parent"
+            android:id="@+id/transaction_layout"
+            android:background="@drawable/app_button_selector"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/main_button_selector">
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="40dp"
+                android:id="@+id/transaction_icon"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="$"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/circle_shape_gray"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="35sp"
+                android:layout_marginLeft="38dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/tranaction_text"
+                android:layout_toRightOf="@+id/transaction_icon"
+                android:text="Transaction"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content" />
+         </RelativeLayout>
 
-            <Button
-                android:id="@+id/mobile_bank_layout_transaction_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="12dp"
-                android:background="@drawable/login_button_selector" >
-            </Button>
-        </LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
+            android:id="@+id/summary_layout"
+            android:background="@drawable/app_button_selector"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/main_button_selector">
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="40dp"
+                android:id="@+id/summary_icon"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="%"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/circle_shape_gray"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="35sp"
+                android:layout_marginLeft="38dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/summary_text"
+                android:layout_toRightOf="@+id/summary_icon"
+                android:text="Summary"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/mobile_bank_layout_summary_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="12dp"
-                android:background="@drawable/summary_new" >
-            </Button>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/main_button_selector">-->
 
-        <LinearLayout
+            <!--<Button-->
+                <!--android:id="@+id/mobile_bank_layout_summary_button"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_margin="12dp"-->
+                <!--android:background="@drawable/summary_new" >-->
+            <!--</Button>-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/main_button_selector">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/mobile_bank_layout_settings_button"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_margin="12dp"-->
+                <!--android:background="@drawable/settings_new" >-->
+            <!--</Button>-->
+        <!--</LinearLayout>-->
+
+        <RelativeLayout
             android:layout_width="fill_parent"
+            android:id="@+id/settings_layout"
+            android:clickable="true"
+            android:background="@drawable/app_button_selector"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/main_button_selector">
-
-            <Button
-                android:id="@+id/mobile_bank_layout_settings_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="12dp"
-                android:background="@drawable/settings_new" >
-            </Button>
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="40dp"
+                android:id="@+id/settings_icon"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="!"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/circle_shape_gray"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="35sp"
+                android:layout_marginLeft="38dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/settings_text"
+                android:layout_toRightOf="@+id/settings_icon"
+                android:text="Settings"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
 
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Logout"
-            android:layout_marginRight="15dp"
-            android:textSize="16sp"
-            android:id="@+id/mobile_bank_layout_logout_text"
-            android:layout_toLeftOf="@+id/mobile_bank_layout_logout"
-            android:textColor="#4a4a4a">
-        </TextView>
 
         <RelativeLayout
             android:layout_alignParentRight="true"
-            android:layout_width="34dp"
+            android:layout_width="100dp"
             android:layout_height="34dp"
             android:layout_centerInParent="true"
             android:layout_marginRight="13dp"
             android:background="@drawable/logout_button_selector"
             android:clickable="true"
             android:id="@+id/mobile_bank_layout_logout">
-            <ImageView
-                android:layout_height="25dp"
-                android:layout_width="25dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/user">
-            </ImageView>
+                android:text="Logout"
+                android:layout_marginRight="15dp"
+                android:textSize="16sp"
+                android:id="@+id/mobile_bank_layout_logout_text"
+                android:textColor="#ffffff">
+            </TextView>
+            <!--<ImageView-->
+                <!--android:layout_height="25dp"-->
+                <!--android:layout_width="25dp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:background="@drawable/user">-->
+            <!--</ImageView>-->
 
         </RelativeLayout>
     </RelativeLayout>

@@ -21,11 +21,20 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
     MobileBankApplication application;
 
     // activity components
-    Button transactionButton;
-    Button summaryButton;
-    Button settingsButton;
+    RelativeLayout transactionLayout;
+    RelativeLayout summaryLayout;
+    RelativeLayout settingsLayout;
+    //Button summaryButton;
+    //Button settingsButton;
     RelativeLayout logout;
     TextView logoutText;
+    TextView tranactionText;
+    TextView tranactionIcon;
+    TextView summaryText;
+    TextView summaryIcon;
+    TextView settingsText;
+    TextView settingsIcon;
+    TextView mbankIcon;
 
     /**
      * {@inheritDoc}
@@ -44,20 +53,37 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
     public void init() {
         application = (MobileBankApplication) MobileBankActivity.this.getApplication();
 
-        transactionButton = (Button) findViewById(R.id.mobile_bank_layout_transaction_button);
-        summaryButton = (Button) findViewById(R.id.mobile_bank_layout_summary_button);
-        settingsButton = (Button) findViewById(R.id.mobile_bank_layout_settings_button);
+        transactionLayout = (RelativeLayout) findViewById(R.id.transaction_layout);
+        summaryLayout = (RelativeLayout) findViewById(R.id.summary_layout);
+        settingsLayout = (RelativeLayout) findViewById(R.id.settings_layout);
         logout = (RelativeLayout) findViewById(R.id.mobile_bank_layout_logout);
 
         // set custom font
         logoutText = (TextView) findViewById(R.id.mobile_bank_layout_logout_text);
-        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
-        logoutText.setTypeface(face);
-        //logoutText.setTypeface(null, Typeface.BOLD);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
+        logoutText.setTypeface(typeface, Typeface.BOLD);
 
-        transactionButton.setOnClickListener(MobileBankActivity.this);
-        summaryButton.setOnClickListener(MobileBankActivity.this);
-        settingsButton.setOnClickListener(MobileBankActivity.this);
+        tranactionIcon = (TextView) findViewById(R.id.transaction_icon);
+        tranactionText = (TextView) findViewById(R.id.tranaction_text);
+        tranactionIcon.setTypeface(typeface, Typeface.BOLD);
+        tranactionText.setTypeface(typeface, Typeface.BOLD);
+
+        summaryIcon = (TextView) findViewById(R.id.summary_icon);
+        summaryText = (TextView) findViewById(R.id.summary_text);
+        summaryIcon.setTypeface(typeface, Typeface.BOLD);
+        summaryText.setTypeface(typeface, Typeface.BOLD);
+
+        settingsIcon = (TextView) findViewById(R.id.settings_icon);
+        settingsText = (TextView) findViewById(R.id.settings_text);
+        settingsIcon.setTypeface(typeface, Typeface.BOLD);
+        settingsText.setTypeface(typeface, Typeface.BOLD);
+
+        mbankIcon = (TextView) findViewById(R.id.mbank_icon);
+        mbankIcon.setTypeface(typeface, Typeface.BOLD);
+
+        transactionLayout.setOnClickListener(MobileBankActivity.this);
+        summaryLayout.setOnClickListener(MobileBankActivity.this);
+        settingsLayout.setOnClickListener(MobileBankActivity.this);
         logout.setOnClickListener(MobileBankActivity.this);
     }
 
@@ -67,18 +93,18 @@ public class MobileBankActivity extends Activity implements View.OnClickListener
      * @param view
      */
     public void onClick(View view) {
-        if(view == transactionButton) {
+        if(view == transactionLayout) {
             // display transaction activity
             startActivity(new Intent(MobileBankActivity.this, TransactionActivity.class));
             MobileBankActivity.this.finish();
-        } else if(view == summaryButton) {
+        } else if(view == summaryLayout) {
             // get transactions from database
             application.setTransactionList(application.getMobileBankData().getAllTransactions(application.getMobileBankData().getBranchId()));
 
             // display transaction list activity
             startActivity(new Intent(MobileBankActivity.this, TransactionListActivity.class));
             MobileBankActivity.this.finish();
-        } else if(view == settingsButton) {
+        } else if(view == settingsLayout) {
             // display settings activity
             startActivity(new Intent(MobileBankActivity.this, SettingsActivity.class));
             MobileBankActivity.this.finish();
