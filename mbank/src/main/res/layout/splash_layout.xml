@@ -11,8 +11,8 @@
     <TextView
             android:layout_marginTop="12dp"
             android:id="@+id/splash_text"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:text="M"
             android:gravity="center"
             android:layout_gravity="center_horizontal"

@@ -60,8 +60,7 @@ public class DownloadActivity extends Activity implements View.OnClickListener {
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/vegur_2.otf");
         headerText.setTypeface(face);
         informationText.setTypeface(face);
-        questionText.setTypeface(face);
-        questionText.setTypeface(null, Typeface.BOLD);
+        questionText.setTypeface(face, Typeface.BOLD);
 
         // set click listeners
         download.setOnClickListener(DownloadActivity.this);

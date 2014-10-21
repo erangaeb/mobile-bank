@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="42sp"
-                    android:textColor="#4a4a4a"
+                    android:textColor="#ffffff"
                     android:id="@+id/download_layout_header_text"
                     android:text="Download">
                 </TextView>
@@ -39,7 +39,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_below="@+id/download_layout_header_text"
                     android:layout_width="fill_parent"
-                    android:textColor="#4a4a4a"
+                    android:textColor="#ffffff"
                     android:layout_height="wrap_content"
                     android:id="@+id/download_layout_information_text"
                     android:gravity="center"

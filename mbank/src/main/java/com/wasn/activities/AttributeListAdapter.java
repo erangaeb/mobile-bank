@@ -1,6 +1,7 @@
 package com.wasn.activities;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class AttributeListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Attribute> attributeList;
+    private Typeface typeface;
 
     /**
      * Set context and attribute list
@@ -30,6 +32,8 @@ public class AttributeListAdapter extends BaseAdapter {
     public AttributeListAdapter(Context context, ArrayList<Attribute> attributeList) {
         this.context = context;
         this.attributeList = attributeList;
+
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/vegur_2.otf");
     }
 
     /**
@@ -72,6 +76,9 @@ public class AttributeListAdapter extends BaseAdapter {
             holder=new ViewHolder();
             holder.attributeNameTextView = (TextView) view.findViewById(R.id.child_detail_list_row_attribute_name);
             holder.attributeValueTextView = (TextView) view.findViewById(R.id.child_detail_list_row_attribute_value);
+
+            holder.attributeNameTextView.setTypeface(typeface, Typeface.NORMAL);
+            holder.attributeValueTextView.setTypeface(typeface, Typeface.NORMAL);
 
             view.setTag(holder);
         } else {

@@ -29,7 +29,6 @@
             <TextView
                     android:id="@+id/tab_splitter"
                     android:layout_width="1dp"
-
                     android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
                     android:background="#4a4a4a">
@@ -48,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
+                    android:textColor="#ffffff"
                     android:textStyle="bold"
                     android:text="Transactions">
             </TextView>
@@ -56,6 +56,7 @@
 
         <RelativeLayout
             android:layout_width="53dp"
+            android:visibility="gone"
             android:layout_height="fill_parent"
             android:background="@drawable/button_selector"
             android:layout_alignParentRight="true"
@@ -176,6 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_centerInParent="true"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp"
                     android:id="@+id/transaction_list_layout_done_text"
                     android:text="Sync">
                 </TextView>

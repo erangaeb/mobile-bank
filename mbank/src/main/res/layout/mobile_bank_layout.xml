@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
+    android:background="#e4e4e4"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -82,7 +82,7 @@
                 android:id="@+id/tranaction_text"
                 android:layout_toRightOf="@+id/transaction_icon"
                 android:text="Transaction"
-                android:textColor="#ffffff"
+                android:textColor="#f79239"
                 android:layout_height="wrap_content" />
          </RelativeLayout>
 
@@ -114,7 +114,7 @@
                 android:id="@+id/summary_text"
                 android:layout_toRightOf="@+id/summary_icon"
                 android:text="Summary"
-                android:textColor="#ffffff"
+                android:textColor="#f79239"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
@@ -176,7 +176,7 @@
                 android:id="@+id/settings_text"
                 android:layout_toRightOf="@+id/settings_icon"
                 android:text="Settings"
-                android:textColor="#ffffff"
+                android:textColor="#f79239"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
@@ -203,7 +203,7 @@
                 android:layout_marginRight="15dp"
                 android:textSize="16sp"
                 android:id="@+id/mobile_bank_layout_logout_text"
-                android:textColor="#ffffff">
+                android:textColor="#f79239">
             </TextView>
             <!--<ImageView-->
                 <!--android:layout_height="25dp"-->

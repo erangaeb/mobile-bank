@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textStyle="bold"
+                    android:textColor="#ffffff"
                     android:text="Transaction Details">
             </TextView>
 
@@ -59,6 +60,7 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_selector"
                 android:layout_alignParentRight="true"
+                android:visibility="gone"
                 android:clickable="true"
                 android:id="@+id/transaction_details_layout_help">
             <ImageView
@@ -137,8 +139,10 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
+                        android:textColor="#ffffff"
+                        android:textStyle="normal"
                         android:id="@+id/capture_layout_clear_icon"
-                        android:text="Print">
+                        android:text="Print receipt">
                 </TextView>
             </RelativeLayout>
 
