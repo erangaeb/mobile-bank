@@ -9,8 +9,8 @@
             android:shape="rectangle">
 
             <gradient
-                android:startColor="#FF666666"
-                android:endColor="#FF666666"
+                android:startColor="#dddada"
+                android:endColor="#dddada"
                 android:angle="270" />
 
             <stroke android:width="0dip" android:color="#cdcbcb"/>

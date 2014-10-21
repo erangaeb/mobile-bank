@@ -11,12 +11,13 @@
     <TextView
             android:layout_marginTop="12dp"
             android:id="@+id/splash_text"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:text="M"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
-            android:textSize="58sp"
+            android:textSize="45sp"
+            android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:background="@drawable/circle_shape_green">
     </TextView>

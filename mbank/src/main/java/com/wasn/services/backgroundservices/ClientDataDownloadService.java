@@ -99,9 +99,38 @@ public class ClientDataDownloadService extends AsyncTask<String, String, String>
         ArrayList<Client> clientList = new ArrayList<Client>();
 
         // get sample client list
-        for (int i=0; i<15; i++) {
-            Client client = new Client(""+i, "Eranga bnadara " +i, "Test NIC", "Test bday", "47899" + i, "3000","test");
-            clientList.add(client);
+        for (int i=0; i<10; i++) {
+            if(i == 1) {
+                Client client = new Client("" + i, "Eranga Herath", "873643030V", "29/12/1987", "47899" + i, "3000", "450");
+                clientList.add(client);
+            } else if (i==1) {
+                Client client = new Client("" + i, "Kanishka Silva", "889534345V", "20/10/1988", "47810" + i, "8500", "900");
+                clientList.add(client);
+            } else if (i==2) {
+                Client client = new Client("" + i, "Dimuthu Perera", "909533349V", "07/11/1984", "57119" + i, "4050", "700");
+                clientList.add(client);
+            } else if (i==3) {
+                Client client = new Client("" + i, "Buddika Ranaweera", "984534345V", "20/10/1988", "67610" + i, "10500", "1000");
+                clientList.add(client);
+            } else if (i==4) {
+                Client client = new Client("" + i, "Buddika Ranaweera", "904534345V", "20/10/1988", "57610" + i, "10500", "1000");
+                clientList.add(client);
+            } else if (i==5) {
+                Client client = new Client("" + i, "Kasun Janaka", "914533344V", "24/11/1982", "57611" + i, "1040", "900");
+                clientList.add(client);
+            } else if (i==6) {
+                Client client = new Client("" + i, "Tharanga Bandara", "884534346V", "24/11/1988", "67611" + i, "11500", "700");
+                clientList.add(client);
+            } else if (i==7) {
+                Client client = new Client("" + i, "Nalaka Witharana", "844534345V", "05/11/1989", "67612" + i, "1000", "800");
+                clientList.add(client);
+            } else if (i==8) {
+                Client client = new Client("" + i, "Sanjaya Silva", "824534345V", "04/10/1982", "67613" + i, "8000", "1000");
+                clientList.add(client);
+            } else if (i==9) {
+                Client client = new Client("" + i, "Prasanna Ekanayaka", "874534346V", "08/09/1987", "67614" + i, "7000", "900");
+                clientList.add(client);
+            }
         }
 
         // add client list to database

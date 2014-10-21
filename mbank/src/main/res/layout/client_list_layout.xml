@@ -49,6 +49,7 @@
 
         <RelativeLayout
                 android:layout_width="53dp"
+                android:visibility="gone"
                 android:layout_height="fill_parent"
                 android:background="@drawable/button_selector"
                 android:layout_alignParentRight="true"

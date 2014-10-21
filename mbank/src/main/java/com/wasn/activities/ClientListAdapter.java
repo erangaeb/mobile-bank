@@ -103,7 +103,7 @@ public class ClientListAdapter extends BaseAdapter {
 
         // bind text with view holder text view to efficient use
         //holder.clientIcon.setImageResource(R.drawable.client_con);
-        holder.clientNameTextView.setText(client.getName() + " - " + client.getNic());
+        holder.clientNameTextView.setText(client.getName());
         //holder.clientBirthDateTextView.setText(client.getBirthDate());
         holder.clientAccountNoTextView.setText(client.getAccountNo());
         //holder.clientNICTextView.setText(client.getNic());
